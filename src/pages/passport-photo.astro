@@ -25,25 +25,25 @@ import Footer from '../components/Footer.astro';
     <ImageReducerApp initialMode="dimensions" isPassportMode={true} />
 
     <!-- Passport specifications table -->
-    <section class="py-16 md:py-20 border-b border-[#ebebeb] bg-[#fafafa]">
+    <section class="py-16 md:py-20 border-b border-[var(--color-hairline)] bg-[var(--color-canvas)] transition-colors">
       <div class="max-w-4xl mx-auto px-4 sm:px-6">
-        <h2 class="text-heading-lg text-[#171717] mb-6 text-center">
+        <h2 class="text-heading-lg text-[var(--color-ink)] mb-6 text-center">
           Standard Passport Photo Specifications
         </h2>
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="hairline-card p-6 bg-white">
-            <h3 class="font-semibold text-base text-[#171717] mb-2">US / India / Global Standard (2×2 in)</h3>
-            <ul class="space-y-2 text-xs sm:text-sm text-[#4d4d4d] font-mono">
+          <div class="hairline-card p-6 bg-[var(--color-canvas-elevated)] border border-[var(--color-hairline)]">
+            <h3 class="font-semibold text-base text-[var(--color-ink)] mb-2">US / India / Global Standard (2×2 in)</h3>
+            <ul class="space-y-2 text-xs sm:text-sm text-[var(--color-body)] font-mono">
               <li>• Dimensions: 2 × 2 inches (51 × 51 mm)</li>
               <li>• Pixel size: 600 × 600 px @ 300 DPI</li>
               <li>• File format: JPEG (.jpg)</li>
               <li>• Max file size: Under 240 KB (often &lt;100 KB)</li>
             </ul>
           </div>
-          <div class="hairline-card p-6 bg-white">
-            <h3 class="font-semibold text-base text-[#171717] mb-2">UK / Schengen / European Visa (35×45 mm)</h3>
-            <ul class="space-y-2 text-xs sm:text-sm text-[#4d4d4d] font-mono">
+          <div class="hairline-card p-6 bg-[var(--color-canvas-elevated)] border border-[var(--color-hairline)]">
+            <h3 class="font-semibold text-base text-[var(--color-ink)] mb-2">UK / Schengen / European Visa (35×45 mm)</h3>
+            <ul class="space-y-2 text-xs sm:text-sm text-[var(--color-body)] font-mono">
               <li>• Dimensions: 35 × 45 mm (1.38 × 1.77 in)</li>
               <li>• Pixel size: 413 × 531 px @ 300 DPI</li>
               <li>• File format: JPEG (.jpg)</li>

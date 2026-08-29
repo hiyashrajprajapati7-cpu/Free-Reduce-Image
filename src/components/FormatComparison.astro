@@ -3,7 +3,7 @@ const formats = [
   {
     name: "WebP",
     badge: "Recommended",
-    badgeColor: "bg-[#0070f3]/10 text-[#0070f3] border-[#0070f3]/20",
+    badgeColor: "bg-[#0070f3]/10 text-[#0070f3] dark:text-[#3291ff] border-[#0070f3]/30",
     bestFor: "Websites, blog posts, e-commerce stores",
     savings: "Up to 80%",
     alpha: "Yes (Full)",
@@ -13,7 +13,7 @@ const formats = [
   {
     name: "AVIF",
     badge: "Next-Gen",
-    badgeColor: "bg-purple-100 text-purple-800 border-purple-200",
+    badgeColor: "bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/30",
     bestFor: "Maximum compression for modern web apps",
     savings: "Up to 90%",
     alpha: "Yes (Full)",
@@ -23,7 +23,7 @@ const formats = [
   {
     name: "JPEG / JPG",
     badge: "Universal",
-    badgeColor: "bg-gray-100 text-gray-800 border-gray-200",
+    badgeColor: "bg-neutral-500/10 text-neutral-700 dark:text-neutral-300 border-neutral-500/30",
     bestFor: "Photographs, print documents, legacy systems",
     savings: "Up to 70%",
     alpha: "No",
@@ -33,7 +33,7 @@ const formats = [
   {
     name: "PNG",
     badge: "Lossless",
-    badgeColor: "bg-emerald-100 text-emerald-800 border-emerald-200",
+    badgeColor: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30",
     bestFor: "Logos, screenshots, UI icons with crisp edges",
     savings: "Up to 50%",
     alpha: "Yes (Lossless)",
@@ -43,7 +43,7 @@ const formats = [
   {
     name: "GIF",
     badge: "Animated",
-    badgeColor: "bg-amber-100 text-amber-800 border-amber-200",
+    badgeColor: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/30",
     bestFor: "Simple low-frame animations and banners",
     savings: "Up to 40%",
     alpha: "1-bit binary",
@@ -53,25 +53,25 @@ const formats = [
 ];
 ---
 
-<section class="py-16 md:py-24 border-b border-[#ebebeb] bg-[#fafafa]">
+<section class="py-16 md:py-24 border-b border-[var(--color-hairline)] bg-[var(--color-canvas)] transition-colors">
   <div class="max-w-6xl mx-auto px-4 sm:px-6">
     
     <div class="max-w-2xl mx-auto text-center mb-12">
-      <span class="text-mono-eyebrow text-[#8f8f8f] block mb-2">Technical Specification</span>
-      <h2 class="text-heading-lg text-[#171717] mb-4">
+      <span class="text-mono-eyebrow text-[var(--color-mute)] block mb-2">Technical Specification</span>
+      <h2 class="text-heading-lg text-[var(--color-ink)] mb-4">
         Which image format should you choose?
       </h2>
-      <p class="text-sm sm:text-base text-[#4d4d4d]">
+      <p class="text-sm sm:text-base text-[var(--color-body)]">
         Understanding the right format ensures the smallest possible file size with zero loss in visual clarity.
       </p>
     </div>
 
     <!-- Responsive Comparison Table -->
-    <div class="hairline-card overflow-hidden bg-white shadow-xs">
+    <div class="hairline-card overflow-hidden bg-[var(--color-canvas-elevated)] border border-[var(--color-hairline)] shadow-xs">
       <div class="overflow-x-auto">
         <table class="w-full text-left text-xs sm:text-sm border-collapse">
           <thead>
-            <tr class="bg-[#fafafa] border-b border-[#ebebeb] text-[#8f8f8f] font-mono text-[11px] uppercase tracking-wider">
+            <tr class="bg-[var(--color-canvas-subtle)] border-b border-[var(--color-hairline)] text-[var(--color-mute)] font-mono text-[11px] uppercase tracking-wider">
               <th class="py-3.5 px-4 sm:px-6">Format</th>
               <th class="py-3.5 px-4 sm:px-6">Best Suited For</th>
               <th class="py-3.5 px-4 sm:px-6">Size Reduction</th>
@@ -80,20 +80,20 @@ const formats = [
               <th class="py-3.5 px-4 sm:px-6">Optimal Quality</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-[#ebebeb] font-normal">
+          <tbody class="divide-y divide-[var(--color-hairline)] font-normal">
             {formats.map((fmt) => (
-              <tr class="hover:bg-[#fafafa]/80 transition-colors">
+              <tr class="hover:bg-[var(--color-canvas-subtle)] transition-colors">
                 <td class="py-4 px-4 sm:px-6">
                   <div class="flex items-center gap-2">
-                    <span class="font-semibold text-[#171717] font-mono text-sm">{fmt.name}</span>
+                    <span class="font-semibold text-[var(--color-ink)] font-mono text-sm">{fmt.name}</span>
                     <span class={`text-[10px] font-mono px-2 py-0.5 rounded-full border ${fmt.badgeColor}`}>{fmt.badge}</span>
                   </div>
                 </td>
-                <td class="py-4 px-4 sm:px-6 text-[#4d4d4d]">{fmt.bestFor}</td>
-                <td class="py-4 px-4 sm:px-6 font-mono font-medium text-emerald-600">{fmt.savings}</td>
-                <td class="py-4 px-4 sm:px-6 font-mono text-[#4d4d4d]">{fmt.alpha}</td>
-                <td class="py-4 px-4 sm:px-6 text-[#4d4d4d]">{fmt.support}</td>
-                <td class="py-4 px-4 sm:px-6 font-mono text-[#171717]">{fmt.quality}</td>
+                <td class="py-4 px-4 sm:px-6 text-[var(--color-body)]">{fmt.bestFor}</td>
+                <td class="py-4 px-4 sm:px-6 font-mono font-medium text-emerald-500">{fmt.savings}</td>
+                <td class="py-4 px-4 sm:px-6 font-mono text-[var(--color-body)]">{fmt.alpha}</td>
+                <td class="py-4 px-4 sm:px-6 text-[var(--color-body)]">{fmt.support}</td>
+                <td class="py-4 px-4 sm:px-6 font-mono text-[var(--color-ink)]">{fmt.quality}</td>
               </tr>
             ))}
           </tbody>

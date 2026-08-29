@@ -27,31 +27,31 @@ const useCases = [
 ];
 ---
 
-<section class="py-16 md:py-24 border-b border-[#ebebeb] bg-[#fafafa]">
+<section class="py-16 md:py-24 border-b border-[var(--color-hairline)] bg-[var(--color-canvas)] transition-colors">
   <div class="max-w-6xl mx-auto px-4 sm:px-6">
     
     <div class="max-w-2xl mx-auto text-center mb-12">
-      <span class="text-mono-eyebrow text-[#8f8f8f] block mb-2">Designed For Real Workflows</span>
-      <h2 class="text-heading-lg text-[#171717] mb-4">
+      <span class="text-mono-eyebrow text-[var(--color-mute)] block mb-2">Designed For Real Workflows</span>
+      <h2 class="text-heading-lg text-[var(--color-ink)] mb-4">
         Built for developers, job seekers, and digital creators.
       </h2>
-      <p class="text-sm sm:text-base text-[#4d4d4d]">
+      <p class="text-sm sm:text-base text-[var(--color-body)]">
         Whether shrinking a passport photo or optimizing 500 product listings, Free Reduce Image gets the job done instantly.
       </p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       {useCases.map((uc) => (
-        <div class="hairline-card p-6 sm:p-8 bg-white flex flex-col justify-between hover:border-[#171717]/40 transition-all">
+        <div class="hairline-card p-6 sm:p-8 bg-[var(--color-canvas-elevated)] border border-[var(--color-hairline)] flex flex-col justify-between hover:border-[var(--color-ink)]/50 transition-all">
           <div>
-            <span class="text-mono-eyebrow text-[#0070f3] block mb-2">{uc.category}</span>
-            <h3 class="text-lg font-semibold text-[#171717] mb-2 tracking-tight">{uc.title}</h3>
-            <p class="text-sm text-[#4d4d4d] leading-relaxed mb-6">{uc.description}</p>
+            <span class="text-mono-eyebrow text-[var(--color-link)] block mb-2">{uc.category}</span>
+            <h3 class="text-lg font-semibold text-[var(--color-ink)] mb-2 tracking-tight">{uc.title}</h3>
+            <p class="text-sm text-[var(--color-body)] leading-relaxed mb-6">{uc.description}</p>
           </div>
 
-          <div class="flex flex-wrap gap-2 pt-4 border-t border-[#ebebeb]">
+          <div class="flex flex-wrap gap-2 pt-4 border-t border-[var(--color-hairline)]">
             {uc.tags.map((tag) => (
-              <span class="px-2.5 py-1 rounded-md bg-[#fafafa] border border-[#ebebeb] text-[11px] font-mono text-[#4d4d4d]">
+              <span class="px-2.5 py-1 rounded-md bg-[var(--color-canvas-subtle)] border border-[var(--color-hairline)] text-[11px] font-mono text-[var(--color-body)]">
                 {tag}
               </span>
             ))}

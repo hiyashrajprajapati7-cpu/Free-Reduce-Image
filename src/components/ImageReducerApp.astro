@@ -14,15 +14,15 @@ const {
 } = Astro.props;
 ---
 
-<section id="app" class="py-8 md:py-12 bg-[#fafafa]">
+<section id="app" class="py-8 md:py-12 bg-[var(--color-canvas)] transition-colors">
   <div class="max-w-5xl mx-auto px-4 sm:px-6">
     
     <!-- Main Reducer Box -->
-    <div class="hairline-card-floating p-4 sm:p-6 md:p-8 bg-white border border-[#ebebeb]">
+    <div class="hairline-card-floating p-4 sm:p-6 md:p-8 bg-[var(--color-canvas-elevated)] border border-[var(--color-hairline)]">
       
       <!-- Mode Selection Tabs -->
-      <div class="flex flex-wrap items-center justify-between gap-3 pb-6 border-b border-[#ebebeb]">
-        <div class="flex flex-wrap items-center gap-1.5 p-1 bg-[#fafafa] border border-[#ebebeb] rounded-xl text-xs sm:text-sm font-medium" id="mode-tabs">
+      <div class="flex flex-wrap items-center justify-between gap-3 pb-6 border-b border-[var(--color-hairline)]">
+        <div class="flex flex-wrap items-center gap-1.5 p-1 bg-[var(--color-canvas-subtle)] border border-[var(--color-hairline)] rounded-xl text-xs sm:text-sm font-medium" id="mode-tabs">
           <button type="button" data-mode="auto" class={`mode-tab px-3 sm:px-4 py-1.5 rounded-lg ${initialMode === 'auto' && !isPassportMode ? 'active-mode' : ''}`}>
             ⚡ Smart Auto
           </button>
@@ -39,8 +39,8 @@ const {
 
         <!-- Quick Presets Dropdown -->
         <div class="flex items-center gap-2">
-          <label class="text-xs font-mono text-[#8f8f8f] uppercase hidden sm:inline">Presets:</label>
-          <select id="quick-preset" class="geist-input text-xs py-1 px-2 font-medium bg-[#fafafa]">
+          <label class="text-xs font-mono text-[var(--color-mute)] uppercase hidden sm:inline">Presets:</label>
+          <select id="quick-preset" class="geist-input text-xs py-1 px-2 font-medium bg-[var(--color-canvas-elevated)] text-[var(--color-ink)] border-[var(--color-hairline)]">
             <option value="">Choose a preset...</option>
             <option value="web-opt" selected={initialMode === 'auto'}>Web Optimization (80% WebP)</option>
             <option value="target-50">Under 50 KB (Forms & Avatars)</option>
@@ -55,11 +55,11 @@ const {
       </div>
 
       <!-- Dropzone Area -->
-      <div id="dropzone" class="mt-6 border-2 border-dashed border-[#ebebeb] hover:border-[#171717] rounded-2xl p-8 sm:p-12 text-center transition-all cursor-pointer bg-[#fafafa]/50 hover:bg-white group relative">
+      <div id="dropzone" class="mt-6 border-2 border-dashed border-[var(--color-hairline)] hover:border-[var(--color-ink)] rounded-2xl p-8 sm:p-12 text-center transition-all cursor-pointer bg-[var(--color-canvas-subtle)] hover:bg-[var(--color-canvas-elevated)] group relative">
         <input type="file" id="file-input" multiple accept="image/png,image/jpeg,image/webp,image/avif,image/gif,image/bmp,image/svg+xml" class="hidden" />
         
         <div class="flex flex-col items-center justify-center pointer-events-none">
-          <div class="w-14 h-14 rounded-2xl bg-white border border-[#ebebeb] shadow-xs flex items-center justify-center mb-4 group-hover:scale-110 group-hover:border-[#171717] transition-all text-[#171717]">
+          <div class="w-14 h-14 rounded-2xl bg-[var(--color-canvas-elevated)] border border-[var(--color-hairline)] shadow-xs flex items-center justify-center mb-4 group-hover:scale-110 group-hover:border-[var(--color-ink)] transition-all text-[var(--color-ink)]">
             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
               <polyline points="17 8 12 3 7 8"></polyline>
@@ -67,32 +67,32 @@ const {
             </svg>
           </div>
 
-          <h3 class="text-base sm:text-lg font-semibold text-[#171717] mb-1">
-            Drop your images here, or <span class="text-[#0070f3] underline decoration-1 underline-offset-2">browse</span>
+          <h3 class="text-base sm:text-lg font-semibold text-[var(--color-ink)] mb-1">
+            Drop your images here, or <span class="text-[var(--color-link)] underline decoration-1 underline-offset-2">browse</span>
           </h3>
-          <p class="text-xs sm:text-sm text-[#8f8f8f] max-w-md mx-auto mb-4">
-            Upload single or 100+ images at once. Supports PNG, JPG, WebP, AVIF, GIF, BMP. You can also paste (<kbd class="px-1.5 py-0.5 rounded bg-[#ebebeb] font-mono text-[11px]">Ctrl+V</kbd>).
+          <p class="text-xs sm:text-sm text-[var(--color-mute)] max-w-md mx-auto mb-4">
+            Upload single or 100+ images at once. Supports PNG, JPG, WebP, AVIF, GIF, BMP. You can also paste (<kbd class="px-1.5 py-0.5 rounded bg-[var(--color-hairline)] font-mono text-[11px] text-[var(--color-ink)]">Ctrl+V</kbd>).
           </p>
 
           <div class="flex flex-wrap items-center justify-center gap-2">
-            <span class="px-2 py-0.5 rounded-md bg-white border border-[#ebebeb] text-[10px] font-mono text-[#8f8f8f]">PNG</span>
-            <span class="px-2 py-0.5 rounded-md bg-white border border-[#ebebeb] text-[10px] font-mono text-[#8f8f8f]">JPG / JPEG</span>
-            <span class="px-2 py-0.5 rounded-md bg-white border border-[#ebebeb] text-[10px] font-mono text-[#8f8f8f]">WEBP</span>
-            <span class="px-2 py-0.5 rounded-md bg-white border border-[#ebebeb] text-[10px] font-mono text-[#8f8f8f]">AVIF</span>
-            <span class="px-2 py-0.5 rounded-md bg-white border border-[#ebebeb] text-[10px] font-mono text-[#8f8f8f]">GIF</span>
+            <span class="px-2 py-0.5 rounded-md bg-[var(--color-canvas-elevated)] border border-[var(--color-hairline)] text-[10px] font-mono text-[var(--color-mute)]">PNG</span>
+            <span class="px-2 py-0.5 rounded-md bg-[var(--color-canvas-elevated)] border border-[var(--color-hairline)] text-[10px] font-mono text-[var(--color-mute)]">JPG / JPEG</span>
+            <span class="px-2 py-0.5 rounded-md bg-[var(--color-canvas-elevated)] border border-[var(--color-hairline)] text-[10px] font-mono text-[var(--color-mute)]">WEBP</span>
+            <span class="px-2 py-0.5 rounded-md bg-[var(--color-canvas-elevated)] border border-[var(--color-hairline)] text-[10px] font-mono text-[var(--color-mute)]">AVIF</span>
+            <span class="px-2 py-0.5 rounded-md bg-[var(--color-canvas-elevated)] border border-[var(--color-hairline)] text-[10px] font-mono text-[var(--color-mute)]">GIF</span>
           </div>
         </div>
       </div>
 
       <!-- Settings Panel (Collapsible / Dynamic per mode) -->
-      <div id="settings-panel" class="mt-6 p-4 sm:p-5 bg-[#fafafa] border border-[#ebebeb] rounded-xl text-sm">
+      <div id="settings-panel" class="mt-6 p-4 sm:p-5 bg-[var(--color-canvas-subtle)] border border-[var(--color-hairline)] rounded-xl text-sm">
         
         <!-- Controls Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 items-end">
           
           <!-- Format Output -->
           <div>
-            <label class="block text-xs font-mono uppercase text-[#8f8f8f] mb-1.5">Output Format</label>
+            <label class="block text-xs font-mono uppercase text-[var(--color-mute)] mb-1.5">Output Format</label>
             <select id="format-select" class="w-full geist-input">
               <option value="auto" selected={defaultFormat === 'auto'}>Auto (Keep Original)</option>
               <option value="image/webp" selected={defaultFormat === 'webp'}>WebP (Recommended)</option>
@@ -105,15 +105,15 @@ const {
           <!-- Quality Slider (Visible in Auto/Dimensions/Convert) -->
           <div id="quality-control" class="transition-all">
             <div class="flex justify-between items-center mb-1.5">
-              <label class="text-xs font-mono uppercase text-[#8f8f8f]">Quality</label>
-              <span id="quality-val" class="text-xs font-mono font-semibold text-[#171717]">82%</span>
+              <label class="text-xs font-mono uppercase text-[var(--color-mute)]">Quality</label>
+              <span id="quality-val" class="text-xs font-mono font-semibold text-[var(--color-ink)]">82%</span>
             </div>
-            <input type="range" id="quality-slider" min="5" max="100" value="82" class="w-full accent-[#171717] cursor-pointer" />
+            <input type="range" id="quality-slider" min="5" max="100" value="82" class="w-full accent-[var(--color-link)] cursor-pointer" />
           </div>
 
           <!-- Target File Size Input (Only in Target mode or toggled) -->
           <div id="target-size-control" class={`${initialMode === 'target' ? 'block' : 'hidden'} transition-all`}>
-            <label class="block text-xs font-mono uppercase text-[#8f8f8f] mb-1.5">Max Target Size</label>
+            <label class="block text-xs font-mono uppercase text-[var(--color-mute)] mb-1.5">Max Target Size</label>
             <div class="flex items-center gap-1.5">
               <input type="number" id="target-kb-input" min="5" max="50000" value={defaultTargetKb} class="w-full geist-input font-mono" />
               <select id="target-unit" class="geist-input text-xs font-mono py-2 px-2">
@@ -127,11 +127,11 @@ const {
           <div id="dimension-scale-control" class={`${initialMode === 'dimensions' || isPassportMode ? 'block' : 'hidden'} transition-all sm:col-span-2 md:col-span-2`}>
             <div class="grid grid-cols-3 gap-2">
               <div>
-                <label class="block text-xs font-mono uppercase text-[#8f8f8f] mb-1.5">Scale (%)</label>
+                <label class="block text-xs font-mono uppercase text-[var(--color-mute)] mb-1.5">Scale (%)</label>
                 <input type="number" id="scale-percent-input" min="10" max="200" value="100" class="w-full geist-input font-mono" />
               </div>
               <div>
-                <label class="block text-xs font-mono uppercase text-[#8f8f8f] mb-1.5">DPI Resolution</label>
+                <label class="block text-xs font-mono uppercase text-[var(--color-mute)] mb-1.5">DPI Resolution</label>
                 <select id="dpi-select" class="w-full geist-input font-mono text-xs">
                   <option value="72">72 DPI (Web)</option>
                   <option value="150">150 DPI (Screen)</option>
@@ -140,7 +140,7 @@ const {
                 </select>
               </div>
               <div>
-                <label class="block text-xs font-mono uppercase text-[#8f8f8f] mb-1.5">Fit Mode</label>
+                <label class="block text-xs font-mono uppercase text-[var(--color-mute)] mb-1.5">Fit Mode</label>
                 <select id="fit-mode-select" class="w-full geist-input text-xs">
                   <option value="contain">Fit / Contain</option>
                   <option value="cover">Crop / Fill</option>
@@ -154,8 +154,8 @@ const {
           <div class="flex items-center justify-between sm:justify-start gap-3 h-10">
             <label class="relative inline-flex items-center cursor-pointer">
               <input type="checkbox" id="strip-exif" checked class="sr-only peer" />
-              <div class="w-9 h-5 bg-[#ebebeb] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[#ebebeb] after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#171717]"></div>
-              <span class="ml-2 text-xs font-medium text-[#4d4d4d]">Strip EXIF & GPS</span>
+              <div class="w-9 h-5 bg-[var(--color-hairline)] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[var(--color-hairline)] after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[var(--color-ink)]"></div>
+              <span class="ml-2 text-xs font-medium text-[var(--color-body)]">Strip EXIF & GPS</span>
             </label>
           </div>
 
@@ -166,38 +166,38 @@ const {
       <div id="batch-section" class="mt-8 hidden">
         
         <!-- Queue Stats Summary Header -->
-        <div class="flex flex-wrap items-center justify-between gap-4 p-4 rounded-xl bg-[#fafafa] border border-[#ebebeb] mb-6">
+        <div class="flex flex-wrap items-center justify-between gap-4 p-4 rounded-xl bg-[var(--color-canvas-subtle)] border border-[var(--color-hairline)] mb-6">
           <div class="flex flex-wrap items-center gap-4 sm:gap-6 text-xs sm:text-sm">
             <div>
-              <span class="text-[#8f8f8f] block font-mono text-[11px] uppercase">Images</span>
-              <span id="stat-count" class="font-semibold text-[#171717]">0 files</span>
+              <span class="text-[var(--color-mute)] block font-mono text-[11px] uppercase">Images</span>
+              <span id="stat-count" class="font-semibold text-[var(--color-ink)]">0 files</span>
             </div>
-            <div class="w-px h-8 bg-[#ebebeb]"></div>
+            <div class="w-px h-8 bg-[var(--color-hairline)]"></div>
             <div>
-              <span class="text-[#8f8f8f] block font-mono text-[11px] uppercase">Original</span>
-              <span id="stat-original-size" class="font-semibold text-[#171717]">0 MB</span>
+              <span class="text-[var(--color-mute)] block font-mono text-[11px] uppercase">Original</span>
+              <span id="stat-original-size" class="font-semibold text-[var(--color-ink)]">0 MB</span>
             </div>
-            <div class="w-px h-8 bg-[#ebebeb]"></div>
+            <div class="w-px h-8 bg-[var(--color-hairline)]"></div>
             <div>
-              <span class="text-[#8f8f8f] block font-mono text-[11px] uppercase">Reduced</span>
-              <span id="stat-reduced-size" class="font-semibold text-[#0070f3]">0 MB</span>
+              <span class="text-[var(--color-mute)] block font-mono text-[11px] uppercase">Reduced</span>
+              <span id="stat-reduced-size" class="font-semibold text-[var(--color-link)]">0 MB</span>
             </div>
-            <div class="w-px h-8 bg-[#ebebeb]"></div>
+            <div class="w-px h-8 bg-[var(--color-hairline)]"></div>
             <div>
-              <span class="text-[#8f8f8f] block font-mono text-[11px] uppercase">Saved</span>
-              <span id="stat-saved-percent" class="font-semibold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">0%</span>
+              <span class="text-[var(--color-mute)] block font-mono text-[11px] uppercase">Saved</span>
+              <span id="stat-saved-percent" class="font-semibold text-emerald-500 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">0%</span>
             </div>
           </div>
 
           <!-- Batch Action Buttons -->
           <div class="flex items-center gap-2">
-            <button type="button" id="clear-all-btn" class="px-3 py-1.5 text-xs text-[#8f8f8f] hover:text-[#ee0000] rounded-md transition-colors">
+            <button type="button" id="clear-all-btn" class="px-3 py-1.5 text-xs text-[var(--color-mute)] hover:text-[#ee0000] rounded-md transition-colors cursor-pointer">
               Clear All
             </button>
-            <button type="button" id="reprocess-all-btn" class="btn-secondary-pill text-xs py-1.5 px-3">
+            <button type="button" id="reprocess-all-btn" class="btn-secondary-pill text-xs py-1.5 px-3 cursor-pointer">
               🔄 Apply Settings
             </button>
-            <button type="button" id="download-zip-btn" class="btn-primary-pill text-xs py-1.5 px-4 shadow-sm">
+            <button type="button" id="download-zip-btn" class="btn-primary-pill text-xs py-1.5 px-4 shadow-sm cursor-pointer">
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                 <polyline points="7 10 12 15 17 10"></polyline>
@@ -220,22 +220,22 @@ const {
 </section>
 
 <!-- Interactive Before / After Comparison Modal -->
-<div id="compare-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
-  <div class="bg-white rounded-2xl border border-[#ebebeb] shadow-2xl max-w-4xl w-full overflow-hidden flex flex-col max-h-[90vh]">
+<div id="compare-modal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden flex items-center justify-center p-4">
+  <div class="bg-[var(--color-canvas-elevated)] rounded-2xl border border-[var(--color-hairline)] shadow-2xl max-w-4xl w-full overflow-hidden flex flex-col max-h-[90vh]">
     <!-- Header -->
-    <div class="px-6 py-4 border-b border-[#ebebeb] flex items-center justify-between bg-[#fafafa]">
+    <div class="px-6 py-4 border-b border-[var(--color-hairline)] flex items-center justify-between bg-[var(--color-canvas-subtle)]">
       <div class="flex items-center gap-3">
-        <h3 class="font-semibold text-[#171717] text-base">Before vs After Comparison</h3>
-        <span id="modal-savings-badge" class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-mono font-medium"></span>
+        <h3 class="font-semibold text-[var(--color-ink)] text-base">Before vs After Comparison</h3>
+        <span id="modal-savings-badge" class="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 text-xs font-mono font-medium"></span>
       </div>
-      <button type="button" id="close-modal-btn" class="w-8 h-8 rounded-full hover:bg-[#ebebeb] flex items-center justify-center text-[#4d4d4d] transition-colors">
+      <button type="button" id="close-modal-btn" class="w-8 h-8 rounded-full hover:bg-[var(--color-hairline)] flex items-center justify-center text-[var(--color-body)] hover:text-[var(--color-ink)] transition-colors cursor-pointer">
         ✕
       </button>
     </div>
 
     <!-- Comparison Viewport Area -->
-    <div class="p-6 flex-1 overflow-auto flex flex-col items-center justify-center bg-[#fafafa]">
-      <div class="relative max-w-full max-h-[60vh] select-none rounded-lg overflow-hidden border border-[#ebebeb] shadow-sm" id="split-container">
+    <div class="p-6 flex-1 overflow-auto flex flex-col items-center justify-center bg-[var(--color-canvas-subtle)]">
+      <div class="relative max-w-full max-h-[60vh] select-none rounded-lg overflow-hidden border border-[var(--color-hairline)] shadow-sm" id="split-container">
         <!-- Original (Underneath) -->
         <img id="compare-original-img" src="" alt="Original" class="block max-h-[60vh] max-w-full object-contain pointer-events-none" />
         
@@ -245,28 +245,28 @@ const {
         </div>
 
         <!-- Draggable Divider Line -->
-        <div id="split-divider" class="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize shadow-[0_0_8px_rgba(0,0,0,0.5)] z-10 flex items-center justify-center" style="left: 50%;">
-          <div class="w-7 h-7 rounded-full bg-white border border-[#171717] shadow-md flex items-center justify-center text-[#171717] text-[10px]">
+        <div id="split-divider" class="absolute top-0 bottom-0 w-1 bg-[var(--color-link)] cursor-ew-resize shadow-[0_0_8px_rgba(0,0,0,0.5)] z-10 flex items-center justify-center" style="left: 50%;">
+          <div class="w-7 h-7 rounded-full bg-[var(--color-canvas-elevated)] border border-[var(--color-ink)] shadow-md flex items-center justify-center text-[var(--color-ink)] text-[10px]">
             ⇄
           </div>
         </div>
 
         <!-- Labels -->
-        <span class="absolute top-3 left-3 bg-black/70 text-white text-[11px] font-mono px-2 py-0.5 rounded pointer-events-none z-20">Original</span>
-        <span class="absolute top-3 right-3 bg-[#0070f3]/90 text-white text-[11px] font-mono px-2 py-0.5 rounded pointer-events-none z-20">Reduced</span>
+        <span class="absolute top-3 left-3 bg-black/75 text-white text-[11px] font-mono px-2 py-0.5 rounded pointer-events-none z-20">Original</span>
+        <span class="absolute top-3 right-3 bg-[var(--color-link)] text-white text-[11px] font-mono px-2 py-0.5 rounded pointer-events-none z-20">Reduced</span>
       </div>
 
       <!-- Info Row -->
-      <div class="flex items-center justify-between w-full max-w-md mt-4 text-xs font-mono text-[#4d4d4d]">
+      <div class="flex items-center justify-between w-full max-w-md mt-4 text-xs font-mono text-[var(--color-body)]">
         <div id="modal-original-info">Original: -</div>
         <div id="modal-reduced-info">Reduced: -</div>
       </div>
     </div>
 
     <!-- Modal Footer -->
-    <div class="px-6 py-4 border-t border-[#ebebeb] flex items-center justify-end gap-3 bg-[#fafafa]">
-      <button type="button" id="modal-close-action" class="btn-secondary-pill text-xs py-1.5 px-4">Close</button>
-      <a id="modal-download-action" href="#" download="" class="btn-primary-pill text-xs py-1.5 px-5">Download Reduced Image</a>
+    <div class="px-6 py-4 border-t border-[var(--color-hairline)] flex items-center justify-end gap-3 bg-[var(--color-canvas-subtle)]">
+      <button type="button" id="modal-close-action" class="btn-secondary-pill text-xs py-1.5 px-4 cursor-pointer">Close</button>
+      <a id="modal-download-action" href="#" download="" class="btn-primary-pill text-xs py-1.5 px-5 cursor-pointer">Download Reduced Image</a>
     </div>
   </div>
 </div>
@@ -398,14 +398,28 @@ const {
   modeTabs.forEach(tab => {
     tab.addEventListener('click', () => {
       setMode(tab.dataset.mode);
-      reprocessAll();
+      if (filesQueue.length > 0) reprocessAll();
     });
   });
 
   function updateControlsVisibility() {
-    targetSizeControl.classList.toggle('hidden', currentMode !== 'target');
-    dimensionScaleControl.classList.toggle('hidden', currentMode !== 'dimensions');
-    qualityControl.classList.toggle('hidden', currentMode === 'target');
+    if (currentMode === 'target') {
+      targetSizeControl.classList.remove('hidden');
+      qualityControl.classList.add('hidden');
+      dimensionScaleControl.classList.add('hidden');
+    } else if (currentMode === 'dimensions') {
+      targetSizeControl.classList.add('hidden');
+      qualityControl.classList.remove('hidden');
+      dimensionScaleControl.classList.remove('hidden');
+    } else if (currentMode === 'convert') {
+      targetSizeControl.classList.add('hidden');
+      qualityControl.classList.remove('hidden');
+      dimensionScaleControl.classList.add('hidden');
+    } else { // auto
+      targetSizeControl.classList.add('hidden');
+      qualityControl.classList.remove('hidden');
+      dimensionScaleControl.classList.add('hidden');
+    }
   }
 
   // Preset Handler
@@ -414,139 +428,148 @@ const {
     if (!val) return;
 
     if (val === 'web-opt') {
-      formatSelect.value = 'image/webp';
-      qualitySlider.value = 80;
       setMode('auto');
+      formatSelect.value = 'image/webp';
+      qualitySlider.value = '80';
+      qualityVal.textContent = '80%';
+      quality = 0.80;
     } else if (val === 'target-50') {
       setMode('target');
-      targetKbInput.value = 50;
+      targetKbInput.value = '50';
       targetUnitSelect.value = 'KB';
+      targetKb = 50;
+      targetUnit = 'KB';
     } else if (val === 'target-100') {
       setMode('target');
-      targetKbInput.value = 100;
+      targetKbInput.value = '100';
       targetUnitSelect.value = 'KB';
+      targetKb = 100;
+      targetUnit = 'KB';
     } else if (val === 'target-200') {
       setMode('target');
-      targetKbInput.value = 200;
+      targetKbInput.value = '200';
       targetUnitSelect.value = 'KB';
+      targetKb = 200;
+      targetUnit = 'KB';
     } else if (val === 'target-1mb') {
       setMode('target');
-      targetKbInput.value = 1;
+      targetKbInput.value = '1';
       targetUnitSelect.value = 'MB';
+      targetKb = 1;
+      targetUnit = 'MB';
     } else if (val === 'passport') {
       setMode('dimensions');
-      dpiSelect.value = '300';
       scalePercentInput.value = '100';
+      dpiSelect.value = '300';
+      fitModeSelect.value = 'cover';
       formatSelect.value = 'image/jpeg';
-      qualitySlider.value = 92;
+      dpi = 300;
     } else if (val === 'instagram') {
       setMode('dimensions');
       scalePercentInput.value = '100';
+      fitModeSelect.value = 'cover';
       formatSelect.value = 'image/jpeg';
-      qualitySlider.value = 85;
     } else if (val === 'youtube') {
       setMode('dimensions');
       formatSelect.value = 'image/webp';
-      qualitySlider.value = 85;
+      qualitySlider.value = '85';
+      qualityVal.textContent = '85%';
+      quality = 0.85;
     }
-    syncSettings();
-    reprocessAll();
+
+    if (filesQueue.length > 0) reprocessAll();
   });
 
-  // Setting change listeners
+  // Settings Event Handlers
+  formatSelect.addEventListener('change', (e) => {
+    currentFormat = e.target.value;
+    if (filesQueue.length > 0) reprocessAll();
+  });
+
   qualitySlider.addEventListener('input', (e) => {
-    qualityVal.textContent = e.target.value + '%';
-    quality = parseInt(e.target.value) / 100;
-  });
-  qualitySlider.addEventListener('change', () => reprocessAll());
-
-  formatSelect.addEventListener('change', () => {
-    currentFormat = formatSelect.value;
-    reprocessAll();
+    qualityVal.textContent = `${e.target.value}%`;
+    quality = parseInt(e.target.value, 10) / 100;
   });
 
-  targetKbInput.addEventListener('change', () => {
-    targetKb = parseFloat(targetKbInput.value);
-    reprocessAll();
+  qualitySlider.addEventListener('change', () => {
+    if (filesQueue.length > 0) reprocessAll();
   });
 
-  targetUnitSelect.addEventListener('change', () => {
-    targetUnit = targetUnitSelect.value;
-    reprocessAll();
+  targetKbInput.addEventListener('change', (e) => {
+    targetKb = parseFloat(e.target.value) || 100;
+    if (filesQueue.length > 0) reprocessAll();
   });
 
-  scalePercentInput.addEventListener('change', () => {
-    scalePercent = parseFloat(scalePercentInput.value);
-    reprocessAll();
+  targetUnitSelect.addEventListener('change', (e) => {
+    targetUnit = e.target.value;
+    if (filesQueue.length > 0) reprocessAll();
   });
 
-  dpiSelect.addEventListener('change', () => {
-    dpi = parseInt(dpiSelect.value);
-    reprocessAll();
+  scalePercentInput.addEventListener('change', (e) => {
+    scalePercent = parseFloat(e.target.value) || 100;
+    if (filesQueue.length > 0) reprocessAll();
   });
 
-  fitModeSelect.addEventListener('change', () => {
-    fitMode = fitModeSelect.value;
-    reprocessAll();
+  dpiSelect.addEventListener('change', (e) => {
+    dpi = parseInt(e.target.value, 10) || 72;
+    if (filesQueue.length > 0) reprocessAll();
   });
 
-  stripExifCheck.addEventListener('change', () => {
-    stripExif = stripExifCheck.checked;
-    reprocessAll();
+  fitModeSelect.addEventListener('change', (e) => {
+    fitMode = e.target.value;
+    if (filesQueue.length > 0) reprocessAll();
+  });
+
+  stripExifCheck.addEventListener('change', (e) => {
+    stripExif = e.target.checked;
+    if (filesQueue.length > 0) reprocessAll();
   });
 
   clearAllBtn.addEventListener('click', () => {
+    filesQueue.forEach(f => {
+      if (f.originalUrl) URL.revokeObjectURL(f.originalUrl);
+      if (f.reducedUrl) URL.revokeObjectURL(f.reducedUrl);
+    });
     filesQueue = [];
     renderQueue();
   });
 
   reprocessAllBtn.addEventListener('click', () => {
-    syncSettings();
     reprocessAll();
   });
 
-  function syncSettings() {
-    currentFormat = formatSelect.value;
-    quality = parseInt(qualitySlider.value) / 100;
-    targetKb = parseFloat(targetKbInput.value);
-    targetUnit = targetUnitSelect.value;
-    scalePercent = parseFloat(scalePercentInput.value) || 100;
-    dpi = parseInt(dpiSelect.value) || 72;
-    fitMode = fitModeSelect.value;
-    stripExif = stripExifCheck.checked;
-  }
-
   // File Ingestion
-  function handleFiles(files) {
-    if (!files || files.length === 0) return;
-    
-    Array.from(files).forEach(file => {
-      if (!file.type.startsWith('image/')) return;
-      const fileId = 'file_' + Math.random().toString(36).substr(2, 9);
-      
-      const item = {
-        id: fileId,
-        originalFile: file,
-        originalName: file.name,
-        originalSize: file.size,
-        originalUrl: URL.createObjectURL(file),
-        originalWidth: 0,
-        originalHeight: 0,
-        reducedBlob: null,
-        reducedUrl: null,
-        reducedSize: 0,
-        reducedWidth: 0,
-        reducedHeight: 0,
-        reducedFormat: '',
-        status: 'processing',
-        progress: 0
-      };
+  async function handleFiles(fileListObj) {
+    if (!fileListObj || fileListObj.length === 0) return;
 
-      filesQueue.push(item);
-      processImageItem(item);
-    });
+    const newFiles = Array.from(fileListObj).filter(f => f.type.startsWith('image/'));
+    if (newFiles.length === 0) return;
 
+    const items = newFiles.map(file => ({
+      id: 'file-' + Math.random().toString(36).substring(2, 9),
+      file: file,
+      originalName: file.name,
+      originalSize: file.size,
+      originalType: file.type,
+      originalUrl: URL.createObjectURL(file),
+      originalWidth: 0,
+      originalHeight: 0,
+      status: 'pending', // pending, processing, done, error
+      reducedBlob: null,
+      reducedUrl: null,
+      reducedSize: 0,
+      reducedWidth: 0,
+      reducedHeight: 0,
+      reducedFormat: ''
+    }));
+
+    filesQueue = [...filesQueue, ...items];
     renderQueue();
+
+    // Process all pending items
+    for (const item of items) {
+      await processImageItem(item);
+    }
   }
 
   // Core Processing Engine
@@ -565,36 +588,45 @@ const {
       item.originalWidth = img.naturalWidth;
       item.originalHeight = img.naturalHeight;
 
-      // Determine output dimensions
+      // Calculate Target Dimensions
       let targetWidth = img.naturalWidth;
       let targetHeight = img.naturalHeight;
 
-      if (currentMode === 'dimensions') {
-        const factor = scalePercent / 100;
-        targetWidth = Math.max(1, Math.round(img.naturalWidth * factor));
-        targetHeight = Math.max(1, Math.round(img.naturalHeight * factor));
+      if (currentMode === 'dimensions' || (dpi && dpi !== 72)) {
+        const scaleFactor = (scalePercent / 100);
+        targetWidth = Math.max(1, Math.round(img.naturalWidth * scaleFactor));
+        targetHeight = Math.max(1, Math.round(img.naturalHeight * scaleFactor));
       }
 
-      // Determine output MIME format
-      let outMime = currentFormat === 'auto' ? item.originalFile.type : currentFormat;
-      if (outMime === 'image/svg+xml' || !outMime) outMime = 'image/webp';
+      // Determine output mime
+      let outMime = formatSelect.value;
+      if (outMime === 'auto') {
+        outMime = item.originalType;
+        if (!outMime || outMime === 'image/svg+xml') outMime = 'image/jpeg';
+      }
 
-      // Setup Canvas
+      // Draw onto Offscreen Canvas
       const canvas = document.createElement('canvas');
       canvas.width = targetWidth;
       canvas.height = targetHeight;
-      const ctx = canvas.getContext('2d', { alpha: true });
+      const ctx = canvas.getContext('2d', { alpha: outMime === 'image/png' || outMime === 'image/webp' || outMime === 'image/avif' });
+
+      // Clean background for JPEG if transparent
+      if (outMime === 'image/jpeg') {
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, targetWidth, targetHeight);
+      }
+
+      // Image rendering with fitMode
       ctx.imageSmoothingEnabled = true;
       ctx.imageSmoothingQuality = 'high';
 
-      // Draw mode
-      if (fitMode === 'contain') {
-        ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
-      } else if (fitMode === 'cover') {
-        const aspect = img.naturalWidth / img.naturalHeight;
+      if (fitMode === 'cover' && (img.naturalWidth !== targetWidth || img.naturalHeight !== targetHeight)) {
         const targetAspect = targetWidth / targetHeight;
+        const sourceAspect = img.naturalWidth / img.naturalHeight;
         let sx = 0, sy = 0, sw = img.naturalWidth, sh = img.naturalHeight;
-        if (aspect > targetAspect) {
+
+        if (sourceAspect > targetAspect) {
           sw = img.naturalHeight * targetAspect;
           sx = (img.naturalWidth - sw) / 2;
         } else {
@@ -705,16 +737,16 @@ const {
   function createItemCard(item) {
     const div = document.createElement('div');
     div.id = item.id;
-    div.className = 'hairline-card p-3 sm:p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 bg-white transition-all';
+    div.className = 'hairline-card p-3 sm:p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 bg-[var(--color-canvas-elevated)] border border-[var(--color-hairline)] transition-all';
     
     div.innerHTML = `
       <div class="flex items-center gap-3 w-full sm:w-auto">
-        <div class="w-12 h-12 rounded-lg bg-[#fafafa] border border-[#ebebeb] overflow-hidden flex-shrink-0 flex items-center justify-center">
+        <div class="w-12 h-12 rounded-lg bg-[var(--color-canvas-subtle)] border border-[var(--color-hairline)] overflow-hidden flex-shrink-0 flex items-center justify-center">
           <img src="${item.originalUrl}" alt="Preview" class="w-full h-full object-cover" />
         </div>
         <div class="flex flex-col min-w-0">
-          <span class="font-medium text-[#171717] text-xs sm:text-sm truncate max-w-[200px] sm:max-w-[280px]" title="${item.originalName}">${item.originalName}</span>
-          <span class="text-[11px] text-[#8f8f8f] font-mono">
+          <span class="font-medium text-[var(--color-ink)] text-xs sm:text-sm truncate max-w-[200px] sm:max-w-[280px]" title="${item.originalName}">${item.originalName}</span>
+          <span class="text-[11px] text-[var(--color-mute)] font-mono">
             ${item.originalWidth ? `${item.originalWidth}×${item.originalHeight} px • ` : ''}${formatBytes(item.originalSize)}
           </span>
         </div>
@@ -739,20 +771,20 @@ const {
 
     if (item.status === 'processing') {
       statusCol.innerHTML = `
-        <div class="flex items-center gap-2 text-xs text-[#0070f3] font-mono">
+        <div class="flex items-center gap-2 text-xs text-[var(--color-link)] font-mono">
           <span class="animate-spin text-sm">⟳</span>
           <span>Optimizing...</span>
         </div>
       `;
     } else if (item.status === 'error') {
       statusCol.innerHTML = `
-        <span class="text-xs text-[#ee0000] font-mono">Error processing</span>
-        <button type="button" class="remove-btn text-xs text-[#8f8f8f] hover:text-[#ee0000]">✕</button>
+        <span class="text-xs text-[var(--color-error)] font-mono">Error processing</span>
+        <button type="button" class="remove-btn text-xs text-[var(--color-mute)] hover:text-[var(--color-error)] cursor-pointer">✕</button>
       `;
     } else if (item.status === 'done') {
       const savedBytes = item.originalSize - item.reducedSize;
       const savedPercent = Math.max(0, Math.round((savedBytes / item.originalSize) * 100));
-      const badgeColor = savedPercent > 0 ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-gray-100 text-gray-700 border-gray-200';
+      const badgeColor = savedPercent > 0 ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' : 'bg-[var(--color-canvas-subtle)] text-[var(--color-body)] border-[var(--color-hairline)]';
       
       const outExt = item.reducedFormat.toLowerCase();
       const baseName = item.originalName.replace(/\.[^/.]+$/, "");
@@ -761,22 +793,22 @@ const {
       statusCol.innerHTML = `
         <div class="flex items-center gap-2 sm:gap-3 text-right">
           <div class="flex flex-col text-left sm:text-right">
-            <span class="font-mono text-xs font-semibold text-[#171717]">${formatBytes(item.reducedSize)}</span>
-            <span class="text-[10px] text-[#8f8f8f] font-mono">${item.reducedWidth}×${item.reducedHeight} • ${item.reducedFormat}</span>
+            <span class="font-mono text-xs font-semibold text-[var(--color-ink)]">${formatBytes(item.reducedSize)}</span>
+            <span class="text-[10px] text-[var(--color-mute)] font-mono">${item.reducedWidth}×${item.reducedHeight} • ${item.reducedFormat}</span>
           </div>
 
           <span class="px-2 py-0.5 rounded-full text-[11px] font-mono font-medium border ${badgeColor}">
             -${savedPercent}%
           </span>
 
-          <button type="button" class="compare-btn p-1.5 rounded-md hover:bg-[#ebebeb] text-[#4d4d4d] hover:text-[#171717] transition-colors" title="Compare Before vs After">
+          <button type="button" class="compare-btn p-1.5 rounded-md hover:bg-[var(--color-hairline)] text-[var(--color-body)] hover:text-[var(--color-ink)] transition-colors cursor-pointer" title="Compare Before vs After">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <rect x="2" y="3" width="20" height="18" rx="2"></rect>
               <line x1="12" y1="3" x2="12" y2="21"></line>
             </svg>
           </button>
 
-          <a href="${item.reducedUrl}" download="${downloadName}" class="btn-square-sm bg-[#171717] text-white hover:bg-black text-xs px-3 py-1.5 shadow-xs" title="Download Image">
+          <a href="${item.reducedUrl}" download="${downloadName}" class="btn-square-sm bg-[var(--color-ink)] text-[var(--color-canvas)] hover:opacity-90 text-xs px-3 py-1.5 shadow-2xs cursor-pointer" title="Download Image">
             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
               <polyline points="7 10 12 15 17 10"></polyline>
@@ -785,7 +817,7 @@ const {
             <span>Save</span>
           </a>
 
-          <button type="button" class="remove-btn p-1 text-[#8f8f8f] hover:text-[#ee0000] transition-colors" title="Remove">✕</button>
+          <button type="button" class="remove-btn p-1 text-[var(--color-mute)] hover:text-[var(--color-error)] transition-colors cursor-pointer" title="Remove">✕</button>
         </div>
       `;
 
@@ -809,10 +841,12 @@ const {
     const totalCount = filesQueue.length;
     let totalOriginal = 0;
     let totalReduced = 0;
+    let doneCount = 0;
 
     filesQueue.forEach(item => {
       totalOriginal += item.originalSize;
       totalReduced += (item.reducedSize || item.originalSize);
+      if (item.status === 'done') doneCount++;
     });
 
     statCount.textContent = `${totalCount} ${totalCount === 1 ? 'file' : 'files'}`;
@@ -926,24 +960,3 @@ const {
 
 })();
 </script>
-
-<style>
-  .mode-tab {
-    color: #4d4d4d;
-    background-color: transparent;
-    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-    cursor: pointer;
-  }
-  .mode-tab:hover {
-    color: #171717;
-  }
-  .mode-tab.active-mode {
-    background-color: #171717 !important;
-    color: #ffffff !important;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08) !important;
-  }
-  #dropzone.is-dragover {
-    border-color: #171717 !important;
-    background-color: #ffffff !important;
-  }
-</style>

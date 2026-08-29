@@ -40,27 +40,27 @@ const faqSchema = {
 };
 ---
 
-<section class="py-16 md:py-24 border-b border-[#ebebeb] bg-[#fafafa]">
+<section class="py-16 md:py-24 border-b border-[var(--color-hairline)] bg-[var(--color-canvas)] transition-colors">
   <div class="max-w-4xl mx-auto px-4 sm:px-6">
     
     <div class="text-center mb-12">
-      <span class="text-mono-eyebrow text-[#8f8f8f] block mb-2">Frequently Asked Questions</span>
-      <h2 class="text-heading-lg text-[#171717] mb-4">
+      <span class="text-mono-eyebrow text-[var(--color-mute)] block mb-2">Frequently Asked Questions</span>
+      <h2 class="text-heading-lg text-[var(--color-ink)] mb-4">
         Everything you need to know about Free Reduce Image.
       </h2>
     </div>
 
     <!-- Accordion List -->
     <div class="space-y-4">
-      {faqs.map((faq, i) => (
-        <details class="hairline-card p-5 sm:p-6 bg-white group cursor-pointer transition-all open:border-[#171717]/40">
-          <summary class="flex items-center justify-between font-semibold text-sm sm:text-base text-[#171717] list-none select-none">
+      {faqs.map((faq) => (
+        <details class="hairline-card p-5 sm:p-6 bg-[var(--color-canvas-elevated)] border border-[var(--color-hairline)] group cursor-pointer transition-all open:border-[var(--color-ink)]/50">
+          <summary class="flex items-center justify-between font-semibold text-sm sm:text-base text-[var(--color-ink)] list-none select-none">
             <span>{faq.q}</span>
-            <span class="w-6 h-6 rounded-full bg-[#fafafa] border border-[#ebebeb] flex items-center justify-center text-xs font-mono text-[#8f8f8f] group-open:rotate-180 transition-transform flex-shrink-0 ml-4">
+            <span class="w-6 h-6 rounded-full bg-[var(--color-canvas-subtle)] border border-[var(--color-hairline)] flex items-center justify-center text-xs font-mono text-[var(--color-mute)] group-open:rotate-180 transition-transform flex-shrink-0 ml-4">
               ↓
             </span>
           </summary>
-          <p class="mt-4 text-xs sm:text-sm text-[#4d4d4d] leading-relaxed pt-3 border-t border-[#ebebeb]">
+          <p class="mt-4 text-xs sm:text-sm text-[var(--color-body)] leading-relaxed pt-3 border-t border-[var(--color-hairline)]">
             {faq.a}
           </p>
         </details>
