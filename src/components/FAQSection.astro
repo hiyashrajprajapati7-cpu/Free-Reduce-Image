@@ -1,0 +1,74 @@
+---
+const faqs = [
+  {
+    q: "How does Free Reduce Image reduce image file size without losing quality?",
+    a: "Free Reduce Image uses intelligent perceptual compression algorithms and pixel downsampling. It removes invisible redundant metadata, optimizes color indexing, and applies gentle chroma compression where the human eye cannot detect degradation, reducing byte weight by up to 85% while keeping visual clarity intact."
+  },
+  {
+    q: "Is Free Reduce Image truly 100% private and secure?",
+    a: "Yes, absolutely. Unlike older websites that upload your photos to remote servers, Free Reduce Image processes everything 100% locally inside your web browser using modern HTML5 Canvas and Web Worker technologies. Your images never leave your computer or phone."
+  },
+  {
+    q: "How does the 'Target File Size' (e.g. Under 100 KB) mode work?",
+    a: "Our engine executes a rapid binary search across quality quantization levels and dimension bounds to compress the image precisely below your specified limit (such as 50 KB, 100 KB, or 200 KB) while maintaining the highest possible resolution and sharpness."
+  },
+  {
+    q: "Can I reduce and compress multiple images in batch?",
+    a: "Yes! You can drag and drop dozens or hundreds of images simultaneously. Once compressed, you can download them individually or export all files together in a convenient .zip archive with a single click."
+  },
+  {
+    q: "Which image formats are supported?",
+    a: "You can upload JPEG, JPG, PNG, WebP, AVIF, GIF, BMP, and SVG files. You can convert to WebP, AVIF, JPEG, or PNG depending on your workflow."
+  },
+  {
+    q: "Why should I convert my images to WebP or AVIF?",
+    a: "WebP and AVIF provide next-generation compression algorithms that yield files 30% to 50% smaller than standard JPEG at equivalent perceptual quality, with full transparency (alpha channel) support."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(f => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": f.a
+    }
+  }))
+};
+---
+
+<section class="py-16 md:py-24 border-b border-[#ebebeb] bg-[#fafafa]">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6">
+    
+    <div class="text-center mb-12">
+      <span class="text-mono-eyebrow text-[#8f8f8f] block mb-2">Frequently Asked Questions</span>
+      <h2 class="text-heading-lg text-[#171717] mb-4">
+        Everything you need to know about Free Reduce Image.
+      </h2>
+    </div>
+
+    <!-- Accordion List -->
+    <div class="space-y-4">
+      {faqs.map((faq, i) => (
+        <details class="hairline-card p-5 sm:p-6 bg-white group cursor-pointer transition-all open:border-[#171717]/40">
+          <summary class="flex items-center justify-between font-semibold text-sm sm:text-base text-[#171717] list-none select-none">
+            <span>{faq.q}</span>
+            <span class="w-6 h-6 rounded-full bg-[#fafafa] border border-[#ebebeb] flex items-center justify-center text-xs font-mono text-[#8f8f8f] group-open:rotate-180 transition-transform flex-shrink-0 ml-4">
+              ↓
+            </span>
+          </summary>
+          <p class="mt-4 text-xs sm:text-sm text-[#4d4d4d] leading-relaxed pt-3 border-t border-[#ebebeb]">
+            {faq.a}
+          </p>
+        </details>
+      ))}
+    </div>
+
+  </div>
+
+  <!-- Schema.org FAQ JSON-LD -->
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+</section>

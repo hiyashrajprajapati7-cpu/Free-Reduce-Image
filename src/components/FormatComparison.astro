@@ -1,0 +1,105 @@
+---
+const formats = [
+  {
+    name: "WebP",
+    badge: "Recommended",
+    badgeColor: "bg-[#0070f3]/10 text-[#0070f3] border-[#0070f3]/20",
+    bestFor: "Websites, blog posts, e-commerce stores",
+    savings: "Up to 80%",
+    alpha: "Yes (Full)",
+    support: "97%+ (All Modern Browsers)",
+    quality: "75% - 85%"
+  },
+  {
+    name: "AVIF",
+    badge: "Next-Gen",
+    badgeColor: "bg-purple-100 text-purple-800 border-purple-200",
+    bestFor: "Maximum compression for modern web apps",
+    savings: "Up to 90%",
+    alpha: "Yes (Full)",
+    support: "93%+ (Chrome, Firefox, Safari)",
+    quality: "65% - 80%"
+  },
+  {
+    name: "JPEG / JPG",
+    badge: "Universal",
+    badgeColor: "bg-gray-100 text-gray-800 border-gray-200",
+    bestFor: "Photographs, print documents, legacy systems",
+    savings: "Up to 70%",
+    alpha: "No",
+    support: "100% Universal",
+    quality: "80% - 90%"
+  },
+  {
+    name: "PNG",
+    badge: "Lossless",
+    badgeColor: "bg-emerald-100 text-emerald-800 border-emerald-200",
+    bestFor: "Logos, screenshots, UI icons with crisp edges",
+    savings: "Up to 50%",
+    alpha: "Yes (Lossless)",
+    support: "100% Universal",
+    quality: "Lossless / 100%"
+  },
+  {
+    name: "GIF",
+    badge: "Animated",
+    badgeColor: "bg-amber-100 text-amber-800 border-amber-200",
+    bestFor: "Simple low-frame animations and banners",
+    savings: "Up to 40%",
+    alpha: "1-bit binary",
+    support: "100% Universal",
+    quality: "256 colors"
+  }
+];
+---
+
+<section class="py-16 md:py-24 border-b border-[#ebebeb] bg-[#fafafa]">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    
+    <div class="max-w-2xl mx-auto text-center mb-12">
+      <span class="text-mono-eyebrow text-[#8f8f8f] block mb-2">Technical Specification</span>
+      <h2 class="text-heading-lg text-[#171717] mb-4">
+        Which image format should you choose?
+      </h2>
+      <p class="text-sm sm:text-base text-[#4d4d4d]">
+        Understanding the right format ensures the smallest possible file size with zero loss in visual clarity.
+      </p>
+    </div>
+
+    <!-- Responsive Comparison Table -->
+    <div class="hairline-card overflow-hidden bg-white shadow-xs">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs sm:text-sm border-collapse">
+          <thead>
+            <tr class="bg-[#fafafa] border-b border-[#ebebeb] text-[#8f8f8f] font-mono text-[11px] uppercase tracking-wider">
+              <th class="py-3.5 px-4 sm:px-6">Format</th>
+              <th class="py-3.5 px-4 sm:px-6">Best Suited For</th>
+              <th class="py-3.5 px-4 sm:px-6">Size Reduction</th>
+              <th class="py-3.5 px-4 sm:px-6">Transparency</th>
+              <th class="py-3.5 px-4 sm:px-6">Browser Support</th>
+              <th class="py-3.5 px-4 sm:px-6">Optimal Quality</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-[#ebebeb] font-normal">
+            {formats.map((fmt) => (
+              <tr class="hover:bg-[#fafafa]/80 transition-colors">
+                <td class="py-4 px-4 sm:px-6">
+                  <div class="flex items-center gap-2">
+                    <span class="font-semibold text-[#171717] font-mono text-sm">{fmt.name}</span>
+                    <span class={`text-[10px] font-mono px-2 py-0.5 rounded-full border ${fmt.badgeColor}`}>{fmt.badge}</span>
+                  </div>
+                </td>
+                <td class="py-4 px-4 sm:px-6 text-[#4d4d4d]">{fmt.bestFor}</td>
+                <td class="py-4 px-4 sm:px-6 font-mono font-medium text-emerald-600">{fmt.savings}</td>
+                <td class="py-4 px-4 sm:px-6 font-mono text-[#4d4d4d]">{fmt.alpha}</td>
+                <td class="py-4 px-4 sm:px-6 text-[#4d4d4d]">{fmt.support}</td>
+                <td class="py-4 px-4 sm:px-6 font-mono text-[#171717]">{fmt.quality}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</section>

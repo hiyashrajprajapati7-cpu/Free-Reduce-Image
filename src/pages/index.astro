@@ -1,0 +1,30 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import ImageReducerApp from '../components/ImageReducerApp.astro';
+import FeatureGrid from '../components/FeatureGrid.astro';
+import FormatComparison from '../components/FormatComparison.astro';
+import UseCasesSection from '../components/UseCasesSection.astro';
+import FAQSection from '../components/FAQSection.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="Free Reduce Image — Batch Image Size Reducer & Optimizer (100% Free & Private)"
+  description="Upload one image or hundreds at once and reduce their file size quickly and easily. 100% private in-browser compression. Smaller files. Faster uploads. Less storage. Better performance."
+  canonical="https://freereduceimage.com/"
+>
+  <Navbar />
+  
+  <main class="flex-1">
+    <Hero />
+    <ImageReducerApp initialMode="auto" />
+    <FeatureGrid />
+    <FormatComparison />
+    <UseCasesSection />
+    <FAQSection />
+  </main>
+
+  <Footer />
+</Layout>

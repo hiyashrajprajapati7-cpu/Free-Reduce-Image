@@ -1,0 +1,62 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import ImageReducerApp from '../components/ImageReducerApp.astro';
+import FeatureGrid from '../components/FeatureGrid.astro';
+import FAQSection from '../components/FAQSection.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="Passport Photo Resizer (2x2 inch @ 300 DPI, < 240KB) — Free Reduce Image"
+  description="Resize and reduce passport and visa photos to exact government requirements: 2x2 inch (51x51mm), 35x45mm, 300 DPI resolution, and strictly under 240 KB or 100 KB."
+  canonical="https://freereduceimage.com/passport-photo"
+>
+  <Navbar />
+  
+  <main class="flex-1">
+    <Hero 
+      badge="Government & Visa Standard • 300 DPI Print Ready"
+      title="Passport & Visa Photo Resizer & Reducer."
+      subtitle="Easily format your passport photo to standard 2x2 inches (51x51 mm) or 35x45 mm with 300 DPI print quality and strict file size limits (<100KB or <240KB)."
+    />
+    
+    <ImageReducerApp initialMode="dimensions" isPassportMode={true} />
+
+    <!-- Passport specifications table -->
+    <section class="py-16 md:py-20 border-b border-[#ebebeb] bg-[#fafafa]">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6">
+        <h2 class="text-heading-lg text-[#171717] mb-6 text-center">
+          Standard Passport Photo Specifications
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="hairline-card p-6 bg-white">
+            <h3 class="font-semibold text-base text-[#171717] mb-2">US / India / Global Standard (2×2 in)</h3>
+            <ul class="space-y-2 text-xs sm:text-sm text-[#4d4d4d] font-mono">
+              <li>• Dimensions: 2 × 2 inches (51 × 51 mm)</li>
+              <li>• Pixel size: 600 × 600 px @ 300 DPI</li>
+              <li>• File format: JPEG (.jpg)</li>
+              <li>• Max file size: Under 240 KB (often &lt;100 KB)</li>
+            </ul>
+          </div>
+          <div class="hairline-card p-6 bg-white">
+            <h3 class="font-semibold text-base text-[#171717] mb-2">UK / Schengen / European Visa (35×45 mm)</h3>
+            <ul class="space-y-2 text-xs sm:text-sm text-[#4d4d4d] font-mono">
+              <li>• Dimensions: 35 × 45 mm (1.38 × 1.77 in)</li>
+              <li>• Pixel size: 413 × 531 px @ 300 DPI</li>
+              <li>• File format: JPEG (.jpg)</li>
+              <li>• Max file size: Under 200 KB or 100 KB</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <FeatureGrid />
+    <FAQSection />
+  </main>
+
+  <Footer />
+</Layout>

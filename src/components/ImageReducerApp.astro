@@ -1,0 +1,949 @@
+---
+interface Props {
+  initialMode?: 'auto' | 'target' | 'dimensions' | 'convert';
+  defaultFormat?: string;
+  defaultTargetKb?: number;
+  isPassportMode?: boolean;
+}
+
+const {
+  initialMode = 'auto',
+  defaultFormat = 'auto',
+  defaultTargetKb = 100,
+  isPassportMode = false
+} = Astro.props;
+---
+
+<section id="app" class="py-8 md:py-12 bg-[#fafafa]">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6">
+    
+    <!-- Main Reducer Box -->
+    <div class="hairline-card-floating p-4 sm:p-6 md:p-8 bg-white border border-[#ebebeb]">
+      
+      <!-- Mode Selection Tabs -->
+      <div class="flex flex-wrap items-center justify-between gap-3 pb-6 border-b border-[#ebebeb]">
+        <div class="flex flex-wrap items-center gap-1.5 p-1 bg-[#fafafa] border border-[#ebebeb] rounded-xl text-xs sm:text-sm font-medium" id="mode-tabs">
+          <button type="button" data-mode="auto" class={`mode-tab px-3 sm:px-4 py-1.5 rounded-lg ${initialMode === 'auto' && !isPassportMode ? 'active-mode' : ''}`}>
+            ⚡ Smart Auto
+          </button>
+          <button type="button" data-mode="target" class={`mode-tab px-3 sm:px-4 py-1.5 rounded-lg ${initialMode === 'target' ? 'active-mode' : ''}`}>
+            🎯 Target Size (KB)
+          </button>
+          <button type="button" data-mode="dimensions" class={`mode-tab px-3 sm:px-4 py-1.5 rounded-lg ${initialMode === 'dimensions' || isPassportMode ? 'active-mode' : ''}`}>
+            📐 Dimensions & DPI
+          </button>
+          <button type="button" data-mode="convert" class={`mode-tab px-3 sm:px-4 py-1.5 rounded-lg ${initialMode === 'convert' ? 'active-mode' : ''}`}>
+            🔄 Convert Format
+          </button>
+        </div>
+
+        <!-- Quick Presets Dropdown -->
+        <div class="flex items-center gap-2">
+          <label class="text-xs font-mono text-[#8f8f8f] uppercase hidden sm:inline">Presets:</label>
+          <select id="quick-preset" class="geist-input text-xs py-1 px-2 font-medium bg-[#fafafa]">
+            <option value="">Choose a preset...</option>
+            <option value="web-opt" selected={initialMode === 'auto'}>Web Optimization (80% WebP)</option>
+            <option value="target-50">Under 50 KB (Forms & Avatars)</option>
+            <option value="target-100" selected={initialMode === 'target'}>Under 100 KB (Govt & Visa)</option>
+            <option value="target-200">Under 200 KB (Job Applications)</option>
+            <option value="target-1mb">Under 1 MB (Email Friendly)</option>
+            <option value="passport" selected={isPassportMode}>Passport Photo (2x2" @ 300 DPI)</option>
+            <option value="instagram">Instagram Post (1080x1080)</option>
+            <option value="youtube">YouTube Thumbnail (1280x720)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Dropzone Area -->
+      <div id="dropzone" class="mt-6 border-2 border-dashed border-[#ebebeb] hover:border-[#171717] rounded-2xl p-8 sm:p-12 text-center transition-all cursor-pointer bg-[#fafafa]/50 hover:bg-white group relative">
+        <input type="file" id="file-input" multiple accept="image/png,image/jpeg,image/webp,image/avif,image/gif,image/bmp,image/svg+xml" class="hidden" />
+        
+        <div class="flex flex-col items-center justify-center pointer-events-none">
+          <div class="w-14 h-14 rounded-2xl bg-white border border-[#ebebeb] shadow-xs flex items-center justify-center mb-4 group-hover:scale-110 group-hover:border-[#171717] transition-all text-[#171717]">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+          </div>
+
+          <h3 class="text-base sm:text-lg font-semibold text-[#171717] mb-1">
+            Drop your images here, or <span class="text-[#0070f3] underline decoration-1 underline-offset-2">browse</span>
+          </h3>
+          <p class="text-xs sm:text-sm text-[#8f8f8f] max-w-md mx-auto mb-4">
+            Upload single or 100+ images at once. Supports PNG, JPG, WebP, AVIF, GIF, BMP. You can also paste (<kbd class="px-1.5 py-0.5 rounded bg-[#ebebeb] font-mono text-[11px]">Ctrl+V</kbd>).
+          </p>
+
+          <div class="flex flex-wrap items-center justify-center gap-2">
+            <span class="px-2 py-0.5 rounded-md bg-white border border-[#ebebeb] text-[10px] font-mono text-[#8f8f8f]">PNG</span>
+            <span class="px-2 py-0.5 rounded-md bg-white border border-[#ebebeb] text-[10px] font-mono text-[#8f8f8f]">JPG / JPEG</span>
+            <span class="px-2 py-0.5 rounded-md bg-white border border-[#ebebeb] text-[10px] font-mono text-[#8f8f8f]">WEBP</span>
+            <span class="px-2 py-0.5 rounded-md bg-white border border-[#ebebeb] text-[10px] font-mono text-[#8f8f8f]">AVIF</span>
+            <span class="px-2 py-0.5 rounded-md bg-white border border-[#ebebeb] text-[10px] font-mono text-[#8f8f8f]">GIF</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Settings Panel (Collapsible / Dynamic per mode) -->
+      <div id="settings-panel" class="mt-6 p-4 sm:p-5 bg-[#fafafa] border border-[#ebebeb] rounded-xl text-sm">
+        
+        <!-- Controls Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 items-end">
+          
+          <!-- Format Output -->
+          <div>
+            <label class="block text-xs font-mono uppercase text-[#8f8f8f] mb-1.5">Output Format</label>
+            <select id="format-select" class="w-full geist-input">
+              <option value="auto" selected={defaultFormat === 'auto'}>Auto (Keep Original)</option>
+              <option value="image/webp" selected={defaultFormat === 'webp'}>WebP (Recommended)</option>
+              <option value="image/jpeg" selected={defaultFormat === 'jpeg'}>JPEG / JPG</option>
+              <option value="image/png" selected={defaultFormat === 'png'}>PNG (Lossless)</option>
+              <option value="image/avif" selected={defaultFormat === 'avif'}>AVIF (Next-Gen)</option>
+            </select>
+          </div>
+
+          <!-- Quality Slider (Visible in Auto/Dimensions/Convert) -->
+          <div id="quality-control" class="transition-all">
+            <div class="flex justify-between items-center mb-1.5">
+              <label class="text-xs font-mono uppercase text-[#8f8f8f]">Quality</label>
+              <span id="quality-val" class="text-xs font-mono font-semibold text-[#171717]">82%</span>
+            </div>
+            <input type="range" id="quality-slider" min="5" max="100" value="82" class="w-full accent-[#171717] cursor-pointer" />
+          </div>
+
+          <!-- Target File Size Input (Only in Target mode or toggled) -->
+          <div id="target-size-control" class={`${initialMode === 'target' ? 'block' : 'hidden'} transition-all`}>
+            <label class="block text-xs font-mono uppercase text-[#8f8f8f] mb-1.5">Max Target Size</label>
+            <div class="flex items-center gap-1.5">
+              <input type="number" id="target-kb-input" min="5" max="50000" value={defaultTargetKb} class="w-full geist-input font-mono" />
+              <select id="target-unit" class="geist-input text-xs font-mono py-2 px-2">
+                <option value="KB">KB</option>
+                <option value="MB">MB</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Dimensions Controls (Visible in Dimensions mode) -->
+          <div id="dimension-scale-control" class={`${initialMode === 'dimensions' || isPassportMode ? 'block' : 'hidden'} transition-all sm:col-span-2 md:col-span-2`}>
+            <div class="grid grid-cols-3 gap-2">
+              <div>
+                <label class="block text-xs font-mono uppercase text-[#8f8f8f] mb-1.5">Scale (%)</label>
+                <input type="number" id="scale-percent-input" min="10" max="200" value="100" class="w-full geist-input font-mono" />
+              </div>
+              <div>
+                <label class="block text-xs font-mono uppercase text-[#8f8f8f] mb-1.5">DPI Resolution</label>
+                <select id="dpi-select" class="w-full geist-input font-mono text-xs">
+                  <option value="72">72 DPI (Web)</option>
+                  <option value="150">150 DPI (Screen)</option>
+                  <option value="300" selected={isPassportMode}>300 DPI (Print)</option>
+                  <option value="600">600 DPI (Archival)</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-mono uppercase text-[#8f8f8f] mb-1.5">Fit Mode</label>
+                <select id="fit-mode-select" class="w-full geist-input text-xs">
+                  <option value="contain">Fit / Contain</option>
+                  <option value="cover">Crop / Fill</option>
+                  <option value="stretch">Stretch</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Privacy EXIF Toggle -->
+          <div class="flex items-center justify-between sm:justify-start gap-3 h-10">
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" id="strip-exif" checked class="sr-only peer" />
+              <div class="w-9 h-5 bg-[#ebebeb] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[#ebebeb] after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#171717]"></div>
+              <span class="ml-2 text-xs font-medium text-[#4d4d4d]">Strip EXIF & GPS</span>
+            </label>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Batch Queue Section (Initially Hidden when empty) -->
+      <div id="batch-section" class="mt-8 hidden">
+        
+        <!-- Queue Stats Summary Header -->
+        <div class="flex flex-wrap items-center justify-between gap-4 p-4 rounded-xl bg-[#fafafa] border border-[#ebebeb] mb-6">
+          <div class="flex flex-wrap items-center gap-4 sm:gap-6 text-xs sm:text-sm">
+            <div>
+              <span class="text-[#8f8f8f] block font-mono text-[11px] uppercase">Images</span>
+              <span id="stat-count" class="font-semibold text-[#171717]">0 files</span>
+            </div>
+            <div class="w-px h-8 bg-[#ebebeb]"></div>
+            <div>
+              <span class="text-[#8f8f8f] block font-mono text-[11px] uppercase">Original</span>
+              <span id="stat-original-size" class="font-semibold text-[#171717]">0 MB</span>
+            </div>
+            <div class="w-px h-8 bg-[#ebebeb]"></div>
+            <div>
+              <span class="text-[#8f8f8f] block font-mono text-[11px] uppercase">Reduced</span>
+              <span id="stat-reduced-size" class="font-semibold text-[#0070f3]">0 MB</span>
+            </div>
+            <div class="w-px h-8 bg-[#ebebeb]"></div>
+            <div>
+              <span class="text-[#8f8f8f] block font-mono text-[11px] uppercase">Saved</span>
+              <span id="stat-saved-percent" class="font-semibold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">0%</span>
+            </div>
+          </div>
+
+          <!-- Batch Action Buttons -->
+          <div class="flex items-center gap-2">
+            <button type="button" id="clear-all-btn" class="px-3 py-1.5 text-xs text-[#8f8f8f] hover:text-[#ee0000] rounded-md transition-colors">
+              Clear All
+            </button>
+            <button type="button" id="reprocess-all-btn" class="btn-secondary-pill text-xs py-1.5 px-3">
+              🔄 Apply Settings
+            </button>
+            <button type="button" id="download-zip-btn" class="btn-primary-pill text-xs py-1.5 px-4 shadow-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Download All (ZIP)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Files List Container -->
+        <div id="file-list" class="space-y-3">
+          <!-- Dynamically inserted file cards -->
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Interactive Before / After Comparison Modal -->
+<div id="compare-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+  <div class="bg-white rounded-2xl border border-[#ebebeb] shadow-2xl max-w-4xl w-full overflow-hidden flex flex-col max-h-[90vh]">
+    <!-- Header -->
+    <div class="px-6 py-4 border-b border-[#ebebeb] flex items-center justify-between bg-[#fafafa]">
+      <div class="flex items-center gap-3">
+        <h3 class="font-semibold text-[#171717] text-base">Before vs After Comparison</h3>
+        <span id="modal-savings-badge" class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-mono font-medium"></span>
+      </div>
+      <button type="button" id="close-modal-btn" class="w-8 h-8 rounded-full hover:bg-[#ebebeb] flex items-center justify-center text-[#4d4d4d] transition-colors">
+        ✕
+      </button>
+    </div>
+
+    <!-- Comparison Viewport Area -->
+    <div class="p-6 flex-1 overflow-auto flex flex-col items-center justify-center bg-[#fafafa]">
+      <div class="relative max-w-full max-h-[60vh] select-none rounded-lg overflow-hidden border border-[#ebebeb] shadow-sm" id="split-container">
+        <!-- Original (Underneath) -->
+        <img id="compare-original-img" src="" alt="Original" class="block max-h-[60vh] max-w-full object-contain pointer-events-none" />
+        
+        <!-- Compressed (Overlaid with clip-path) -->
+        <div id="compare-compressed-wrapper" class="absolute inset-0 overflow-hidden pointer-events-none" style="clip-path: inset(0 0 0 50%);">
+          <img id="compare-compressed-img" src="" alt="Reduced" class="block max-h-[60vh] max-w-full object-contain pointer-events-none" />
+        </div>
+
+        <!-- Draggable Divider Line -->
+        <div id="split-divider" class="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize shadow-[0_0_8px_rgba(0,0,0,0.5)] z-10 flex items-center justify-center" style="left: 50%;">
+          <div class="w-7 h-7 rounded-full bg-white border border-[#171717] shadow-md flex items-center justify-center text-[#171717] text-[10px]">
+            ⇄
+          </div>
+        </div>
+
+        <!-- Labels -->
+        <span class="absolute top-3 left-3 bg-black/70 text-white text-[11px] font-mono px-2 py-0.5 rounded pointer-events-none z-20">Original</span>
+        <span class="absolute top-3 right-3 bg-[#0070f3]/90 text-white text-[11px] font-mono px-2 py-0.5 rounded pointer-events-none z-20">Reduced</span>
+      </div>
+
+      <!-- Info Row -->
+      <div class="flex items-center justify-between w-full max-w-md mt-4 text-xs font-mono text-[#4d4d4d]">
+        <div id="modal-original-info">Original: -</div>
+        <div id="modal-reduced-info">Reduced: -</div>
+      </div>
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="px-6 py-4 border-t border-[#ebebeb] flex items-center justify-end gap-3 bg-[#fafafa]">
+      <button type="button" id="modal-close-action" class="btn-secondary-pill text-xs py-1.5 px-4">Close</button>
+      <a id="modal-download-action" href="#" download="" class="btn-primary-pill text-xs py-1.5 px-5">Download Reduced Image</a>
+    </div>
+  </div>
+</div>
+
+<!-- JSZip CDN for in-browser client-side bulk archiving -->
+<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+<script is:inline>
+(() => {
+  // State management
+  let filesQueue = [];
+  let currentMode = 'auto'; // auto | target | dimensions | convert
+  let currentFormat = 'auto';
+  let quality = 0.82;
+  let targetKb = 100;
+  let targetUnit = 'KB';
+  let scalePercent = 100;
+  let dpi = 72;
+  let fitMode = 'contain';
+  let stripExif = true;
+
+  // DOM Elements
+  const dropzone = document.getElementById('dropzone');
+  const fileInput = document.getElementById('file-input');
+  const batchSection = document.getElementById('batch-section');
+  const fileList = document.getElementById('file-list');
+  const modeTabs = document.querySelectorAll('.mode-tab');
+  const quickPreset = document.getElementById('quick-preset');
+  
+  const formatSelect = document.getElementById('format-select');
+  const qualitySlider = document.getElementById('quality-slider');
+  const qualityVal = document.getElementById('quality-val');
+  const qualityControl = document.getElementById('quality-control');
+  const targetSizeControl = document.getElementById('target-size-control');
+  const targetKbInput = document.getElementById('target-kb-input');
+  const targetUnitSelect = document.getElementById('target-unit');
+  const dimensionScaleControl = document.getElementById('dimension-scale-control');
+  const scalePercentInput = document.getElementById('scale-percent-input');
+  const dpiSelect = document.getElementById('dpi-select');
+  const fitModeSelect = document.getElementById('fit-mode-select');
+  const stripExifCheck = document.getElementById('strip-exif');
+
+  const statCount = document.getElementById('stat-count');
+  const statOriginalSize = document.getElementById('stat-original-size');
+  const statReducedSize = document.getElementById('stat-reduced-size');
+  const statSavedPercent = document.getElementById('stat-saved-percent');
+
+  const clearAllBtn = document.getElementById('clear-all-btn');
+  const reprocessAllBtn = document.getElementById('reprocess-all-btn');
+  const downloadZipBtn = document.getElementById('download-zip-btn');
+
+  // Modal elements
+  const compareModal = document.getElementById('compare-modal');
+  const closeModalBtn = document.getElementById('close-modal-btn');
+  const modalCloseAction = document.getElementById('modal-close-action');
+  const compareOriginalImg = document.getElementById('compare-original-img');
+  const compareCompressedImg = document.getElementById('compare-compressed-img');
+  const compareCompressedWrapper = document.getElementById('compare-compressed-wrapper');
+  const splitDivider = document.getElementById('split-divider');
+  const splitContainer = document.getElementById('split-container');
+  const modalSavingsBadge = document.getElementById('modal-savings-badge');
+  const modalOriginalInfo = document.getElementById('modal-original-info');
+  const modalReducedInfo = document.getElementById('modal-reduced-info');
+  const modalDownloadAction = document.getElementById('modal-download-action');
+
+  // Format Helper
+  function formatBytes(bytes) {
+    if (bytes === 0) return '0 B';
+    const k = 1024;
+    const sizes = ['B', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  }
+
+  // Setup Event Listeners
+  dropzone.addEventListener('click', () => fileInput.click());
+  fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
+
+  // Drag and Drop
+  ['dragenter', 'dragover'].forEach(eventName => {
+    dropzone.addEventListener(eventName, (e) => {
+      e.preventDefault();
+      dropzone.classList.add('is-dragover');
+    }, false);
+  });
+
+  ['dragleave', 'drop'].forEach(eventName => {
+    dropzone.addEventListener(eventName, (e) => {
+      e.preventDefault();
+      dropzone.classList.remove('is-dragover');
+    }, false);
+  });
+
+  dropzone.addEventListener('drop', (e) => {
+    const dt = e.dataTransfer;
+    if (dt && dt.files) {
+      handleFiles(dt.files);
+    }
+  });
+
+  // Clipboard Paste Support
+  window.addEventListener('paste', (e) => {
+    const items = e.clipboardData?.items;
+    if (!items) return;
+    const pastedFiles = [];
+    for (let i = 0; i < items.length; i++) {
+      if (items[i].type.indexOf('image') !== -1) {
+        pastedFiles.push(items[i].getAsFile());
+      }
+    }
+    if (pastedFiles.length > 0) {
+      handleFiles(pastedFiles);
+    }
+  });
+
+  function setMode(mode) {
+    currentMode = mode;
+    modeTabs.forEach(t => {
+      if (t.dataset.mode === mode) {
+        t.classList.add('active-mode');
+      } else {
+        t.classList.remove('active-mode');
+      }
+    });
+    updateControlsVisibility();
+  }
+
+  // Tab switching
+  modeTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      setMode(tab.dataset.mode);
+      reprocessAll();
+    });
+  });
+
+  function updateControlsVisibility() {
+    targetSizeControl.classList.toggle('hidden', currentMode !== 'target');
+    dimensionScaleControl.classList.toggle('hidden', currentMode !== 'dimensions');
+    qualityControl.classList.toggle('hidden', currentMode === 'target');
+  }
+
+  // Preset Handler
+  quickPreset.addEventListener('change', (e) => {
+    const val = e.target.value;
+    if (!val) return;
+
+    if (val === 'web-opt') {
+      formatSelect.value = 'image/webp';
+      qualitySlider.value = 80;
+      setMode('auto');
+    } else if (val === 'target-50') {
+      setMode('target');
+      targetKbInput.value = 50;
+      targetUnitSelect.value = 'KB';
+    } else if (val === 'target-100') {
+      setMode('target');
+      targetKbInput.value = 100;
+      targetUnitSelect.value = 'KB';
+    } else if (val === 'target-200') {
+      setMode('target');
+      targetKbInput.value = 200;
+      targetUnitSelect.value = 'KB';
+    } else if (val === 'target-1mb') {
+      setMode('target');
+      targetKbInput.value = 1;
+      targetUnitSelect.value = 'MB';
+    } else if (val === 'passport') {
+      setMode('dimensions');
+      dpiSelect.value = '300';
+      scalePercentInput.value = '100';
+      formatSelect.value = 'image/jpeg';
+      qualitySlider.value = 92;
+    } else if (val === 'instagram') {
+      setMode('dimensions');
+      scalePercentInput.value = '100';
+      formatSelect.value = 'image/jpeg';
+      qualitySlider.value = 85;
+    } else if (val === 'youtube') {
+      setMode('dimensions');
+      formatSelect.value = 'image/webp';
+      qualitySlider.value = 85;
+    }
+    syncSettings();
+    reprocessAll();
+  });
+
+  // Setting change listeners
+  qualitySlider.addEventListener('input', (e) => {
+    qualityVal.textContent = e.target.value + '%';
+    quality = parseInt(e.target.value) / 100;
+  });
+  qualitySlider.addEventListener('change', () => reprocessAll());
+
+  formatSelect.addEventListener('change', () => {
+    currentFormat = formatSelect.value;
+    reprocessAll();
+  });
+
+  targetKbInput.addEventListener('change', () => {
+    targetKb = parseFloat(targetKbInput.value);
+    reprocessAll();
+  });
+
+  targetUnitSelect.addEventListener('change', () => {
+    targetUnit = targetUnitSelect.value;
+    reprocessAll();
+  });
+
+  scalePercentInput.addEventListener('change', () => {
+    scalePercent = parseFloat(scalePercentInput.value);
+    reprocessAll();
+  });
+
+  dpiSelect.addEventListener('change', () => {
+    dpi = parseInt(dpiSelect.value);
+    reprocessAll();
+  });
+
+  fitModeSelect.addEventListener('change', () => {
+    fitMode = fitModeSelect.value;
+    reprocessAll();
+  });
+
+  stripExifCheck.addEventListener('change', () => {
+    stripExif = stripExifCheck.checked;
+    reprocessAll();
+  });
+
+  clearAllBtn.addEventListener('click', () => {
+    filesQueue = [];
+    renderQueue();
+  });
+
+  reprocessAllBtn.addEventListener('click', () => {
+    syncSettings();
+    reprocessAll();
+  });
+
+  function syncSettings() {
+    currentFormat = formatSelect.value;
+    quality = parseInt(qualitySlider.value) / 100;
+    targetKb = parseFloat(targetKbInput.value);
+    targetUnit = targetUnitSelect.value;
+    scalePercent = parseFloat(scalePercentInput.value) || 100;
+    dpi = parseInt(dpiSelect.value) || 72;
+    fitMode = fitModeSelect.value;
+    stripExif = stripExifCheck.checked;
+  }
+
+  // File Ingestion
+  function handleFiles(files) {
+    if (!files || files.length === 0) return;
+    
+    Array.from(files).forEach(file => {
+      if (!file.type.startsWith('image/')) return;
+      const fileId = 'file_' + Math.random().toString(36).substr(2, 9);
+      
+      const item = {
+        id: fileId,
+        originalFile: file,
+        originalName: file.name,
+        originalSize: file.size,
+        originalUrl: URL.createObjectURL(file),
+        originalWidth: 0,
+        originalHeight: 0,
+        reducedBlob: null,
+        reducedUrl: null,
+        reducedSize: 0,
+        reducedWidth: 0,
+        reducedHeight: 0,
+        reducedFormat: '',
+        status: 'processing',
+        progress: 0
+      };
+
+      filesQueue.push(item);
+      processImageItem(item);
+    });
+
+    renderQueue();
+  }
+
+  // Core Processing Engine
+  async function processImageItem(item) {
+    item.status = 'processing';
+    updateItemStatus(item);
+
+    try {
+      const img = new Image();
+      img.src = item.originalUrl;
+      await new Promise((resolve, reject) => {
+        img.onload = resolve;
+        img.onerror = reject;
+      });
+
+      item.originalWidth = img.naturalWidth;
+      item.originalHeight = img.naturalHeight;
+
+      // Determine output dimensions
+      let targetWidth = img.naturalWidth;
+      let targetHeight = img.naturalHeight;
+
+      if (currentMode === 'dimensions') {
+        const factor = scalePercent / 100;
+        targetWidth = Math.max(1, Math.round(img.naturalWidth * factor));
+        targetHeight = Math.max(1, Math.round(img.naturalHeight * factor));
+      }
+
+      // Determine output MIME format
+      let outMime = currentFormat === 'auto' ? item.originalFile.type : currentFormat;
+      if (outMime === 'image/svg+xml' || !outMime) outMime = 'image/webp';
+
+      // Setup Canvas
+      const canvas = document.createElement('canvas');
+      canvas.width = targetWidth;
+      canvas.height = targetHeight;
+      const ctx = canvas.getContext('2d', { alpha: true });
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+
+      // Draw mode
+      if (fitMode === 'contain') {
+        ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
+      } else if (fitMode === 'cover') {
+        const aspect = img.naturalWidth / img.naturalHeight;
+        const targetAspect = targetWidth / targetHeight;
+        let sx = 0, sy = 0, sw = img.naturalWidth, sh = img.naturalHeight;
+        if (aspect > targetAspect) {
+          sw = img.naturalHeight * targetAspect;
+          sx = (img.naturalWidth - sw) / 2;
+        } else {
+          sh = img.naturalWidth / targetAspect;
+          sy = (img.naturalHeight - sh) / 2;
+        }
+        ctx.drawImage(img, sx, sy, sw, sh, 0, 0, targetWidth, targetHeight);
+      } else {
+        ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
+      }
+
+      // Process Blob based on mode
+      let finalBlob;
+      if (currentMode === 'target') {
+        // Binary search to meet target file size
+        const targetBytes = (targetUnit === 'MB' ? targetKb * 1024 * 1024 : targetKb * 1024);
+        finalBlob = await compressToTargetSize(canvas, outMime === 'auto' ? 'image/jpeg' : outMime, targetBytes);
+      } else {
+        finalBlob = await new Promise(resolve => canvas.toBlob(resolve, outMime, quality));
+      }
+
+      if (item.reducedUrl) URL.revokeObjectURL(item.reducedUrl);
+
+      item.reducedBlob = finalBlob;
+      item.reducedUrl = URL.createObjectURL(finalBlob);
+      item.reducedSize = finalBlob.size;
+      item.reducedWidth = targetWidth;
+      item.reducedHeight = targetHeight;
+      item.reducedFormat = outMime.replace('image/', '').toUpperCase();
+      item.status = 'done';
+
+    } catch (err) {
+      console.error('Image optimization failed', err);
+      item.status = 'error';
+    }
+
+    updateItemStatus(item);
+    updateStats();
+  }
+
+  // Binary search compressor for Target Size (KB/MB) mode
+  async function compressToTargetSize(canvas, mimeType, maxBytes) {
+    let minQuality = 0.05;
+    let maxQuality = 0.98;
+    let bestBlob = null;
+
+    for (let i = 0; i < 6; i++) {
+      const midQuality = (minQuality + maxQuality) / 2;
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, mimeType, midQuality));
+      if (!blob) break;
+
+      if (blob.size <= maxBytes) {
+        bestBlob = blob;
+        minQuality = midQuality; // try getting better visual quality
+      } else {
+        maxQuality = midQuality; // file too big, decrease quality
+      }
+    }
+
+    // If still too large at minimum quality, downscale canvas dimensions
+    if (!bestBlob || bestBlob.size > maxBytes) {
+      let scale = 0.8;
+      while (scale >= 0.2) {
+        const scaledCanvas = document.createElement('canvas');
+        scaledCanvas.width = Math.max(1, Math.round(canvas.width * scale));
+        scaledCanvas.height = Math.max(1, Math.round(canvas.height * scale));
+        const ctx = scaledCanvas.getContext('2d');
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
+        ctx.drawImage(canvas, 0, 0, scaledCanvas.width, scaledCanvas.height);
+
+        const blob = await new Promise(resolve => scaledCanvas.toBlob(resolve, mimeType, 0.7));
+        if (blob && blob.size <= maxBytes) {
+          return blob;
+        }
+        scale -= 0.2;
+      }
+    }
+
+    return bestBlob || await new Promise(resolve => canvas.toBlob(resolve, mimeType, 0.5));
+  }
+
+  function reprocessAll() {
+    filesQueue.forEach(item => {
+      processImageItem(item);
+    });
+  }
+
+  // Render Queue UI
+  function renderQueue() {
+    if (filesQueue.length === 0) {
+      batchSection.classList.add('hidden');
+      fileList.innerHTML = '';
+      return;
+    }
+
+    batchSection.classList.remove('hidden');
+    fileList.innerHTML = '';
+
+    filesQueue.forEach(item => {
+      const card = createItemCard(item);
+      fileList.appendChild(card);
+    });
+
+    updateStats();
+  }
+
+  function createItemCard(item) {
+    const div = document.createElement('div');
+    div.id = item.id;
+    div.className = 'hairline-card p-3 sm:p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 bg-white transition-all';
+    
+    div.innerHTML = `
+      <div class="flex items-center gap-3 w-full sm:w-auto">
+        <div class="w-12 h-12 rounded-lg bg-[#fafafa] border border-[#ebebeb] overflow-hidden flex-shrink-0 flex items-center justify-center">
+          <img src="${item.originalUrl}" alt="Preview" class="w-full h-full object-cover" />
+        </div>
+        <div class="flex flex-col min-w-0">
+          <span class="font-medium text-[#171717] text-xs sm:text-sm truncate max-w-[200px] sm:max-w-[280px]" title="${item.originalName}">${item.originalName}</span>
+          <span class="text-[11px] text-[#8f8f8f] font-mono">
+            ${item.originalWidth ? `${item.originalWidth}×${item.originalHeight} px • ` : ''}${formatBytes(item.originalSize)}
+          </span>
+        </div>
+      </div>
+
+      <div class="item-status-col flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto">
+        <!-- Rendered by updateItemStatus -->
+      </div>
+    `;
+
+    // Hook buttons
+    updateItemStatus(item, div);
+    return div;
+  }
+
+  function updateItemStatus(item, cardElement) {
+    const el = cardElement || document.getElementById(item.id);
+    if (!el) return;
+
+    const statusCol = el.querySelector('.item-status-col');
+    if (!statusCol) return;
+
+    if (item.status === 'processing') {
+      statusCol.innerHTML = `
+        <div class="flex items-center gap-2 text-xs text-[#0070f3] font-mono">
+          <span class="animate-spin text-sm">⟳</span>
+          <span>Optimizing...</span>
+        </div>
+      `;
+    } else if (item.status === 'error') {
+      statusCol.innerHTML = `
+        <span class="text-xs text-[#ee0000] font-mono">Error processing</span>
+        <button type="button" class="remove-btn text-xs text-[#8f8f8f] hover:text-[#ee0000]">✕</button>
+      `;
+    } else if (item.status === 'done') {
+      const savedBytes = item.originalSize - item.reducedSize;
+      const savedPercent = Math.max(0, Math.round((savedBytes / item.originalSize) * 100));
+      const badgeColor = savedPercent > 0 ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-gray-100 text-gray-700 border-gray-200';
+      
+      const outExt = item.reducedFormat.toLowerCase();
+      const baseName = item.originalName.replace(/\.[^/.]+$/, "");
+      const downloadName = `${baseName}-reduced.${outExt === 'jpeg' ? 'jpg' : outExt}`;
+
+      statusCol.innerHTML = `
+        <div class="flex items-center gap-2 sm:gap-3 text-right">
+          <div class="flex flex-col text-left sm:text-right">
+            <span class="font-mono text-xs font-semibold text-[#171717]">${formatBytes(item.reducedSize)}</span>
+            <span class="text-[10px] text-[#8f8f8f] font-mono">${item.reducedWidth}×${item.reducedHeight} • ${item.reducedFormat}</span>
+          </div>
+
+          <span class="px-2 py-0.5 rounded-full text-[11px] font-mono font-medium border ${badgeColor}">
+            -${savedPercent}%
+          </span>
+
+          <button type="button" class="compare-btn p-1.5 rounded-md hover:bg-[#ebebeb] text-[#4d4d4d] hover:text-[#171717] transition-colors" title="Compare Before vs After">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="18" rx="2"></rect>
+              <line x1="12" y1="3" x2="12" y2="21"></line>
+            </svg>
+          </button>
+
+          <a href="${item.reducedUrl}" download="${downloadName}" class="btn-square-sm bg-[#171717] text-white hover:bg-black text-xs px-3 py-1.5 shadow-xs" title="Download Image">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span>Save</span>
+          </a>
+
+          <button type="button" class="remove-btn p-1 text-[#8f8f8f] hover:text-[#ee0000] transition-colors" title="Remove">✕</button>
+        </div>
+      `;
+
+      // Event binds
+      const compareBtn = statusCol.querySelector('.compare-btn');
+      if (compareBtn) {
+        compareBtn.addEventListener('click', () => openComparison(item));
+      }
+
+      const removeBtn = statusCol.querySelector('.remove-btn');
+      if (removeBtn) {
+        removeBtn.addEventListener('click', () => {
+          filesQueue = filesQueue.filter(f => f.id !== item.id);
+          renderQueue();
+        });
+      }
+    }
+  }
+
+  function updateStats() {
+    const totalCount = filesQueue.length;
+    let totalOriginal = 0;
+    let totalReduced = 0;
+
+    filesQueue.forEach(item => {
+      totalOriginal += item.originalSize;
+      totalReduced += (item.reducedSize || item.originalSize);
+    });
+
+    statCount.textContent = `${totalCount} ${totalCount === 1 ? 'file' : 'files'}`;
+    statOriginalSize.textContent = formatBytes(totalOriginal);
+    statReducedSize.textContent = formatBytes(totalReduced);
+
+    const savedBytes = totalOriginal - totalReduced;
+    const pct = totalOriginal > 0 ? Math.max(0, Math.round((savedBytes / totalOriginal) * 100)) : 0;
+    statSavedPercent.textContent = `-${pct}% Saved`;
+  }
+
+  // ZIP Bulk Exporter
+  downloadZipBtn.addEventListener('click', async () => {
+    if (filesQueue.length === 0) return;
+
+    downloadZipBtn.disabled = true;
+    const oldHtml = downloadZipBtn.innerHTML;
+    downloadZipBtn.innerHTML = `
+      <span class="animate-spin text-sm">⟳</span>
+      <span>Generating ZIP...</span>
+    `;
+
+    try {
+      const zip = new JSZip();
+      
+      filesQueue.forEach(item => {
+        if (item.reducedBlob) {
+          const outExt = item.reducedFormat.toLowerCase();
+          const baseName = item.originalName.replace(/\.[^/.]+$/, "");
+          const filename = `${baseName}-reduced.${outExt === 'jpeg' ? 'jpg' : outExt}`;
+          zip.file(filename, item.reducedBlob);
+        }
+      });
+
+      const content = await zip.generateAsync({ type: "blob" });
+      const zipUrl = URL.createObjectURL(content);
+      const a = document.createElement('a');
+      a.href = zipUrl;
+      a.download = `reduced-images-${Date.now()}.zip`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(zipUrl);
+
+    } catch (err) {
+      console.error('ZIP generation error', err);
+      alert('Could not create ZIP file. Try downloading individually.');
+    } finally {
+      downloadZipBtn.disabled = false;
+      downloadZipBtn.innerHTML = oldHtml;
+    }
+  });
+
+  // Interactive Comparison Slider Modal Logic
+  function openComparison(item) {
+    compareOriginalImg.src = item.originalUrl;
+    compareCompressedImg.src = item.reducedUrl;
+
+    const savedBytes = item.originalSize - item.reducedSize;
+    const savedPercent = Math.max(0, Math.round((savedBytes / item.originalSize) * 100));
+    modalSavingsBadge.textContent = `${formatBytes(item.originalSize)} → ${formatBytes(item.reducedSize)} (-${savedPercent}%)`;
+
+    modalOriginalInfo.textContent = `Original: ${formatBytes(item.originalSize)} (${item.originalWidth}×${item.originalHeight}px)`;
+    modalReducedInfo.textContent = `Reduced: ${formatBytes(item.reducedSize)} (${item.reducedWidth}×${item.reducedHeight}px • ${item.reducedFormat})`;
+
+    const outExt = item.reducedFormat.toLowerCase();
+    const baseName = item.originalName.replace(/\.[^/.]+$/, "");
+    modalDownloadAction.href = item.reducedUrl;
+    modalDownloadAction.download = `${baseName}-reduced.${outExt === 'jpeg' ? 'jpg' : outExt}`;
+
+    // Reset split position
+    setSplit(50);
+
+    compareModal.classList.remove('hidden');
+  }
+
+  function setSplit(percentage) {
+    const clamped = Math.max(0, Math.min(100, percentage));
+    splitDivider.style.left = `${clamped}%`;
+    compareCompressedWrapper.style.clipPath = `inset(0 0 0 ${clamped}%)`;
+  }
+
+  // Divider dragging
+  let isDragging = false;
+  splitDivider.addEventListener('mousedown', () => isDragging = true);
+  window.addEventListener('mouseup', () => isDragging = false);
+  window.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    const rect = splitContainer.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const pct = (x / rect.width) * 100;
+    setSplit(pct);
+  });
+
+  // Touch Support for mobile
+  splitDivider.addEventListener('touchstart', () => isDragging = true);
+  window.addEventListener('touchend', () => isDragging = false);
+  window.addEventListener('touchmove', (e) => {
+    if (!isDragging || !e.touches[0]) return;
+    const rect = splitContainer.getBoundingClientRect();
+    const x = e.touches[0].clientX - rect.left;
+    const pct = (x / rect.width) * 100;
+    setSplit(pct);
+  });
+
+  closeModalBtn.addEventListener('click', () => compareModal.classList.add('hidden'));
+  modalCloseAction.addEventListener('click', () => compareModal.classList.add('hidden'));
+  compareModal.addEventListener('click', (e) => {
+    if (e.target === compareModal) compareModal.classList.add('hidden');
+  });
+
+})();
+</script>
+
+<style>
+  .mode-tab {
+    color: #4d4d4d;
+    background-color: transparent;
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+  }
+  .mode-tab:hover {
+    color: #171717;
+  }
+  .mode-tab.active-mode {
+    background-color: #171717 !important;
+    color: #ffffff !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08) !important;
+  }
+  #dropzone.is-dragover {
+    border-color: #171717 !important;
+    background-color: #ffffff !important;
+  }
+</style>

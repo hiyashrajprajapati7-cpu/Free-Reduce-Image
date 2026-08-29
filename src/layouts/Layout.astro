@@ -1,0 +1,84 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  keywords?: string;
+  schema?: Record<string, any>;
+}
+
+const {
+  title = "Free Reduce Image — Batch Image Size Reducer & Optimizer",
+  description = "Upload one image or hundreds at once and reduce file size quickly and easily. 100% private, client-side image optimization preserving original visual quality.",
+  canonical = "https://freereduceimage.com/",
+  keywords = "reduce image size, image compressor, batch image resizer, convert to webp, reduce image to 100kb, compress photos, free online image reducer, privacy image optimizer",
+  schema
+} = Astro.props;
+
+const defaultSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Free Reduce Image",
+  "url": "https://freereduceimage.com",
+  "description": "Upload one image or hundreds at once and reduce their file size quickly and easily. Free Reduce Image intelligently optimizes your images to make them smaller while preserving their original visual quality.",
+  "applicationCategory": "MultimediaApplication",
+  "operatingSystem": "All",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "featureList": [
+    "100% Private Client-Side Processing",
+    "Target File Size Reduction (KB/MB)",
+    "Batch Image Compression (100+ files)",
+    "Dimension & DPI Resizing",
+    "WebP, AVIF, JPEG, PNG Converter",
+    "Interactive Before/After Quality Slider",
+    "EXIF & GPS Metadata Stripper",
+    "One-click ZIP archive download"
+  ]
+};
+
+const jsonLd = schema || defaultSchema;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="Free Reduce Image" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- Favicon & Icons -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23171717'><path d='M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z'/></svg>" />
+
+    <!-- Google Fonts: Geist & Geist Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body class="bg-[#fafafa] text-[#4d4d4d] antialiased selection:bg-[#171717] selection:text-white flex flex-col min-h-screen">
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,68 @@
+---
+const features = [
+  {
+    title: "100% Private Client-Side Engine",
+    description: "Your images never leave your computer or phone. All compression, resizing, and format conversions happen locally inside your browser's Web Worker pipeline.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>`
+  },
+  {
+    title: "Exact Target Size Reducer",
+    description: "Need an image strictly under 50 KB, 100 KB, or 200 KB for government forms or job portals? Our binary search algorithm automatically hits your exact byte target.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>`
+  },
+  {
+    title: "Batch Processing & 1-Click ZIP",
+    description: "Drop 50, 100, or more images at once. Compress all photos simultaneously and download them in a single well-structured .zip archive with one click.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>`
+  },
+  {
+    title: "Next-Gen WebP & AVIF Support",
+    description: "Convert heavy JPEG and PNG graphics into modern WebP and AVIF formats to reduce file weight by up to 85% while keeping crystal-clear sharpness.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>`
+  },
+  {
+    title: "Interactive Split Comparison Slider",
+    description: "Inspect every detail before saving. Our dual-image split slider lets you zoom and compare before vs after side-by-side to guarantee visual fidelity.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="18" rx="2"></rect><line x1="12" y1="3" x2="12" y2="21"></line></svg>`
+  },
+  {
+    title: "Privacy EXIF & GPS Metadata Stripper",
+    description: "Protect your personal privacy before posting online. Free Reduce Image automatically cleans camera metadata, serial numbers, timestamps, and GPS coordinates.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>`
+  }
+];
+---
+
+<section class="py-16 md:py-24 border-b border-[#ebebeb] bg-[#fafafa]">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    
+    <!-- Section Header -->
+    <div class="max-w-2xl mx-auto text-center mb-12 md:mb-16">
+      <span class="text-mono-eyebrow text-[#8f8f8f] block mb-2">Engineered for Performance</span>
+      <h2 class="text-heading-lg text-[#171717] mb-4">
+        Everything you need to optimize images with zero friction.
+      </h2>
+      <p class="text-sm sm:text-base text-[#4d4d4d]">
+        No subscriptions, no hidden limits, and no advertising popups. Designed with developer-grade precision.
+      </p>
+    </div>
+
+    <!-- 2x3 Grid of Hairline Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {features.map(feat => (
+        <div class="hairline-card p-6 bg-white hover:border-[#171717]/40 transition-colors group flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-[#fafafa] border border-[#ebebeb] text-[#171717] flex items-center justify-center mb-4 group-hover:scale-105 group-hover:bg-[#171717] group-hover:text-white transition-all shadow-2xs" set:html={feat.icon} />
+            <h3 class="text-base font-semibold text-[#171717] mb-2 tracking-tight">
+              {feat.title}
+            </h3>
+            <p class="text-xs sm:text-sm text-[#4d4d4d] leading-relaxed">
+              {feat.description}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
