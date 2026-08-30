@@ -205,7 +205,7 @@ const {
           <div class="w-px h-6 bg-[var(--color-hairline)]"></div>
           <div>
             <span class="text-[var(--color-mute)] block font-mono text-[10px] uppercase">Saved</span>
-            <span id="stat-saved-percent" class="font-semibold text-emerald-500 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">0%</span>
+            <span id="stat-saved-percent" class="font-semibold text-[var(--color-ink)] bg-[var(--color-canvas-subtle)] px-2.5 py-0.5 rounded-full border border-[var(--color-hairline)]">0%</span>
           </div>
         </div>
 
@@ -245,7 +245,7 @@ const {
     <div class="px-6 py-4 border-b border-[var(--color-hairline)] flex items-center justify-between bg-[var(--color-canvas)]">
       <div class="flex items-center gap-3">
         <h3 class="font-semibold text-[var(--color-ink)] text-sm sm:text-base">Before vs After Comparison</h3>
-        <span id="modal-savings-badge" class="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 text-xs font-mono font-medium"></span>
+        <span id="modal-savings-badge" class="px-2.5 py-0.5 rounded-full bg-[var(--color-canvas-subtle)] text-[var(--color-ink)] border border-[var(--color-hairline)] text-xs font-mono font-medium"></span>
       </div>
       <button type="button" id="close-modal-btn" class="w-8 h-8 rounded-full hover:bg-[var(--color-canvas-subtle)] flex items-center justify-center text-[var(--color-body)] hover:text-[var(--color-ink)] transition-colors cursor-pointer">
         ✕
@@ -723,7 +723,7 @@ const {
             <span>${formatBytes(item.originalSize)}</span>
             <span>→</span>
             <span class="font-semibold text-[var(--color-ink)]">${formatBytes(item.reducedSize)}</span>
-            <span class="px-1.5 py-0.2 rounded bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 font-bold">-${item.savingsPercent}%</span>
+            <span class="px-1.5 py-0.5 rounded bg-[var(--color-canvas-subtle)] text-[var(--color-ink)] border border-[var(--color-hairline)] font-bold">-${item.savingsPercent}%</span>
           </div>
         </div>
       </div>
