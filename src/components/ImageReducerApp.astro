@@ -23,32 +23,34 @@ const {
 <section id="identify" class="relative min-h-[calc(100vh-4rem)] flex flex-col justify-center py-6 sm:py-8 border-b border-[var(--color-hairline)] bg-[var(--color-canvas)] transition-colors">
   <div class="max-w-3xl mx-auto px-4 sm:px-6 w-full text-center">
 
-    <!-- Hero Header -->
-    <p class="eyebrow">{eyebrow}</p>
-    <h1 class="mt-2.5 text-display-xl text-[var(--color-ink)] text-balance">
-      {title}
-    </h1>
-    <p class="mx-auto mt-2.5 max-w-xl text-body-md text-[var(--color-body)] text-balance">
-      {subtitle}
-    </p>
+    <!-- Hero Header with Staggered Fade-in -->
+    <div class="animate-fade-in-up">
+      <p class="eyebrow">{eyebrow}</p>
+      <h1 class="mt-2.5 text-display-xl text-[var(--color-ink)] text-balance">
+        {title}
+      </h1>
+      <p class="mx-auto mt-2.5 max-w-xl text-body-md text-[var(--color-body)] text-balance">
+        {subtitle}
+      </p>
+    </div>
 
-    <!-- Main All-in-One Unified Reducer Card -->
-    <div class="mt-6 rounded-2xl border border-[var(--color-hairline-strong)] bg-[var(--color-canvas-elevated)] overflow-hidden transition-all text-center">
+    <!-- Main All-in-One Unified Reducer Card with Smooth Scale-in -->
+    <div class="mt-6 rounded-2xl border border-[var(--color-hairline-strong)] bg-[var(--color-canvas-elevated)] overflow-hidden transition-all duration-300 text-center animate-fade-in-up [animation-delay:120ms]">
       
       <!-- Top Card Header: Mode Selector Tabs + Quick Presets -->
       <div class="flex flex-wrap items-center justify-between gap-2 px-3.5 py-2 bg-[var(--color-canvas-subtle)] border-b border-[var(--color-hairline)]">
         <!-- Mode Tabs -->
         <div class="inline-flex flex-wrap items-center gap-1 p-0.5 bg-[var(--color-canvas)] border border-[var(--color-hairline)] rounded-full text-xs font-medium" id="mode-tabs">
-          <button type="button" data-mode="auto" class={`mode-tab px-3 py-1 rounded-full transition-all ${initialMode === 'auto' && !isPassportMode ? 'active-mode' : ''}`}>
+          <button type="button" data-mode="auto" class={`mode-tab px-3 py-1 rounded-full transition-all duration-200 ${initialMode === 'auto' && !isPassportMode ? 'active-mode' : ''}`}>
             Smart Auto
           </button>
-          <button type="button" data-mode="target" class={`mode-tab px-3 py-1 rounded-full transition-all ${initialMode === 'target' ? 'active-mode' : ''}`}>
+          <button type="button" data-mode="target" class={`mode-tab px-3 py-1 rounded-full transition-all duration-200 ${initialMode === 'target' ? 'active-mode' : ''}`}>
             Target Size (KB)
           </button>
-          <button type="button" data-mode="dimensions" class={`mode-tab px-3 py-1 rounded-full transition-all ${initialMode === 'dimensions' || isPassportMode ? 'active-mode' : ''}`}>
+          <button type="button" data-mode="dimensions" class={`mode-tab px-3 py-1 rounded-full transition-all duration-200 ${initialMode === 'dimensions' || isPassportMode ? 'active-mode' : ''}`}>
             Dimensions & DPI
           </button>
-          <button type="button" data-mode="convert" class={`mode-tab px-3 py-1 rounded-full transition-all ${initialMode === 'convert' ? 'active-mode' : ''}`}>
+          <button type="button" data-mode="convert" class={`mode-tab px-3 py-1 rounded-full transition-all duration-200 ${initialMode === 'convert' ? 'active-mode' : ''}`}>
             Convert Format
           </button>
         </div>
@@ -56,7 +58,7 @@ const {
         <!-- Presets -->
         <div class="flex items-center gap-1.5 ml-auto">
           <label class="text-[11px] font-mono text-[var(--color-mute)] uppercase hidden sm:inline">Presets:</label>
-          <select id="quick-preset" class="minimal-input text-xs py-1 px-2.5 bg-[var(--color-canvas)] text-[var(--color-ink)] cursor-pointer">
+          <select id="quick-preset" class="minimal-input text-xs py-1 px-2.5 bg-[var(--color-canvas)] text-[var(--color-ink)] cursor-pointer hover:border-[var(--color-ink)] transition-colors">
             <option value="">Custom Settings</option>
             <option value="web-opt" selected={initialMode === 'auto'}>Web Ready (80% WebP)</option>
             <option value="target-50">Under 50 KB (Avatars & Forms)</option>
@@ -69,12 +71,12 @@ const {
         </div>
       </div>
 
-      <!-- Dropzone Area -->
-      <div id="dropzone" class="p-6 sm:p-9 cursor-pointer hover:bg-[var(--color-canvas-subtle)]/40 transition-colors relative border-b border-dashed border-[var(--color-hairline)]">
+      <!-- Dropzone Area with Micro-Interactions -->
+      <div id="dropzone" class="p-6 sm:p-9 cursor-pointer group hover:bg-[var(--color-canvas-subtle)]/50 transition-all duration-200 relative border-b border-dashed border-[var(--color-hairline)]">
         <input type="file" id="file-input" multiple accept="image/png,image/jpeg,image/webp,image/avif,image/gif,image/bmp,image/svg+xml" class="sr-only" />
         
-        <!-- Upload Tray Arrow Icon -->
-        <svg class="mx-auto size-9 text-[var(--color-mute)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+        <!-- Upload Tray Arrow Icon with gentle hover lift -->
+        <svg class="mx-auto size-9 text-[var(--color-mute)] group-hover:text-[var(--color-ink)] group-hover:-translate-y-1 transition-all duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
           <path d="M12 16V4m0 0L8 8m4-4 4 4" stroke-linecap="round" stroke-linejoin="round"></path>
           <path d="M3 15v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4" stroke-linecap="round"></path>
         </svg>
@@ -91,10 +93,10 @@ const {
 
         <!-- Action Buttons -->
         <div class="mt-4 flex flex-wrap items-center justify-center gap-3">
-          <label for="file-input" class="cursor-pointer rounded-full bg-[var(--color-primary)] px-5 py-2.5 text-xs sm:text-sm font-medium text-[var(--color-on-primary)] transition-opacity hover:opacity-90 shadow-2xs">
+          <label for="file-input" class="cursor-pointer rounded-full bg-[var(--color-primary)] px-5 py-2.5 text-xs sm:text-sm font-medium text-[var(--color-on-primary)] transition-all duration-150 hover:opacity-90 active:scale-95 shadow-2xs">
             Choose an image
           </label>
-          <button type="button" id="try-sample-btn" class="rounded-full border border-[var(--color-hairline)] bg-[var(--color-canvas)] px-5 py-2.5 text-xs sm:text-sm font-medium text-[var(--color-ink)] transition-colors hover:bg-[var(--color-canvas-subtle)] cursor-pointer shadow-2xs">
+          <button type="button" id="try-sample-btn" class="rounded-full border border-[var(--color-hairline)] bg-[var(--color-canvas)] px-5 py-2.5 text-xs sm:text-sm font-medium text-[var(--color-ink)] transition-all duration-150 hover:bg-[var(--color-canvas-subtle)] hover:border-[var(--color-hairline-strong)] active:scale-95 cursor-pointer shadow-2xs">
             Try an example
           </button>
         </div>
@@ -708,7 +710,7 @@ const {
 
     const card = document.createElement('div');
     card.id = `file-card-${item.id}`;
-    card.className = 'p-3.5 sm:p-4 rounded-xl border border-[var(--color-hairline)] bg-[var(--color-canvas-elevated)] flex flex-wrap items-center justify-between gap-4 transition-all';
+    card.className = 'card-enter p-3.5 sm:p-4 rounded-xl border border-[var(--color-hairline)] bg-[var(--color-canvas-elevated)] flex flex-wrap items-center justify-between gap-4 transition-all duration-200 hover:border-[var(--color-hairline-strong)] hover:shadow-xs';
 
     card.innerHTML = `
       <div class="flex items-center gap-3 min-w-0">

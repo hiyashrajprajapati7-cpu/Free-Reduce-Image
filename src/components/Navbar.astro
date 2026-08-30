@@ -39,16 +39,16 @@
 
     <!-- Right Controls: Theme switch + Primary CTA -->
     <div class="flex items-center gap-2 sm:gap-3">
-      <!-- Dark / Light Mode Switcher -->
+      <!-- Dark / Light Mode Switcher with Smooth Rotation on Click -->
       <button 
         type="button" 
         id="theme-toggle" 
-        class="w-8 h-8 rounded-full border border-[var(--color-hairline)] bg-[var(--color-canvas)] text-[var(--color-body)] hover:text-[var(--color-ink)] hover:bg-[var(--color-canvas-subtle)] flex items-center justify-center transition-colors cursor-pointer"
+        class="w-8 h-8 rounded-full border border-[var(--color-hairline)] bg-[var(--color-canvas)] text-[var(--color-body)] hover:text-[var(--color-ink)] hover:bg-[var(--color-canvas-subtle)] flex items-center justify-center transition-all duration-200 active:scale-90 cursor-pointer"
         aria-label="Switch color theme"
         title="Toggle Theme"
       >
         <!-- Sun Icon (visible in Dark mode) -->
-        <svg class="w-4 h-4 hidden dark:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <svg class="w-4 h-4 hidden dark:block transition-transform duration-300 group-hover:rotate-45" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="4"></circle>
           <path d="M12 2v2"></path>
           <path d="M12 20v2"></path>
@@ -60,13 +60,13 @@
           <path d="m19.07 4.93-1.41 1.41"></path>
         </svg>
         <!-- Moon Icon (visible in Light mode) -->
-        <svg class="w-4 h-4 block dark:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <svg class="w-4 h-4 block dark:hidden transition-transform duration-300 group-hover:-rotate-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
           <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"></path>
         </svg>
       </button>
 
       <!-- Primary Action Button (White pill on dark) -->
-      <a href="#identify" class="rounded-full bg-[var(--color-primary)] text-[var(--color-on-primary)] px-3.5 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium transition-opacity hover:opacity-90">
+      <a href="#identify" class="rounded-full bg-[var(--color-primary)] text-[var(--color-on-primary)] px-3.5 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium transition-all duration-150 hover:opacity-90 active:scale-95 shadow-2xs">
         Reduce an image
       </a>
     </div>
