@@ -76,27 +76,27 @@ const {
         </div>
       </div>
 
-      <!-- Dashed Dropzone Area matching fontfinderai.com -->
-      <div id="dropzone" class="relative rounded-xl border border-dashed border-[var(--color-hairline-strong)] bg-[var(--color-canvas-subtle)] p-8 sm:p-12 text-center transition-colors cursor-pointer group hover:bg-[var(--color-canvas-subtle)]/80">
+      <!-- Dashed Dropzone Area (Clean & Minimalist matching fontfinderai.com) -->
+      <div id="dropzone" class="relative rounded-2xl border border-dashed border-[var(--color-hairline-strong)] bg-[var(--color-canvas-elevated)] p-8 sm:p-12 text-center transition-all duration-200 cursor-pointer group hover:bg-[var(--color-canvas-subtle)]/60">
         <input type="file" id="file-input" multiple accept="image/png,image/jpeg,image/webp,image/avif,image/gif,image/bmp,image/svg+xml" class="sr-only" />
         
         <!-- Upload Tray Arrow Icon with gentle hover lift -->
-        <svg class="mx-auto size-10 text-[var(--color-mute)] group-hover:text-[var(--color-ink)] group-hover:-translate-y-1 transition-all duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+        <svg class="mx-auto size-10 text-[var(--color-mute)] group-hover:text-[var(--color-ink)] group-hover:-translate-y-1 transition-all duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
           <path d="M12 16V4m0 0L8 8m4-4 4 4" stroke-linecap="round" stroke-linejoin="round"></path>
           <path d="M3 15v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4" stroke-linecap="round"></path>
         </svg>
 
         <!-- Headline -->
-        <h2 class="mt-4 text-display-sm text-[var(--color-ink)] font-semibold">
+        <h2 class="mt-4 text-xl sm:text-2xl font-semibold tracking-tight text-[var(--color-ink)]">
           Drop an image to reduce the size
         </h2>
 
-        <!-- Subtitle -->
-        <p class="mx-auto mt-2 max-w-md text-body-sm text-[var(--color-body)]">
-          PNG, JPG, WebP, AVIF or GIF. Paste with <kbd class="font-mono text-[10px] px-1.5 py-0.5 rounded border border-[var(--color-hairline)] bg-[var(--color-canvas)] text-[var(--color-ink)]">⌘V</kbd> / <kbd class="font-mono text-[10px] px-1.5 py-0.5 rounded border border-[var(--color-hairline)] bg-[var(--color-canvas)] text-[var(--color-ink)]">Ctrl+V</kbd>, or drag anywhere.
+        <!-- Subtitle (Clean plain text without noisy badges) -->
+        <p class="mx-auto mt-2 max-w-md text-xs sm:text-sm text-[var(--color-body)] leading-relaxed">
+          PNG, JPG, WebP, AVIF or GIF. Paste with ⌘V, or drag a file anywhere on this page.
         </p>
 
-        <!-- Action Buttons (Exact fontfinderai pill sizing) -->
+        <!-- Action Buttons -->
         <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
           <label for="file-input" class="cursor-pointer rounded-full bg-[var(--color-primary)] px-6 py-3 text-sm font-semibold text-[var(--color-on-primary)] transition-all duration-150 hover:opacity-90 active:scale-95 shadow-2xs inline-flex items-center justify-center">
             Choose an image
@@ -107,7 +107,7 @@ const {
         </div>
 
         <!-- Trust Caption -->
-        <p class="mt-4 text-caption text-[var(--color-mute)]">
+        <p class="mt-5 text-xs text-[var(--color-mute)]">
           Free and unlimited. No account. Your image is never stored.
         </p>
       </div>
