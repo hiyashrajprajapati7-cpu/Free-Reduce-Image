@@ -42,28 +42,28 @@ const {
     <!-- Reducer Workspace Container -->
     <div class="mx-auto mt-10 max-w-3xl animate-fade-in-up [animation-delay:120ms]">
       
-      <!-- Top Mode Selector Tabs + Quick Presets Bar -->
-      <div class="flex flex-wrap items-center justify-between gap-2 mb-3 px-1">
+      <!-- Top Mode Selector Tabs + Quick Presets Bar (Single unified row) -->
+      <div class="flex items-center justify-between gap-3 mb-3 w-full overflow-x-auto pb-1 pt-0.5" style="scrollbar-width: none;">
         <!-- Mode Tabs -->
-        <div class="inline-flex flex-wrap items-center gap-1 p-1 bg-[var(--color-canvas-subtle)] border border-[var(--color-hairline)] rounded-full text-xs font-medium" id="mode-tabs">
-          <button type="button" data-mode="auto" class={`mode-tab px-3.5 py-1.5 rounded-full transition-all duration-200 ${initialMode === 'auto' && !isPassportMode ? 'active-mode' : ''}`}>
+        <div class="inline-flex items-center gap-1 p-1 bg-[var(--color-canvas-subtle)] border border-[var(--color-hairline)] rounded-full text-xs font-medium shrink-0" id="mode-tabs">
+          <button type="button" data-mode="auto" class={`mode-tab px-3 py-1 rounded-full whitespace-nowrap transition-all duration-200 ${initialMode === 'auto' && !isPassportMode ? 'active-mode' : ''}`}>
             Smart Auto
           </button>
-          <button type="button" data-mode="target" class={`mode-tab px-3.5 py-1.5 rounded-full transition-all duration-200 ${initialMode === 'target' ? 'active-mode' : ''}`}>
+          <button type="button" data-mode="target" class={`mode-tab px-3 py-1 rounded-full whitespace-nowrap transition-all duration-200 ${initialMode === 'target' ? 'active-mode' : ''}`}>
             Target Size (KB)
           </button>
-          <button type="button" data-mode="dimensions" class={`mode-tab px-3.5 py-1.5 rounded-full transition-all duration-200 ${initialMode === 'dimensions' || isPassportMode ? 'active-mode' : ''}`}>
+          <button type="button" data-mode="dimensions" class={`mode-tab px-3 py-1 rounded-full whitespace-nowrap transition-all duration-200 ${initialMode === 'dimensions' || isPassportMode ? 'active-mode' : ''}`}>
             Dimensions & DPI
           </button>
-          <button type="button" data-mode="convert" class={`mode-tab px-3.5 py-1.5 rounded-full transition-all duration-200 ${initialMode === 'convert' ? 'active-mode' : ''}`}>
+          <button type="button" data-mode="convert" class={`mode-tab px-3 py-1 rounded-full whitespace-nowrap transition-all duration-200 ${initialMode === 'convert' ? 'active-mode' : ''}`}>
             Convert Format
           </button>
         </div>
 
         <!-- Presets -->
-        <div class="flex items-center gap-1.5 ml-auto">
-          <label class="text-[11px] font-mono text-[var(--color-mute)] uppercase hidden sm:inline">Presets:</label>
-          <select id="quick-preset" class="minimal-input text-xs py-1 px-2.5 bg-[var(--color-canvas)] text-[var(--color-ink)] cursor-pointer hover:border-[var(--color-ink)] transition-colors">
+        <div class="flex items-center gap-1.5 shrink-0 ml-auto">
+          <label class="text-[11px] font-mono text-[var(--color-mute)] uppercase whitespace-nowrap hidden sm:inline">Presets:</label>
+          <select id="quick-preset" class="minimal-input text-xs py-1 px-2.5 bg-[var(--color-canvas)] text-[var(--color-ink)] cursor-pointer hover:border-[var(--color-ink)] transition-colors rounded-full">
             <option value="">Custom Settings</option>
             <option value="web-opt" selected={initialMode === 'auto'}>Web Ready (80% WebP)</option>
             <option value="target-50">Under 50 KB (Avatars & Forms)</option>
