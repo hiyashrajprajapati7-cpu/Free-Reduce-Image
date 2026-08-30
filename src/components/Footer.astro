@@ -8,8 +8,17 @@ const year = new Date().getFullYear();
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-12">
       <!-- Brand column -->
       <div class="sm:col-span-2 md:col-span-1">
-        <a href="/" class="inline-block mb-3 group text-[var(--color-ink)] font-bold tracking-tight text-base sm:text-lg hover:opacity-90 transition-opacity">
-          Free Reduce Image
+        <a href="/" class="flex items-center gap-2.5 mb-3 group">
+          <div class="w-7 h-7 rounded-lg bg-[var(--color-ink)] text-[var(--color-canvas)] flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"></path>
+              <path d="M12 12v9"></path>
+              <path d="m8 17 4 4 4-4"></path>
+            </svg>
+          </div>
+          <span class="text-[var(--color-ink)] font-bold tracking-tight text-base sm:text-lg">
+            Free Reduce Image
+          </span>
         </a>
         <p class="text-body-sm text-[var(--color-mute)] leading-relaxed mb-4">
           A free in-browser image reducer that compresses photos, enforces target KB caps, and converts formats locally.
