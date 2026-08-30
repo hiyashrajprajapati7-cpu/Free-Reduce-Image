@@ -10,10 +10,10 @@ interface Props {
 }
 
 const {
-  title = "Free Reduce Image — Batch Image Size Reducer & Optimizer",
-  description = "Upload one image or hundreds at once and reduce file size quickly and easily. 100% private, client-side image optimization preserving original visual quality.",
+  title = "Free Reduce Image — Free AI Image Reducer & Compressor",
+  description = "Free image reducer by image. Upload, paste or drop photos and reduce file size in seconds — with exact target KB caps, DPI control, and zero quality loss.",
   canonical = "https://freereduceimage.com/",
-  keywords = "reduce image size, image compressor, batch image resizer, convert to webp, reduce image to 100kb, compress photos, free online image reducer, privacy image optimizer",
+  keywords = "free reduce image, image compressor, font finder ai, reduce image size, batch image resizer, convert to webp, reduce image to 100kb, compress photos, privacy image optimizer",
   schema
 } = Astro.props;
 
@@ -22,23 +22,24 @@ const defaultSchema = {
   "@type": "WebApplication",
   "name": "Free Reduce Image",
   "url": "https://freereduceimage.com",
-  "description": "Upload one image or hundreds at once and reduce their file size quickly and easily. Free Reduce Image intelligently optimizes your images to make them smaller while preserving their original visual quality.",
-  "applicationCategory": "MultimediaApplication",
+  "description": "Upload an image and reduce file size — with exact target KB caps, DPI control, and zero quality loss. 100% private in-browser tool.",
+  "applicationCategory": "DesignApplication",
   "operatingSystem": "All",
   "offers": {
     "@type": "Offer",
     "price": "0",
     "priceCurrency": "USD"
   },
+  "isAccessibleForFree": true,
   "featureList": [
-    "100% Private Client-Side Processing",
-    "Target File Size Reduction (KB/MB)",
-    "Batch Image Compression (100+ files)",
-    "Dimension & DPI Resizing",
-    "WebP, AVIF, JPEG, PNG Converter",
-    "Interactive Before/After Quality Slider",
-    "EXIF & GPS Metadata Stripper",
-    "One-click ZIP archive download"
+    "Image reducer by image — upload, drag or paste a screenshot",
+    "100% Private Client-Side In-Browser Processing",
+    "Target File Size Reduction (<50KB, <100KB, <200KB, <1MB)",
+    "Batch Multi-File Compression (100+ files) with 1-Click ZIP",
+    "Dimension & DPI Resizing (72, 150, 300, 600 DPI)",
+    "WebP, AVIF, JPEG, PNG, GIF Converter",
+    "Interactive Split Comparison Slider",
+    "EXIF & GPS Metadata Stripper"
   ]
 };
 
@@ -68,7 +69,7 @@ const jsonLd = schema || defaultSchema;
     <meta name="twitter:description" content={description} />
 
     <!-- Favicon & Icons -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230070f3'><path d='M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z'/></svg>" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'><rect width='24' height='24' rx='6' fill='%23000000'/><path d='M7 17l5-5 5 5M7 11l5-5 5 5' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>" />
 
     <!-- Google Fonts: Geist & Geist Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

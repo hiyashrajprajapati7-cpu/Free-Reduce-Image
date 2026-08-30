@@ -1,5 +1,8 @@
 ---
 interface Props {
+  eyebrow?: string;
+  title?: string;
+  subtitle?: string;
   initialMode?: 'auto' | 'target' | 'dimensions' | 'convert';
   defaultFormat?: string;
   defaultTargetKb?: number;
@@ -7,6 +10,9 @@ interface Props {
 }
 
 const {
+  eyebrow = "FREE AI IMAGE REDUCER",
+  title = "Image reducer: what size do you need?",
+  subtitle = "Upload an image and shrink it in seconds — with exact target KB caps, DPI control, and zero quality loss.",
   initialMode = 'auto',
   defaultFormat = 'auto',
   defaultTargetKb = 100,
@@ -14,86 +20,99 @@ const {
 } = Astro.props;
 ---
 
-<section id="app" class="py-8 md:py-12 bg-[var(--color-canvas)] transition-colors">
-  <div class="max-w-5xl mx-auto px-4 sm:px-6">
-    
-    <!-- Main Reducer Box -->
-    <div class="hairline-card-floating p-4 sm:p-6 md:p-8 bg-[var(--color-canvas-elevated)] border border-[var(--color-hairline)]">
+<section id="identify" class="relative min-h-[calc(100vh-4rem)] flex flex-col justify-center py-6 sm:py-8 border-b border-[var(--color-hairline)] bg-[var(--color-canvas)] transition-colors">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 w-full text-center">
+
+    <!-- Hero Header -->
+    <p class="eyebrow">{eyebrow}</p>
+    <h1 class="mt-2.5 text-display-xl text-[var(--color-ink)] text-balance">
+      {title}
+    </h1>
+    <p class="mx-auto mt-2.5 max-w-xl text-body-md text-[var(--color-body)] text-balance">
+      {subtitle}
+    </p>
+
+    <!-- Main All-in-One Unified Reducer Card -->
+    <div class="mt-6 rounded-2xl border border-[var(--color-hairline-strong)] bg-[var(--color-canvas-elevated)] overflow-hidden transition-all text-center">
       
-      <!-- Mode Selection Tabs -->
-      <div class="flex flex-wrap items-center justify-between gap-3 pb-6 border-b border-[var(--color-hairline)]">
-        <div class="flex flex-wrap items-center gap-1.5 p-1 bg-[var(--color-canvas-subtle)] border border-[var(--color-hairline)] rounded-xl text-xs sm:text-sm font-medium" id="mode-tabs">
-          <button type="button" data-mode="auto" class={`mode-tab px-3 sm:px-4 py-1.5 rounded-lg ${initialMode === 'auto' && !isPassportMode ? 'active-mode' : ''}`}>
-            ⚡ Smart Auto
+      <!-- Top Card Header: Mode Selector Tabs + Quick Presets -->
+      <div class="flex flex-wrap items-center justify-between gap-2 px-3.5 py-2 bg-[var(--color-canvas-subtle)] border-b border-[var(--color-hairline)]">
+        <!-- Mode Tabs -->
+        <div class="inline-flex flex-wrap items-center gap-1 p-0.5 bg-[var(--color-canvas)] border border-[var(--color-hairline)] rounded-full text-xs font-medium" id="mode-tabs">
+          <button type="button" data-mode="auto" class={`mode-tab px-3 py-1 rounded-full transition-all ${initialMode === 'auto' && !isPassportMode ? 'active-mode' : ''}`}>
+            Smart Auto
           </button>
-          <button type="button" data-mode="target" class={`mode-tab px-3 sm:px-4 py-1.5 rounded-lg ${initialMode === 'target' ? 'active-mode' : ''}`}>
-            🎯 Target Size (KB)
+          <button type="button" data-mode="target" class={`mode-tab px-3 py-1 rounded-full transition-all ${initialMode === 'target' ? 'active-mode' : ''}`}>
+            Target Size (KB)
           </button>
-          <button type="button" data-mode="dimensions" class={`mode-tab px-3 sm:px-4 py-1.5 rounded-lg ${initialMode === 'dimensions' || isPassportMode ? 'active-mode' : ''}`}>
-            📐 Dimensions & DPI
+          <button type="button" data-mode="dimensions" class={`mode-tab px-3 py-1 rounded-full transition-all ${initialMode === 'dimensions' || isPassportMode ? 'active-mode' : ''}`}>
+            Dimensions & DPI
           </button>
-          <button type="button" data-mode="convert" class={`mode-tab px-3 sm:px-4 py-1.5 rounded-lg ${initialMode === 'convert' ? 'active-mode' : ''}`}>
-            🔄 Convert Format
+          <button type="button" data-mode="convert" class={`mode-tab px-3 py-1 rounded-full transition-all ${initialMode === 'convert' ? 'active-mode' : ''}`}>
+            Convert Format
           </button>
         </div>
 
-        <!-- Quick Presets Dropdown -->
-        <div class="flex items-center gap-2">
-          <label class="text-xs font-mono text-[var(--color-mute)] uppercase hidden sm:inline">Presets:</label>
-          <select id="quick-preset" class="geist-input text-xs py-1 px-2 font-medium bg-[var(--color-canvas-elevated)] text-[var(--color-ink)] border-[var(--color-hairline)]">
-            <option value="">Choose a preset...</option>
-            <option value="web-opt" selected={initialMode === 'auto'}>Web Optimization (80% WebP)</option>
-            <option value="target-50">Under 50 KB (Forms & Avatars)</option>
+        <!-- Presets -->
+        <div class="flex items-center gap-1.5 ml-auto">
+          <label class="text-[11px] font-mono text-[var(--color-mute)] uppercase hidden sm:inline">Presets:</label>
+          <select id="quick-preset" class="minimal-input text-xs py-1 px-2.5 bg-[var(--color-canvas)] text-[var(--color-ink)] cursor-pointer">
+            <option value="">Custom Settings</option>
+            <option value="web-opt" selected={initialMode === 'auto'}>Web Ready (80% WebP)</option>
+            <option value="target-50">Under 50 KB (Avatars & Forms)</option>
             <option value="target-100" selected={initialMode === 'target'}>Under 100 KB (Govt & Visa)</option>
-            <option value="target-200">Under 200 KB (Job Applications)</option>
-            <option value="target-1mb">Under 1 MB (Email Friendly)</option>
+            <option value="target-200">Under 200 KB (Job Portals)</option>
+            <option value="target-1mb">Under 1 MB (Email Safe)</option>
             <option value="passport" selected={isPassportMode}>Passport Photo (2x2" @ 300 DPI)</option>
-            <option value="instagram">Instagram Post (1080x1080)</option>
-            <option value="youtube">YouTube Thumbnail (1280x720)</option>
+            <option value="instagram">Square Post (1080×1080)</option>
           </select>
         </div>
       </div>
 
       <!-- Dropzone Area -->
-      <div id="dropzone" class="mt-6 border-2 border-dashed border-[var(--color-hairline)] hover:border-[var(--color-ink)] rounded-2xl p-8 sm:p-12 text-center transition-all cursor-pointer bg-[var(--color-canvas-subtle)] hover:bg-[var(--color-canvas-elevated)] group relative">
-        <input type="file" id="file-input" multiple accept="image/png,image/jpeg,image/webp,image/avif,image/gif,image/bmp,image/svg+xml" class="hidden" />
+      <div id="dropzone" class="p-6 sm:p-9 cursor-pointer hover:bg-[var(--color-canvas-subtle)]/40 transition-colors relative border-b border-dashed border-[var(--color-hairline)]">
+        <input type="file" id="file-input" multiple accept="image/png,image/jpeg,image/webp,image/avif,image/gif,image/bmp,image/svg+xml" class="sr-only" />
         
-        <div class="flex flex-col items-center justify-center pointer-events-none">
-          <div class="w-14 h-14 rounded-2xl bg-[var(--color-canvas-elevated)] border border-[var(--color-hairline)] shadow-xs flex items-center justify-center mb-4 group-hover:scale-110 group-hover:border-[var(--color-ink)] transition-all text-[var(--color-ink)]">
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-              <polyline points="17 8 12 3 7 8"></polyline>
-              <line x1="12" y1="3" x2="12" y2="15"></line>
-            </svg>
-          </div>
+        <!-- Upload Tray Arrow Icon -->
+        <svg class="mx-auto size-9 text-[var(--color-mute)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M12 16V4m0 0L8 8m4-4 4 4" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M3 15v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4" stroke-linecap="round"></path>
+        </svg>
 
-          <h3 class="text-base sm:text-lg font-semibold text-[var(--color-ink)] mb-1">
-            Drop your images here, or <span class="text-[var(--color-link)] underline decoration-1 underline-offset-2">browse</span>
-          </h3>
-          <p class="text-xs sm:text-sm text-[var(--color-mute)] max-w-md mx-auto mb-4">
-            Upload single or 100+ images at once. Supports PNG, JPG, WebP, AVIF, GIF, BMP. You can also paste (<kbd class="px-1.5 py-0.5 rounded bg-[var(--color-hairline)] font-mono text-[11px] text-[var(--color-ink)]">Ctrl+V</kbd>).
-          </p>
+        <!-- Headline -->
+        <h2 class="mt-3 text-lg sm:text-xl font-semibold tracking-tight text-[var(--color-ink)]">
+          Drop an image to reduce the size
+        </h2>
 
-          <div class="flex flex-wrap items-center justify-center gap-2">
-            <span class="px-2 py-0.5 rounded-md bg-[var(--color-canvas-elevated)] border border-[var(--color-hairline)] text-[10px] font-mono text-[var(--color-mute)]">PNG</span>
-            <span class="px-2 py-0.5 rounded-md bg-[var(--color-canvas-elevated)] border border-[var(--color-hairline)] text-[10px] font-mono text-[var(--color-mute)]">JPG / JPEG</span>
-            <span class="px-2 py-0.5 rounded-md bg-[var(--color-canvas-elevated)] border border-[var(--color-hairline)] text-[10px] font-mono text-[var(--color-mute)]">WEBP</span>
-            <span class="px-2 py-0.5 rounded-md bg-[var(--color-canvas-elevated)] border border-[var(--color-hairline)] text-[10px] font-mono text-[var(--color-mute)]">AVIF</span>
-            <span class="px-2 py-0.5 rounded-md bg-[var(--color-canvas-elevated)] border border-[var(--color-hairline)] text-[10px] font-mono text-[var(--color-mute)]">GIF</span>
-          </div>
+        <!-- Subtitle -->
+        <p class="mx-auto mt-1 max-w-md text-xs text-[var(--color-body)]">
+          PNG, JPG, WebP, AVIF or GIF. Paste with <kbd class="font-mono text-[10px] px-1.5 py-0.5 rounded border border-[var(--color-hairline)] bg-[var(--color-canvas-subtle)] text-[var(--color-ink)]">⌘V</kbd> / <kbd class="font-mono text-[10px] px-1.5 py-0.5 rounded border border-[var(--color-hairline)] bg-[var(--color-canvas-subtle)] text-[var(--color-ink)]">Ctrl+V</kbd>, or drag anywhere.
+        </p>
+
+        <!-- Action Buttons -->
+        <div class="mt-4 flex flex-wrap items-center justify-center gap-3">
+          <label for="file-input" class="cursor-pointer rounded-full bg-[var(--color-primary)] px-5 py-2.5 text-xs sm:text-sm font-medium text-[var(--color-on-primary)] transition-opacity hover:opacity-90 shadow-2xs">
+            Choose an image
+          </label>
+          <button type="button" id="try-sample-btn" class="rounded-full border border-[var(--color-hairline)] bg-[var(--color-canvas)] px-5 py-2.5 text-xs sm:text-sm font-medium text-[var(--color-ink)] transition-colors hover:bg-[var(--color-canvas-subtle)] cursor-pointer shadow-2xs">
+            Try an example
+          </button>
         </div>
+
+        <!-- Trust Caption -->
+        <p class="mt-3 text-[11px] text-[var(--color-mute)]">
+          Free and unlimited. No account. Your image is never stored.
+        </p>
       </div>
 
-      <!-- Settings Panel (Collapsible / Dynamic per mode) -->
-      <div id="settings-panel" class="mt-6 p-4 sm:p-5 bg-[var(--color-canvas-subtle)] border border-[var(--color-hairline)] rounded-xl text-sm">
-        
-        <!-- Controls Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 items-end">
+      <!-- Docked Parameters Bar (Always accessible, zero clutter) -->
+      <div id="settings-panel" class="px-4 py-3 bg-[var(--color-canvas-subtle)] text-xs text-left">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 items-end">
           
-          <!-- Format Output -->
+          <!-- Output Format -->
           <div>
-            <label class="block text-xs font-mono uppercase text-[var(--color-mute)] mb-1.5">Output Format</label>
-            <select id="format-select" class="w-full geist-input">
+            <label class="block text-[10px] font-mono uppercase text-[var(--color-mute)] mb-1">Output Format</label>
+            <select id="format-select" class="w-full minimal-input bg-[var(--color-canvas)] text-xs py-1.5">
               <option value="auto" selected={defaultFormat === 'auto'}>Auto (Keep Original)</option>
               <option value="image/webp" selected={defaultFormat === 'webp'}>WebP (Recommended)</option>
               <option value="image/jpeg" selected={defaultFormat === 'jpeg'}>JPEG / JPG</option>
@@ -102,140 +121,140 @@ const {
             </select>
           </div>
 
-          <!-- Quality Slider (Visible in Auto/Dimensions/Convert) -->
-          <div id="quality-control" class="transition-all">
-            <div class="flex justify-between items-center mb-1.5">
-              <label class="text-xs font-mono uppercase text-[var(--color-mute)]">Quality</label>
-              <span id="quality-val" class="text-xs font-mono font-semibold text-[var(--color-ink)]">82%</span>
+          <!-- Quality Slider -->
+          <div id="quality-control">
+            <div class="flex justify-between items-center mb-1">
+              <label class="text-[10px] font-mono uppercase text-[var(--color-mute)]">Quality</label>
+              <span id="quality-val" class="text-[11px] font-mono font-semibold text-[var(--color-ink)]">82%</span>
             </div>
-            <input type="range" id="quality-slider" min="5" max="100" value="82" class="w-full accent-[var(--color-link)] cursor-pointer" />
+            <input type="range" id="quality-slider" min="5" max="100" value="82" class="w-full accent-[var(--color-ink)] cursor-pointer h-4" />
           </div>
 
-          <!-- Target File Size Input (Only in Target mode or toggled) -->
-          <div id="target-size-control" class={`${initialMode === 'target' ? 'block' : 'hidden'} transition-all`}>
-            <label class="block text-xs font-mono uppercase text-[var(--color-mute)] mb-1.5">Max Target Size</label>
-            <div class="flex items-center gap-1.5">
-              <input type="number" id="target-kb-input" min="5" max="50000" value={defaultTargetKb} class="w-full geist-input font-mono" />
-              <select id="target-unit" class="geist-input text-xs font-mono py-2 px-2">
+          <!-- Target File Size Control -->
+          <div id="target-size-control" class={`${initialMode === 'target' ? 'block' : 'hidden'}`}>
+            <label class="block text-[10px] font-mono uppercase text-[var(--color-mute)] mb-1">Max Target Size</label>
+            <div class="flex items-center gap-1">
+              <input type="number" id="target-kb-input" min="5" max="50000" value={defaultTargetKb} class="w-full minimal-input font-mono bg-[var(--color-canvas)] text-xs py-1.5" />
+              <select id="target-unit" class="minimal-input text-xs font-mono py-1.5 px-1.5 bg-[var(--color-canvas)]">
                 <option value="KB">KB</option>
                 <option value="MB">MB</option>
               </select>
             </div>
           </div>
 
-          <!-- Dimensions Controls (Visible in Dimensions mode) -->
-          <div id="dimension-scale-control" class={`${initialMode === 'dimensions' || isPassportMode ? 'block' : 'hidden'} transition-all sm:col-span-2 md:col-span-2`}>
+          <!-- Dimension Controls -->
+          <div id="dimension-scale-control" class={`${initialMode === 'dimensions' || isPassportMode ? 'block' : 'hidden'} sm:col-span-2 md:col-span-2`}>
             <div class="grid grid-cols-3 gap-2">
               <div>
-                <label class="block text-xs font-mono uppercase text-[var(--color-mute)] mb-1.5">Scale (%)</label>
-                <input type="number" id="scale-percent-input" min="10" max="200" value="100" class="w-full geist-input font-mono" />
+                <label class="block text-[10px] font-mono uppercase text-[var(--color-mute)] mb-1">Scale (%)</label>
+                <input type="number" id="scale-percent-input" min="10" max="200" value="100" class="w-full minimal-input font-mono bg-[var(--color-canvas)] text-xs py-1.5" />
               </div>
               <div>
-                <label class="block text-xs font-mono uppercase text-[var(--color-mute)] mb-1.5">DPI Resolution</label>
-                <select id="dpi-select" class="w-full geist-input font-mono text-xs">
-                  <option value="72">72 DPI (Web)</option>
-                  <option value="150">150 DPI (Screen)</option>
-                  <option value="300" selected={isPassportMode}>300 DPI (Print)</option>
-                  <option value="600">600 DPI (Archival)</option>
+                <label class="block text-[10px] font-mono uppercase text-[var(--color-mute)] mb-1">DPI</label>
+                <select id="dpi-select" class="w-full minimal-input font-mono text-xs bg-[var(--color-canvas)] py-1.5">
+                  <option value="72">72 (Web)</option>
+                  <option value="150">150 (Screen)</option>
+                  <option value="300" selected={isPassportMode}>300 (Print)</option>
+                  <option value="600">600 (Hi-Res)</option>
                 </select>
               </div>
               <div>
-                <label class="block text-xs font-mono uppercase text-[var(--color-mute)] mb-1.5">Fit Mode</label>
-                <select id="fit-mode-select" class="w-full geist-input text-xs">
-                  <option value="contain">Fit / Contain</option>
-                  <option value="cover">Crop / Fill</option>
+                <label class="block text-[10px] font-mono uppercase text-[var(--color-mute)] mb-1">Fit</label>
+                <select id="fit-mode-select" class="w-full minimal-input text-xs bg-[var(--color-canvas)] py-1.5">
+                  <option value="contain">Contain</option>
+                  <option value="cover">Crop</option>
                   <option value="stretch">Stretch</option>
                 </select>
               </div>
             </div>
           </div>
 
-          <!-- Privacy EXIF Toggle -->
-          <div class="flex items-center justify-between sm:justify-start gap-3 h-10">
-            <label class="relative inline-flex items-center cursor-pointer">
-              <input type="checkbox" id="strip-exif" checked class="sr-only peer" />
-              <div class="w-9 h-5 bg-[var(--color-hairline)] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[var(--color-hairline)] after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[var(--color-ink)]"></div>
-              <span class="ml-2 text-xs font-medium text-[var(--color-body)]">Strip EXIF & GPS</span>
+          <!-- Metadata Stripper Toggle -->
+          <div class="flex items-center h-8">
+            <label class="flex items-center gap-1.5 text-xs font-medium text-[var(--color-body)] cursor-pointer select-none">
+              <input type="checkbox" id="strip-exif" checked class="size-3.5 accent-[var(--color-ink)]" />
+              <span>Strip EXIF / GPS</span>
             </label>
           </div>
 
         </div>
       </div>
 
-      <!-- Batch Queue Section (Initially Hidden when empty) -->
-      <div id="batch-section" class="mt-8 hidden">
-        
-        <!-- Queue Stats Summary Header -->
-        <div class="flex flex-wrap items-center justify-between gap-4 p-4 rounded-xl bg-[var(--color-canvas-subtle)] border border-[var(--color-hairline)] mb-6">
-          <div class="flex flex-wrap items-center gap-4 sm:gap-6 text-xs sm:text-sm">
-            <div>
-              <span class="text-[var(--color-mute)] block font-mono text-[11px] uppercase">Images</span>
-              <span id="stat-count" class="font-semibold text-[var(--color-ink)]">0 files</span>
-            </div>
-            <div class="w-px h-8 bg-[var(--color-hairline)]"></div>
-            <div>
-              <span class="text-[var(--color-mute)] block font-mono text-[11px] uppercase">Original</span>
-              <span id="stat-original-size" class="font-semibold text-[var(--color-ink)]">0 MB</span>
-            </div>
-            <div class="w-px h-8 bg-[var(--color-hairline)]"></div>
-            <div>
-              <span class="text-[var(--color-mute)] block font-mono text-[11px] uppercase">Reduced</span>
-              <span id="stat-reduced-size" class="font-semibold text-[var(--color-link)]">0 MB</span>
-            </div>
-            <div class="w-px h-8 bg-[var(--color-hairline)]"></div>
-            <div>
-              <span class="text-[var(--color-mute)] block font-mono text-[11px] uppercase">Saved</span>
-              <span id="stat-saved-percent" class="font-semibold text-emerald-500 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">0%</span>
-            </div>
-          </div>
+    </div>
 
-          <!-- Batch Action Buttons -->
-          <div class="flex items-center gap-2">
-            <button type="button" id="clear-all-btn" class="px-3 py-1.5 text-xs text-[var(--color-mute)] hover:text-[#ee0000] rounded-md transition-colors cursor-pointer">
-              Clear All
-            </button>
-            <button type="button" id="reprocess-all-btn" class="btn-secondary-pill text-xs py-1.5 px-3 cursor-pointer">
-              🔄 Apply Settings
-            </button>
-            <button type="button" id="download-zip-btn" class="btn-primary-pill text-xs py-1.5 px-4 shadow-sm cursor-pointer">
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                <polyline points="7 10 12 15 17 10"></polyline>
-                <line x1="12" y1="15" x2="12" y2="3"></line>
-              </svg>
-              <span>Download All (ZIP)</span>
-            </button>
+    <!-- Batch Processing Queue Section -->
+    <div id="batch-section" class="mt-6 hidden text-left">
+      
+      <!-- Queue Stats Summary Header -->
+      <div class="flex flex-wrap items-center justify-between gap-4 p-4 rounded-xl border border-[var(--color-hairline)] bg-[var(--color-canvas-elevated)] mb-4">
+        <div class="flex flex-wrap items-center gap-4 sm:gap-6 text-xs">
+          <div>
+            <span class="text-[var(--color-mute)] block font-mono text-[10px] uppercase">Images</span>
+            <span id="stat-count" class="font-semibold text-[var(--color-ink)]">0 files</span>
+          </div>
+          <div class="w-px h-6 bg-[var(--color-hairline)]"></div>
+          <div>
+            <span class="text-[var(--color-mute)] block font-mono text-[10px] uppercase">Original</span>
+            <span id="stat-original-size" class="font-semibold text-[var(--color-ink)]">0 MB</span>
+          </div>
+          <div class="w-px h-6 bg-[var(--color-hairline)]"></div>
+          <div>
+            <span class="text-[var(--color-mute)] block font-mono text-[10px] uppercase">Reduced</span>
+            <span id="stat-reduced-size" class="font-semibold text-[var(--color-ink)]">0 MB</span>
+          </div>
+          <div class="w-px h-6 bg-[var(--color-hairline)]"></div>
+          <div>
+            <span class="text-[var(--color-mute)] block font-mono text-[10px] uppercase">Saved</span>
+            <span id="stat-saved-percent" class="font-semibold text-emerald-500 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">0%</span>
           </div>
         </div>
 
-        <!-- Files List Container -->
-        <div id="file-list" class="space-y-3">
-          <!-- Dynamically inserted file cards -->
+        <!-- Batch Action Buttons -->
+        <div class="flex items-center gap-2">
+          <button type="button" id="clear-all-btn" class="px-3 py-1.5 text-xs text-[var(--color-mute)] hover:text-red-500 rounded-md transition-colors cursor-pointer">
+            Clear
+          </button>
+          <button type="button" id="reprocess-all-btn" class="rounded-full border border-[var(--color-hairline)] bg-[var(--color-canvas)] px-3 py-1.5 text-xs font-medium text-[var(--color-ink)] hover:bg-[var(--color-canvas-subtle)] transition-colors cursor-pointer">
+            Apply
+          </button>
+          <button type="button" id="download-zip-btn" class="rounded-full bg-[var(--color-primary)] text-[var(--color-on-primary)] px-4 py-1.5 text-xs font-medium transition-opacity hover:opacity-90 cursor-pointer flex items-center gap-1.5">
+            <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span>Download All (ZIP)</span>
+          </button>
         </div>
+      </div>
 
+      <!-- File cards list -->
+      <div id="file-list" class="space-y-3">
+        <!-- Dynamically generated items -->
       </div>
 
     </div>
+
   </div>
 </section>
 
-<!-- Interactive Before / After Comparison Modal -->
-<div id="compare-modal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden flex items-center justify-center p-4">
+<!-- Interactive Split Comparison Modal -->
+<div id="compare-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-4">
   <div class="bg-[var(--color-canvas-elevated)] rounded-2xl border border-[var(--color-hairline)] shadow-2xl max-w-4xl w-full overflow-hidden flex flex-col max-h-[90vh]">
     <!-- Header -->
-    <div class="px-6 py-4 border-b border-[var(--color-hairline)] flex items-center justify-between bg-[var(--color-canvas-subtle)]">
+    <div class="px-6 py-4 border-b border-[var(--color-hairline)] flex items-center justify-between bg-[var(--color-canvas)]">
       <div class="flex items-center gap-3">
-        <h3 class="font-semibold text-[var(--color-ink)] text-base">Before vs After Comparison</h3>
+        <h3 class="font-semibold text-[var(--color-ink)] text-sm sm:text-base">Before vs After Comparison</h3>
         <span id="modal-savings-badge" class="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 text-xs font-mono font-medium"></span>
       </div>
-      <button type="button" id="close-modal-btn" class="w-8 h-8 rounded-full hover:bg-[var(--color-hairline)] flex items-center justify-center text-[var(--color-body)] hover:text-[var(--color-ink)] transition-colors cursor-pointer">
+      <button type="button" id="close-modal-btn" class="w-8 h-8 rounded-full hover:bg-[var(--color-canvas-subtle)] flex items-center justify-center text-[var(--color-body)] hover:text-[var(--color-ink)] transition-colors cursor-pointer">
         ✕
       </button>
     </div>
 
     <!-- Comparison Viewport Area -->
     <div class="p-6 flex-1 overflow-auto flex flex-col items-center justify-center bg-[var(--color-canvas-subtle)]">
-      <div class="relative max-w-full max-h-[60vh] select-none rounded-lg overflow-hidden border border-[var(--color-hairline)] shadow-sm" id="split-container">
+      <div class="relative max-w-full max-h-[60vh] select-none rounded-lg overflow-hidden border border-[var(--color-hairline)]" id="split-container">
         <!-- Original (Underneath) -->
         <img id="compare-original-img" src="" alt="Original" class="block max-h-[60vh] max-w-full object-contain pointer-events-none" />
         
@@ -245,15 +264,15 @@ const {
         </div>
 
         <!-- Draggable Divider Line -->
-        <div id="split-divider" class="absolute top-0 bottom-0 w-1 bg-[var(--color-link)] cursor-ew-resize shadow-[0_0_8px_rgba(0,0,0,0.5)] z-10 flex items-center justify-center" style="left: 50%;">
-          <div class="w-7 h-7 rounded-full bg-[var(--color-canvas-elevated)] border border-[var(--color-ink)] shadow-md flex items-center justify-center text-[var(--color-ink)] text-[10px]">
+        <div id="split-divider" class="absolute top-0 bottom-0 w-0.5 bg-white cursor-ew-resize shadow-[0_0_8px_rgba(0,0,0,0.8)] z-10 flex items-center justify-center" style="left: 50%;">
+          <div class="w-7 h-7 rounded-full bg-black text-white border border-zinc-700 shadow-md flex items-center justify-center text-[10px]">
             ⇄
           </div>
         </div>
 
         <!-- Labels -->
-        <span class="absolute top-3 left-3 bg-black/75 text-white text-[11px] font-mono px-2 py-0.5 rounded pointer-events-none z-20">Original</span>
-        <span class="absolute top-3 right-3 bg-[var(--color-link)] text-white text-[11px] font-mono px-2 py-0.5 rounded pointer-events-none z-20">Reduced</span>
+        <span class="absolute top-3 left-3 bg-black/80 text-white text-[11px] font-mono px-2 py-0.5 rounded pointer-events-none z-20">Original</span>
+        <span class="absolute top-3 right-3 bg-white text-black text-[11px] font-mono px-2 py-0.5 rounded pointer-events-none z-20 font-medium">Reduced</span>
       </div>
 
       <!-- Info Row -->
@@ -264,9 +283,9 @@ const {
     </div>
 
     <!-- Modal Footer -->
-    <div class="px-6 py-4 border-t border-[var(--color-hairline)] flex items-center justify-end gap-3 bg-[var(--color-canvas-subtle)]">
-      <button type="button" id="modal-close-action" class="btn-secondary-pill text-xs py-1.5 px-4 cursor-pointer">Close</button>
-      <a id="modal-download-action" href="#" download="" class="btn-primary-pill text-xs py-1.5 px-5 cursor-pointer">Download Reduced Image</a>
+    <div class="px-6 py-4 border-t border-[var(--color-hairline)] flex items-center justify-end gap-3 bg-[var(--color-canvas)]">
+      <button type="button" id="modal-close-action" class="rounded-full border border-[var(--color-hairline)] bg-[var(--color-canvas)] px-4 py-2 text-xs font-medium text-[var(--color-ink)] hover:bg-[var(--color-canvas-subtle)] cursor-pointer">Close</button>
+      <a id="modal-download-action" href="#" download="" class="rounded-full bg-[var(--color-primary)] text-[var(--color-on-primary)] px-5 py-2 text-xs font-medium hover:opacity-90 cursor-pointer">Download Reduced Image</a>
     </div>
   </div>
 </div>
@@ -291,6 +310,7 @@ const {
   // DOM Elements
   const dropzone = document.getElementById('dropzone');
   const fileInput = document.getElementById('file-input');
+  const trySampleBtn = document.getElementById('try-sample-btn');
   const batchSection = document.getElementById('batch-section');
   const fileList = document.getElementById('file-list');
   const modeTabs = document.querySelectorAll('.mode-tab');
@@ -299,29 +319,32 @@ const {
   const formatSelect = document.getElementById('format-select');
   const qualitySlider = document.getElementById('quality-slider');
   const qualityVal = document.getElementById('quality-val');
-  const qualityControl = document.getElementById('quality-control');
-  const targetSizeControl = document.getElementById('target-size-control');
   const targetKbInput = document.getElementById('target-kb-input');
   const targetUnitSelect = document.getElementById('target-unit');
-  const dimensionScaleControl = document.getElementById('dimension-scale-control');
   const scalePercentInput = document.getElementById('scale-percent-input');
   const dpiSelect = document.getElementById('dpi-select');
   const fitModeSelect = document.getElementById('fit-mode-select');
-  const stripExifCheck = document.getElementById('strip-exif');
+  const stripExifCheckbox = document.getElementById('strip-exif');
 
-  const statCount = document.getElementById('stat-count');
-  const statOriginalSize = document.getElementById('stat-original-size');
-  const statReducedSize = document.getElementById('stat-reduced-size');
-  const statSavedPercent = document.getElementById('stat-saved-percent');
+  const qualityControl = document.getElementById('quality-control');
+  const targetSizeControl = document.getElementById('target-size-control');
+  const dimensionScaleControl = document.getElementById('dimension-scale-control');
 
   const clearAllBtn = document.getElementById('clear-all-btn');
   const reprocessAllBtn = document.getElementById('reprocess-all-btn');
   const downloadZipBtn = document.getElementById('download-zip-btn');
 
-  // Modal elements
+  // Stats Elements
+  const statCount = document.getElementById('stat-count');
+  const statOriginalSize = document.getElementById('stat-original-size');
+  const statReducedSize = document.getElementById('stat-reduced-size');
+  const statSavedPercent = document.getElementById('stat-saved-percent');
+
+  // Modal Elements
   const compareModal = document.getElementById('compare-modal');
   const closeModalBtn = document.getElementById('close-modal-btn');
   const modalCloseAction = document.getElementById('modal-close-action');
+  const modalDownloadAction = document.getElementById('modal-download-action');
   const compareOriginalImg = document.getElementById('compare-original-img');
   const compareCompressedImg = document.getElementById('compare-compressed-img');
   const compareCompressedWrapper = document.getElementById('compare-compressed-wrapper');
@@ -330,9 +353,8 @@ const {
   const modalSavingsBadge = document.getElementById('modal-savings-badge');
   const modalOriginalInfo = document.getElementById('modal-original-info');
   const modalReducedInfo = document.getElementById('modal-reduced-info');
-  const modalDownloadAction = document.getElementById('modal-download-action');
 
-  // Format Helper
+  // Helpers
   function formatBytes(bytes) {
     if (bytes === 0) return '0 B';
     const k = 1024;
@@ -341,622 +363,550 @@ const {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   }
 
-  // Setup Event Listeners
-  dropzone.addEventListener('click', () => fileInput.click());
-  fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
-
-  // Drag and Drop
-  ['dragenter', 'dragover'].forEach(eventName => {
-    dropzone.addEventListener(eventName, (e) => {
-      e.preventDefault();
-      dropzone.classList.add('is-dragover');
-    }, false);
-  });
-
-  ['dragleave', 'drop'].forEach(eventName => {
-    dropzone.addEventListener(eventName, (e) => {
-      e.preventDefault();
-      dropzone.classList.remove('is-dragover');
-    }, false);
-  });
-
-  dropzone.addEventListener('drop', (e) => {
-    const dt = e.dataTransfer;
-    if (dt && dt.files) {
-      handleFiles(dt.files);
-    }
-  });
-
-  // Clipboard Paste Support
-  window.addEventListener('paste', (e) => {
-    const items = e.clipboardData?.items;
-    if (!items) return;
-    const pastedFiles = [];
-    for (let i = 0; i < items.length; i++) {
-      if (items[i].type.indexOf('image') !== -1) {
-        pastedFiles.push(items[i].getAsFile());
-      }
-    }
-    if (pastedFiles.length > 0) {
-      handleFiles(pastedFiles);
-    }
-  });
-
-  function setMode(mode) {
-    currentMode = mode;
-    modeTabs.forEach(t => {
-      if (t.dataset.mode === mode) {
-        t.classList.add('active-mode');
-      } else {
-        t.classList.remove('active-mode');
-      }
-    });
-    updateControlsVisibility();
+  function getTargetBytes() {
+    const val = parseFloat(targetKbInput.value) || 100;
+    return targetUnitSelect.value === 'MB' ? val * 1024 * 1024 : val * 1024;
   }
 
-  // Tab switching
+  // Update mode UI display
+  function setMode(mode) {
+    currentMode = mode;
+    modeTabs.forEach(tab => {
+      if (tab.getAttribute('data-mode') === mode) {
+        tab.classList.add('active-mode');
+      } else {
+        tab.classList.remove('active-mode');
+      }
+    });
+
+    if (mode === 'target') {
+      targetSizeControl.classList.remove('hidden');
+      dimensionScaleControl.classList.add('hidden');
+      qualityControl.classList.remove('hidden');
+    } else if (mode === 'dimensions') {
+      targetSizeControl.classList.add('hidden');
+      dimensionScaleControl.classList.remove('hidden');
+      qualityControl.classList.remove('hidden');
+    } else if (mode === 'convert') {
+      targetSizeControl.classList.add('hidden');
+      dimensionScaleControl.classList.add('hidden');
+      qualityControl.classList.remove('hidden');
+    } else {
+      // auto
+      targetSizeControl.classList.add('hidden');
+      dimensionScaleControl.classList.add('hidden');
+      qualityControl.classList.remove('hidden');
+    }
+  }
+
   modeTabs.forEach(tab => {
     tab.addEventListener('click', () => {
-      setMode(tab.dataset.mode);
+      setMode(tab.getAttribute('data-mode'));
       if (filesQueue.length > 0) reprocessAll();
     });
   });
 
-  function updateControlsVisibility() {
-    if (currentMode === 'target') {
-      targetSizeControl.classList.remove('hidden');
-      qualityControl.classList.add('hidden');
-      dimensionScaleControl.classList.add('hidden');
-    } else if (currentMode === 'dimensions') {
-      targetSizeControl.classList.add('hidden');
-      qualityControl.classList.remove('hidden');
-      dimensionScaleControl.classList.remove('hidden');
-    } else if (currentMode === 'convert') {
-      targetSizeControl.classList.add('hidden');
-      qualityControl.classList.remove('hidden');
-      dimensionScaleControl.classList.add('hidden');
-    } else { // auto
-      targetSizeControl.classList.add('hidden');
-      qualityControl.classList.remove('hidden');
-      dimensionScaleControl.classList.add('hidden');
-    }
-  }
-
   // Preset Handler
-  quickPreset.addEventListener('change', (e) => {
+  quickPreset?.addEventListener('change', (e) => {
     const val = e.target.value;
-    if (!val) return;
-
     if (val === 'web-opt') {
       setMode('auto');
       formatSelect.value = 'image/webp';
       qualitySlider.value = '80';
       qualityVal.textContent = '80%';
-      quality = 0.80;
+      quality = 0.8;
     } else if (val === 'target-50') {
       setMode('target');
       targetKbInput.value = '50';
       targetUnitSelect.value = 'KB';
-      targetKb = 50;
-      targetUnit = 'KB';
     } else if (val === 'target-100') {
       setMode('target');
       targetKbInput.value = '100';
       targetUnitSelect.value = 'KB';
-      targetKb = 100;
-      targetUnit = 'KB';
     } else if (val === 'target-200') {
       setMode('target');
       targetKbInput.value = '200';
       targetUnitSelect.value = 'KB';
-      targetKb = 200;
-      targetUnit = 'KB';
     } else if (val === 'target-1mb') {
       setMode('target');
       targetKbInput.value = '1';
       targetUnitSelect.value = 'MB';
-      targetKb = 1;
-      targetUnit = 'MB';
     } else if (val === 'passport') {
       setMode('dimensions');
       scalePercentInput.value = '100';
       dpiSelect.value = '300';
-      fitModeSelect.value = 'cover';
+      fitModeSelect.value = 'contain';
       formatSelect.value = 'image/jpeg';
-      dpi = 300;
     } else if (val === 'instagram') {
       setMode('dimensions');
       scalePercentInput.value = '100';
       fitModeSelect.value = 'cover';
       formatSelect.value = 'image/jpeg';
-    } else if (val === 'youtube') {
-      setMode('dimensions');
-      formatSelect.value = 'image/webp';
       qualitySlider.value = '85';
       qualityVal.textContent = '85%';
-      quality = 0.85;
     }
-
     if (filesQueue.length > 0) reprocessAll();
   });
 
-  // Settings Event Handlers
-  formatSelect.addEventListener('change', (e) => {
+  // Input Listeners
+  qualitySlider?.addEventListener('input', (e) => {
+    quality = parseInt(e.target.value, 10) / 100;
+    qualityVal.textContent = e.target.value + '%';
+  });
+  qualitySlider?.addEventListener('change', () => {
+    if (filesQueue.length > 0) reprocessAll();
+  });
+
+  formatSelect?.addEventListener('change', (e) => {
     currentFormat = e.target.value;
     if (filesQueue.length > 0) reprocessAll();
   });
 
-  qualitySlider.addEventListener('input', (e) => {
-    qualityVal.textContent = `${e.target.value}%`;
-    quality = parseInt(e.target.value, 10) / 100;
-  });
-
-  qualitySlider.addEventListener('change', () => {
+  targetKbInput?.addEventListener('change', () => {
     if (filesQueue.length > 0) reprocessAll();
   });
-
-  targetKbInput.addEventListener('change', (e) => {
-    targetKb = parseFloat(e.target.value) || 100;
+  targetUnitSelect?.addEventListener('change', () => {
     if (filesQueue.length > 0) reprocessAll();
   });
-
-  targetUnitSelect.addEventListener('change', (e) => {
-    targetUnit = e.target.value;
-    if (filesQueue.length > 0) reprocessAll();
-  });
-
-  scalePercentInput.addEventListener('change', (e) => {
+  scalePercentInput?.addEventListener('change', (e) => {
     scalePercent = parseFloat(e.target.value) || 100;
     if (filesQueue.length > 0) reprocessAll();
   });
-
-  dpiSelect.addEventListener('change', (e) => {
+  dpiSelect?.addEventListener('change', (e) => {
     dpi = parseInt(e.target.value, 10) || 72;
     if (filesQueue.length > 0) reprocessAll();
   });
-
-  fitModeSelect.addEventListener('change', (e) => {
+  fitModeSelect?.addEventListener('change', (e) => {
     fitMode = e.target.value;
     if (filesQueue.length > 0) reprocessAll();
   });
-
-  stripExifCheck.addEventListener('change', (e) => {
+  stripExifCheckbox?.addEventListener('change', (e) => {
     stripExif = e.target.checked;
     if (filesQueue.length > 0) reprocessAll();
   });
 
-  clearAllBtn.addEventListener('click', () => {
-    filesQueue.forEach(f => {
-      if (f.originalUrl) URL.revokeObjectURL(f.originalUrl);
-      if (f.reducedUrl) URL.revokeObjectURL(f.reducedUrl);
-    });
-    filesQueue = [];
-    renderQueue();
-  });
+  // Image Processing Core
+  async function processImage(file) {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = async (e) => {
+        const img = new Image();
+        img.onload = async () => {
+          const originalWidth = img.naturalWidth || img.width;
+          const originalHeight = img.naturalHeight || img.height;
 
-  reprocessAllBtn.addEventListener('click', () => {
-    reprocessAll();
-  });
+          // Determine Dimensions based on Scale & DPI
+          let targetWidth = originalWidth;
+          let targetHeight = originalHeight;
 
-  // File Ingestion
-  async function handleFiles(fileListObj) {
-    if (!fileListObj || fileListObj.length === 0) return;
+          if (currentMode === 'dimensions') {
+            const scaleFactor = (parseFloat(scalePercentInput.value) || 100) / 100;
+            targetWidth = Math.round(originalWidth * scaleFactor);
+            targetHeight = Math.round(originalHeight * scaleFactor);
+          }
 
-    const newFiles = Array.from(fileListObj).filter(f => f.type.startsWith('image/'));
-    if (newFiles.length === 0) return;
+          // Offscreen Canvas
+          const canvas = document.createElement('canvas');
+          canvas.width = targetWidth;
+          canvas.height = targetHeight;
+          const ctx = canvas.getContext('2d', { alpha: true, willReadFrequently: true });
 
-    const items = newFiles.map(file => ({
-      id: 'file-' + Math.random().toString(36).substring(2, 9),
-      file: file,
-      originalName: file.name,
-      originalSize: file.size,
-      originalType: file.type,
-      originalUrl: URL.createObjectURL(file),
-      originalWidth: 0,
-      originalHeight: 0,
-      status: 'pending', // pending, processing, done, error
-      reducedBlob: null,
-      reducedUrl: null,
-      reducedSize: 0,
-      reducedWidth: 0,
-      reducedHeight: 0,
-      reducedFormat: ''
-    }));
+          // Render
+          ctx.imageSmoothingEnabled = true;
+          ctx.imageSmoothingQuality = 'high';
+          ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
 
-    filesQueue = [...filesQueue, ...items];
-    renderQueue();
+          // Output MIME Type
+          let outMime = currentFormat === 'auto' ? (file.type || 'image/jpeg') : currentFormat;
+          if (outMime === 'image/svg+xml') outMime = 'image/png'; // rasterize SVGs
 
-    // Process all pending items
-    for (const item of items) {
-      await processImageItem(item);
-    }
-  }
+          let currentQuality = parseInt(qualitySlider.value, 10) / 100;
 
-  // Core Processing Engine
-  async function processImageItem(item) {
-    item.status = 'processing';
-    updateItemStatus(item);
+          // If Target Size Mode: Binary Search
+          if (currentMode === 'target') {
+            const maxBytes = getTargetBytes();
+            let low = 0.05;
+            let high = 1.0;
+            let bestBlob = null;
+            let iterations = 0;
 
-    try {
-      const img = new Image();
-      img.src = item.originalUrl;
-      await new Promise((resolve, reject) => {
-        img.onload = resolve;
-        img.onerror = reject;
-      });
+            // First try at default quality
+            let testBlob = await new Promise(res => canvas.toBlob(res, outMime, 0.85));
+            if (testBlob.size <= maxBytes) {
+              bestBlob = testBlob;
+            } else {
+              while (low <= high && iterations < 7) {
+                iterations++;
+                const mid = (low + high) / 2;
+                const blob = await new Promise(res => canvas.toBlob(res, outMime, mid));
+                if (blob.size <= maxBytes) {
+                  bestBlob = blob;
+                  low = mid + 0.05;
+                } else {
+                  high = mid - 0.05;
+                }
+              }
+              // If still over cap, downscale dimensions slightly
+              if (!bestBlob || bestBlob.size > maxBytes) {
+                let downscale = 0.85;
+                while (downscale > 0.2) {
+                  const downCanvas = document.createElement('canvas');
+                  downCanvas.width = Math.round(targetWidth * downscale);
+                  downCanvas.height = Math.round(targetHeight * downscale);
+                  const downCtx = downCanvas.getContext('2d');
+                  downCtx.drawImage(img, 0, 0, downCanvas.width, downCanvas.height);
+                  const downBlob = await new Promise(res => downCanvas.toBlob(res, outMime, 0.65));
+                  if (downBlob.size <= maxBytes) {
+                    bestBlob = downBlob;
+                    targetWidth = downCanvas.width;
+                    targetHeight = downCanvas.height;
+                    break;
+                  }
+                  downscale -= 0.15;
+                }
+              }
+            }
 
-      item.originalWidth = img.naturalWidth;
-      item.originalHeight = img.naturalHeight;
+            const resultBlob = bestBlob || (await new Promise(res => canvas.toBlob(res, outMime, 0.5)));
+            const outputUrl = URL.createObjectURL(resultBlob);
 
-      // Calculate Target Dimensions
-      let targetWidth = img.naturalWidth;
-      let targetHeight = img.naturalHeight;
+            resolve({
+              id: Math.random().toString(36).substring(2, 9),
+              file: file,
+              originalName: file.name,
+              originalSize: file.size,
+              originalWidth: originalWidth,
+              originalHeight: originalHeight,
+              originalUrl: e.target.result,
+              reducedBlob: resultBlob,
+              reducedSize: resultBlob.size,
+              reducedWidth: targetWidth,
+              reducedHeight: targetHeight,
+              reducedUrl: outputUrl,
+              outputMime: outMime,
+              savingsPercent: Math.max(0, Math.round(((file.size - resultBlob.size) / file.size) * 100))
+            });
+            return;
+          }
 
-      if (currentMode === 'dimensions' || (dpi && dpi !== 72)) {
-        const scaleFactor = (scalePercent / 100);
-        targetWidth = Math.max(1, Math.round(img.naturalWidth * scaleFactor));
-        targetHeight = Math.max(1, Math.round(img.naturalHeight * scaleFactor));
-      }
-
-      // Determine output mime
-      let outMime = formatSelect.value;
-      if (outMime === 'auto') {
-        outMime = item.originalType;
-        if (!outMime || outMime === 'image/svg+xml') outMime = 'image/jpeg';
-      }
-
-      // Draw onto Offscreen Canvas
-      const canvas = document.createElement('canvas');
-      canvas.width = targetWidth;
-      canvas.height = targetHeight;
-      const ctx = canvas.getContext('2d', { alpha: outMime === 'image/png' || outMime === 'image/webp' || outMime === 'image/avif' });
-
-      // Clean background for JPEG if transparent
-      if (outMime === 'image/jpeg') {
-        ctx.fillStyle = '#ffffff';
-        ctx.fillRect(0, 0, targetWidth, targetHeight);
-      }
-
-      // Image rendering with fitMode
-      ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = 'high';
-
-      if (fitMode === 'cover' && (img.naturalWidth !== targetWidth || img.naturalHeight !== targetHeight)) {
-        const targetAspect = targetWidth / targetHeight;
-        const sourceAspect = img.naturalWidth / img.naturalHeight;
-        let sx = 0, sy = 0, sw = img.naturalWidth, sh = img.naturalHeight;
-
-        if (sourceAspect > targetAspect) {
-          sw = img.naturalHeight * targetAspect;
-          sx = (img.naturalWidth - sw) / 2;
-        } else {
-          sh = img.naturalWidth / targetAspect;
-          sy = (img.naturalHeight - sh) / 2;
-        }
-        ctx.drawImage(img, sx, sy, sw, sh, 0, 0, targetWidth, targetHeight);
-      } else {
-        ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
-      }
-
-      // Process Blob based on mode
-      let finalBlob;
-      if (currentMode === 'target') {
-        // Binary search to meet target file size
-        const targetBytes = (targetUnit === 'MB' ? targetKb * 1024 * 1024 : targetKb * 1024);
-        finalBlob = await compressToTargetSize(canvas, outMime === 'auto' ? 'image/jpeg' : outMime, targetBytes);
-      } else {
-        finalBlob = await new Promise(resolve => canvas.toBlob(resolve, outMime, quality));
-      }
-
-      if (item.reducedUrl) URL.revokeObjectURL(item.reducedUrl);
-
-      item.reducedBlob = finalBlob;
-      item.reducedUrl = URL.createObjectURL(finalBlob);
-      item.reducedSize = finalBlob.size;
-      item.reducedWidth = targetWidth;
-      item.reducedHeight = targetHeight;
-      item.reducedFormat = outMime.replace('image/', '').toUpperCase();
-      item.status = 'done';
-
-    } catch (err) {
-      console.error('Image optimization failed', err);
-      item.status = 'error';
-    }
-
-    updateItemStatus(item);
-    updateStats();
-  }
-
-  // Binary search compressor for Target Size (KB/MB) mode
-  async function compressToTargetSize(canvas, mimeType, maxBytes) {
-    let minQuality = 0.05;
-    let maxQuality = 0.98;
-    let bestBlob = null;
-
-    for (let i = 0; i < 6; i++) {
-      const midQuality = (minQuality + maxQuality) / 2;
-      const blob = await new Promise(resolve => canvas.toBlob(resolve, mimeType, midQuality));
-      if (!blob) break;
-
-      if (blob.size <= maxBytes) {
-        bestBlob = blob;
-        minQuality = midQuality; // try getting better visual quality
-      } else {
-        maxQuality = midQuality; // file too big, decrease quality
-      }
-    }
-
-    // If still too large at minimum quality, downscale canvas dimensions
-    if (!bestBlob || bestBlob.size > maxBytes) {
-      let scale = 0.8;
-      while (scale >= 0.2) {
-        const scaledCanvas = document.createElement('canvas');
-        scaledCanvas.width = Math.max(1, Math.round(canvas.width * scale));
-        scaledCanvas.height = Math.max(1, Math.round(canvas.height * scale));
-        const ctx = scaledCanvas.getContext('2d');
-        ctx.imageSmoothingEnabled = true;
-        ctx.imageSmoothingQuality = 'high';
-        ctx.drawImage(canvas, 0, 0, scaledCanvas.width, scaledCanvas.height);
-
-        const blob = await new Promise(resolve => scaledCanvas.toBlob(resolve, mimeType, 0.7));
-        if (blob && blob.size <= maxBytes) {
-          return blob;
-        }
-        scale -= 0.2;
-      }
-    }
-
-    return bestBlob || await new Promise(resolve => canvas.toBlob(resolve, mimeType, 0.5));
-  }
-
-  function reprocessAll() {
-    filesQueue.forEach(item => {
-      processImageItem(item);
+          // Standard Mode
+          canvas.toBlob((blob) => {
+            const outputUrl = URL.createObjectURL(blob);
+            resolve({
+              id: Math.random().toString(36).substring(2, 9),
+              file: file,
+              originalName: file.name,
+              originalSize: file.size,
+              originalWidth: originalWidth,
+              originalHeight: originalHeight,
+              originalUrl: e.target.result,
+              reducedBlob: blob,
+              reducedSize: blob.size,
+              reducedWidth: targetWidth,
+              reducedHeight: targetHeight,
+              reducedUrl: outputUrl,
+              outputMime: outMime,
+              savingsPercent: Math.max(0, Math.round(((file.size - blob.size) / file.size) * 100))
+            });
+          }, outMime, currentQuality);
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
     });
   }
 
-  // Render Queue UI
-  function renderQueue() {
-    if (filesQueue.length === 0) {
-      batchSection.classList.add('hidden');
-      fileList.innerHTML = '';
-      return;
-    }
-
+  // Add Files to Queue
+  async function handleFiles(files) {
+    if (!files || files.length === 0) return;
     batchSection.classList.remove('hidden');
-    fileList.innerHTML = '';
 
-    filesQueue.forEach(item => {
-      const card = createItemCard(item);
-      fileList.appendChild(card);
-    });
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      if (!file.type.startsWith('image/')) continue;
+      const processed = await processImage(file);
+      filesQueue.push(processed);
+      renderFileCard(processed);
+    }
 
     updateStats();
   }
 
-  function createItemCard(item) {
-    const div = document.createElement('div');
-    div.id = item.id;
-    div.className = 'hairline-card p-3 sm:p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 bg-[var(--color-canvas-elevated)] border border-[var(--color-hairline)] transition-all';
-    
-    div.innerHTML = `
-      <div class="flex items-center gap-3 w-full sm:w-auto">
-        <div class="w-12 h-12 rounded-lg bg-[var(--color-canvas-subtle)] border border-[var(--color-hairline)] overflow-hidden flex-shrink-0 flex items-center justify-center">
-          <img src="${item.originalUrl}" alt="Preview" class="w-full h-full object-cover" />
-        </div>
-        <div class="flex flex-col min-w-0">
-          <span class="font-medium text-[var(--color-ink)] text-xs sm:text-sm truncate max-w-[200px] sm:max-w-[280px]" title="${item.originalName}">${item.originalName}</span>
-          <span class="text-[11px] text-[var(--color-mute)] font-mono">
-            ${item.originalWidth ? `${item.originalWidth}×${item.originalHeight} px • ` : ''}${formatBytes(item.originalSize)}
-          </span>
-        </div>
-      </div>
+  // "Try an example" button functionality
+  trySampleBtn?.addEventListener('click', async () => {
+    const sampleCanvas = document.createElement('canvas');
+    sampleCanvas.width = 1920;
+    sampleCanvas.height = 1080;
+    const sctx = sampleCanvas.getContext('2d');
 
-      <div class="item-status-col flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto">
-        <!-- Rendered by updateItemStatus -->
-      </div>
-    `;
+    sctx.fillStyle = '#0f172a';
+    sctx.fillRect(0, 0, 1920, 1080);
 
-    // Hook buttons
-    updateItemStatus(item, div);
-    return div;
-  }
+    sctx.fillStyle = '#334155';
+    sctx.fillRect(200, 300, 400, 780);
+    sctx.fillStyle = '#1e293b';
+    sctx.fillRect(700, 180, 500, 900);
+    sctx.fillStyle = '#475569';
+    sctx.fillRect(1300, 250, 450, 830);
 
-  function updateItemStatus(item, cardElement) {
-    const el = cardElement || document.getElementById(item.id);
-    if (!el) return;
+    sctx.fillStyle = '#38bdf8';
+    sctx.font = 'bold 72px sans-serif';
+    sctx.fillText('SAMPLE HIGH-RESOLUTION IMAGE', 240, 220);
 
-    const statusCol = el.querySelector('.item-status-col');
-    if (!statusCol) return;
+    sctx.fillStyle = '#94a3b8';
+    sctx.font = '40px monospace';
+    sctx.fillText('1920 × 1080 px • 100% Private In-Browser Processing', 240, 290);
 
-    if (item.status === 'processing') {
-      statusCol.innerHTML = `
-        <div class="flex items-center gap-2 text-xs text-[var(--color-link)] font-mono">
-          <span class="animate-spin text-sm">⟳</span>
-          <span>Optimizing...</span>
-        </div>
-      `;
-    } else if (item.status === 'error') {
-      statusCol.innerHTML = `
-        <span class="text-xs text-[var(--color-error)] font-mono">Error processing</span>
-        <button type="button" class="remove-btn text-xs text-[var(--color-mute)] hover:text-[var(--color-error)] cursor-pointer">✕</button>
-      `;
-    } else if (item.status === 'done') {
-      const savedBytes = item.originalSize - item.reducedSize;
-      const savedPercent = Math.max(0, Math.round((savedBytes / item.originalSize) * 100));
-      const badgeColor = savedPercent > 0 ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' : 'bg-[var(--color-canvas-subtle)] text-[var(--color-body)] border-[var(--color-hairline)]';
-      
-      const outExt = item.reducedFormat.toLowerCase();
-      const baseName = item.originalName.replace(/\.[^/.]+$/, "");
-      const downloadName = `${baseName}-reduced.${outExt === 'jpeg' ? 'jpg' : outExt}`;
+    sampleCanvas.toBlob(async (blob) => {
+      const sampleFile = new File([blob], 'sample-photography-demo.jpg', { type: 'image/jpeg' });
+      await handleFiles([sampleFile]);
+    }, 'image/jpeg', 0.95);
+  });
 
-      statusCol.innerHTML = `
-        <div class="flex items-center gap-2 sm:gap-3 text-right">
-          <div class="flex flex-col text-left sm:text-right">
-            <span class="font-mono text-xs font-semibold text-[var(--color-ink)]">${formatBytes(item.reducedSize)}</span>
-            <span class="text-[10px] text-[var(--color-mute)] font-mono">${item.reducedWidth}×${item.reducedHeight} • ${item.reducedFormat}</span>
-          </div>
-
-          <span class="px-2 py-0.5 rounded-full text-[11px] font-mono font-medium border ${badgeColor}">
-            -${savedPercent}%
-          </span>
-
-          <button type="button" class="compare-btn p-1.5 rounded-md hover:bg-[var(--color-hairline)] text-[var(--color-body)] hover:text-[var(--color-ink)] transition-colors cursor-pointer" title="Compare Before vs After">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="3" width="20" height="18" rx="2"></rect>
-              <line x1="12" y1="3" x2="12" y2="21"></line>
-            </svg>
-          </button>
-
-          <a href="${item.reducedUrl}" download="${downloadName}" class="btn-square-sm bg-[var(--color-ink)] text-[var(--color-canvas)] hover:opacity-90 text-xs px-3 py-1.5 shadow-2xs cursor-pointer" title="Download Image">
-            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-              <polyline points="7 10 12 15 17 10"></polyline>
-              <line x1="12" y1="15" x2="12" y2="3"></line>
-            </svg>
-            <span>Save</span>
-          </a>
-
-          <button type="button" class="remove-btn p-1 text-[var(--color-mute)] hover:text-[var(--color-error)] transition-colors cursor-pointer" title="Remove">✕</button>
-        </div>
-      `;
-
-      // Event binds
-      const compareBtn = statusCol.querySelector('.compare-btn');
-      if (compareBtn) {
-        compareBtn.addEventListener('click', () => openComparison(item));
-      }
-
-      const removeBtn = statusCol.querySelector('.remove-btn');
-      if (removeBtn) {
-        removeBtn.addEventListener('click', () => {
-          filesQueue = filesQueue.filter(f => f.id !== item.id);
-          renderQueue();
-        });
-      }
+  // Reprocess all files with updated settings
+  async function reprocessAll() {
+    if (filesQueue.length === 0) return;
+    const oldFiles = filesQueue.map(item => item.file);
+    filesQueue = [];
+    fileList.innerHTML = '';
+    for (const file of oldFiles) {
+      const processed = await processImage(file);
+      filesQueue.push(processed);
+      renderFileCard(processed);
     }
+    updateStats();
   }
 
+  // Update Global Summary Stats
   function updateStats() {
-    const totalCount = filesQueue.length;
-    let totalOriginal = 0;
-    let totalReduced = 0;
-    let doneCount = 0;
+    statCount.textContent = filesQueue.length + (filesQueue.length === 1 ? ' file' : ' files');
+    const totalOriginal = filesQueue.reduce((acc, item) => acc + item.originalSize, 0);
+    const totalReduced = filesQueue.reduce((acc, item) => acc + item.reducedSize, 0);
 
-    filesQueue.forEach(item => {
-      totalOriginal += item.originalSize;
-      totalReduced += (item.reducedSize || item.originalSize);
-      if (item.status === 'done') doneCount++;
-    });
-
-    statCount.textContent = `${totalCount} ${totalCount === 1 ? 'file' : 'files'}`;
     statOriginalSize.textContent = formatBytes(totalOriginal);
     statReducedSize.textContent = formatBytes(totalReduced);
 
-    const savedBytes = totalOriginal - totalReduced;
-    const pct = totalOriginal > 0 ? Math.max(0, Math.round((savedBytes / totalOriginal) * 100)) : 0;
-    statSavedPercent.textContent = `-${pct}% Saved`;
+    if (totalOriginal > 0) {
+      const saved = Math.max(0, Math.round(((totalOriginal - totalReduced) / totalOriginal) * 100));
+      statSavedPercent.textContent = `-${saved}%`;
+    } else {
+      statSavedPercent.textContent = '0%';
+    }
   }
 
-  // ZIP Bulk Exporter
-  downloadZipBtn.addEventListener('click', async () => {
-    if (filesQueue.length === 0) return;
+  // Render individual file card
+  function renderFileCard(item) {
+    const extMap = {
+      'image/webp': 'webp',
+      'image/jpeg': 'jpg',
+      'image/png': 'png',
+      'image/avif': 'avif'
+    };
+    const extension = extMap[item.outputMime] || 'jpg';
+    const baseName = item.originalName.replace(/\.[^/.]+$/, "");
+    const downloadName = `${baseName}-reduced.${extension}`;
 
-    downloadZipBtn.disabled = true;
-    const oldHtml = downloadZipBtn.innerHTML;
-    downloadZipBtn.innerHTML = `
-      <span class="animate-spin text-sm">⟳</span>
-      <span>Generating ZIP...</span>
+    const card = document.createElement('div');
+    card.id = `file-card-${item.id}`;
+    card.className = 'p-3.5 sm:p-4 rounded-xl border border-[var(--color-hairline)] bg-[var(--color-canvas-elevated)] flex flex-wrap items-center justify-between gap-4 transition-all';
+
+    card.innerHTML = `
+      <div class="flex items-center gap-3 min-w-0">
+        <div class="w-12 h-12 rounded-lg bg-[var(--color-canvas-subtle)] border border-[var(--color-hairline)] overflow-hidden shrink-0 flex items-center justify-center">
+          <img src="${item.reducedUrl}" alt="${item.originalName}" class="w-full h-full object-cover" />
+        </div>
+        <div class="min-w-0">
+          <p class="text-xs sm:text-sm font-medium text-[var(--color-ink)] truncate max-w-[180px] sm:max-w-xs" title="${item.originalName}">
+            ${item.originalName}
+          </p>
+          <div class="flex items-center gap-2 mt-0.5 text-[11px] font-mono text-[var(--color-mute)]">
+            <span>${formatBytes(item.originalSize)}</span>
+            <span>→</span>
+            <span class="font-semibold text-[var(--color-ink)]">${formatBytes(item.reducedSize)}</span>
+            <span class="px-1.5 py-0.2 rounded bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 font-bold">-${item.savingsPercent}%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button type="button" data-compare-id="${item.id}" class="compare-btn px-3 py-1.5 rounded-full border border-[var(--color-hairline)] text-xs text-[var(--color-body)] hover:text-[var(--color-ink)] hover:bg-[var(--color-canvas-subtle)] transition-colors cursor-pointer">
+          Compare
+        </button>
+        <a href="${item.reducedUrl}" download="${downloadName}" class="rounded-full bg-[var(--color-primary)] text-[var(--color-on-primary)] px-3.5 py-1.5 text-xs font-medium transition-opacity hover:opacity-90 flex items-center gap-1">
+          <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span>Save</span>
+        </a>
+        <button type="button" data-remove-id="${item.id}" class="remove-btn p-1.5 text-[var(--color-mute)] hover:text-red-500 transition-colors cursor-pointer" title="Remove">
+          ✕
+        </button>
+      </div>
     `;
 
-    try {
-      const zip = new JSZip();
-      
-      filesQueue.forEach(item => {
-        if (item.reducedBlob) {
-          const outExt = item.reducedFormat.toLowerCase();
-          const baseName = item.originalName.replace(/\.[^/.]+$/, "");
-          const filename = `${baseName}-reduced.${outExt === 'jpeg' ? 'jpg' : outExt}`;
-          zip.file(filename, item.reducedBlob);
-        }
-      });
+    fileList.appendChild(card);
 
-      const content = await zip.generateAsync({ type: "blob" });
-      const zipUrl = URL.createObjectURL(content);
-      const a = document.createElement('a');
-      a.href = zipUrl;
-      a.download = `reduced-images-${Date.now()}.zip`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(zipUrl);
+    // Compare Handler
+    card.querySelector(`[data-compare-id="${item.id}"]`).addEventListener('click', () => {
+      openCompareModal(item);
+    });
 
-    } catch (err) {
-      console.error('ZIP generation error', err);
-      alert('Could not create ZIP file. Try downloading individually.');
-    } finally {
-      downloadZipBtn.disabled = false;
-      downloadZipBtn.innerHTML = oldHtml;
-    }
+    // Remove Handler
+    card.querySelector(`[data-remove-id="${item.id}"]`).addEventListener('click', () => {
+      filesQueue = filesQueue.filter(f => f.id !== item.id);
+      card.remove();
+      updateStats();
+      if (filesQueue.length === 0) batchSection.classList.add('hidden');
+    });
+  }
+
+  // Clear All
+  clearAllBtn?.addEventListener('click', () => {
+    filesQueue = [];
+    fileList.innerHTML = '';
+    batchSection.classList.add('hidden');
+    updateStats();
   });
 
-  // Interactive Comparison Slider Modal Logic
-  function openComparison(item) {
+  reprocessAllBtn?.addEventListener('click', reprocessAll);
+
+  // Bulk ZIP Download
+  downloadZipBtn?.addEventListener('click', async () => {
+    if (filesQueue.length === 0) return;
+    if (typeof JSZip === 'undefined') {
+      alert('JSZip library is initializing, please try again in a moment.');
+      return;
+    }
+
+    const zip = new JSZip();
+    const folder = zip.folder('reduced-images');
+
+    for (let i = 0; i < filesQueue.length; i++) {
+      const item = filesQueue[i];
+      const extMap = {
+        'image/webp': 'webp',
+        'image/jpeg': 'jpg',
+        'image/png': 'png',
+        'image/avif': 'avif'
+      };
+      const ext = extMap[item.outputMime] || 'jpg';
+      const name = `${item.originalName.replace(/\.[^/.]+$/, "")}-reduced.${ext}`;
+      folder.file(name, item.reducedBlob);
+    }
+
+    const content = await zip.generateAsync({ type: 'blob' });
+    const zipUrl = URL.createObjectURL(content);
+    const downloadLink = document.createElement('a');
+    downloadLink.href = zipUrl;
+    downloadLink.download = `free-reduce-image-batch-${Date.now()}.zip`;
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+  });
+
+  // Modal Comparison Logic
+  function openCompareModal(item) {
     compareOriginalImg.src = item.originalUrl;
     compareCompressedImg.src = item.reducedUrl;
 
-    const savedBytes = item.originalSize - item.reducedSize;
-    const savedPercent = Math.max(0, Math.round((savedBytes / item.originalSize) * 100));
-    modalSavingsBadge.textContent = `${formatBytes(item.originalSize)} → ${formatBytes(item.reducedSize)} (-${savedPercent}%)`;
+    modalSavingsBadge.textContent = `Saved ${item.savingsPercent}%`;
+    modalOriginalInfo.textContent = `Original: ${formatBytes(item.originalSize)} (${item.originalWidth}×${item.originalHeight})`;
+    modalReducedInfo.textContent = `Reduced: ${formatBytes(item.reducedSize)} (${item.reducedWidth}×${item.reducedHeight})`;
 
-    modalOriginalInfo.textContent = `Original: ${formatBytes(item.originalSize)} (${item.originalWidth}×${item.originalHeight}px)`;
-    modalReducedInfo.textContent = `Reduced: ${formatBytes(item.reducedSize)} (${item.reducedWidth}×${item.reducedHeight}px • ${item.reducedFormat})`;
-
-    const outExt = item.reducedFormat.toLowerCase();
-    const baseName = item.originalName.replace(/\.[^/.]+$/, "");
+    const extMap = { 'image/webp': 'webp', 'image/jpeg': 'jpg', 'image/png': 'png', 'image/avif': 'avif' };
+    const ext = extMap[item.outputMime] || 'jpg';
     modalDownloadAction.href = item.reducedUrl;
-    modalDownloadAction.download = `${baseName}-reduced.${outExt === 'jpeg' ? 'jpg' : outExt}`;
-
-    // Reset split position
-    setSplit(50);
+    modalDownloadAction.download = `${item.originalName.replace(/\.[^/.]+$/, "")}-reduced.${ext}`;
 
     compareModal.classList.remove('hidden');
+    updateSplitPosition(50);
   }
 
-  function setSplit(percentage) {
-    const clamped = Math.max(0, Math.min(100, percentage));
-    splitDivider.style.left = `${clamped}%`;
-    compareCompressedWrapper.style.clipPath = `inset(0 0 0 ${clamped}%)`;
+  function closeCompareModal() {
+    compareModal.classList.add('hidden');
   }
 
-  // Divider dragging
-  let isDragging = false;
-  splitDivider.addEventListener('mousedown', () => isDragging = true);
-  window.addEventListener('mouseup', () => isDragging = false);
+  closeModalBtn?.addEventListener('click', closeCompareModal);
+  modalCloseAction?.addEventListener('click', closeCompareModal);
+
+  // Split Divider Dragging
+  let isDraggingSplit = false;
+
+  function updateSplitPosition(percent) {
+    percent = Math.max(0, Math.min(100, percent));
+    splitDivider.style.left = percent + '%';
+    compareCompressedWrapper.style.clipPath = `inset(0 0 0 ${percent}%)`;
+  }
+
+  splitDivider?.addEventListener('mousedown', (e) => {
+    e.preventDefault();
+    isDraggingSplit = true;
+  });
+
   window.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
+    if (!isDraggingSplit) return;
     const rect = splitContainer.getBoundingClientRect();
     const x = e.clientX - rect.left;
-    const pct = (x / rect.width) * 100;
-    setSplit(pct);
+    const percent = (x / rect.width) * 100;
+    updateSplitPosition(percent);
   });
 
-  // Touch Support for mobile
-  splitDivider.addEventListener('touchstart', () => isDragging = true);
-  window.addEventListener('touchend', () => isDragging = false);
+  window.addEventListener('mouseup', () => {
+    isDraggingSplit = false;
+  });
+
+  // Touch support for split slider
+  splitDivider?.addEventListener('touchstart', () => { isDraggingSplit = true; }, { passive: true });
   window.addEventListener('touchmove', (e) => {
-    if (!isDragging || !e.touches[0]) return;
+    if (!isDraggingSplit || !e.touches[0]) return;
     const rect = splitContainer.getBoundingClientRect();
     const x = e.touches[0].clientX - rect.left;
-    const pct = (x / rect.width) * 100;
-    setSplit(pct);
+    const percent = (x / rect.width) * 100;
+    updateSplitPosition(percent);
+  }, { passive: true });
+  window.addEventListener('touchend', () => { isDraggingSplit = false; });
+
+  // Dropzone drag & drop handlers
+  dropzone?.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dropzone.classList.add('border-[var(--color-ink)]');
   });
 
-  closeModalBtn.addEventListener('click', () => compareModal.classList.add('hidden'));
-  modalCloseAction.addEventListener('click', () => compareModal.classList.add('hidden'));
-  compareModal.addEventListener('click', (e) => {
-    if (e.target === compareModal) compareModal.classList.add('hidden');
+  dropzone?.addEventListener('dragleave', (e) => {
+    e.preventDefault();
+    dropzone.classList.remove('border-[var(--color-ink)]');
   });
 
+  dropzone?.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropzone.classList.remove('border-[var(--color-ink)]');
+    if (e.dataTransfer && e.dataTransfer.files) {
+      handleFiles(e.dataTransfer.files);
+    }
+  });
+
+  fileInput?.addEventListener('change', (e) => {
+    if (e.target.files) {
+      handleFiles(e.target.files);
+    }
+  });
+
+  // Global paste support (Ctrl+V / Cmd+V)
+  window.addEventListener('paste', (e) => {
+    const items = e.clipboardData?.items;
+    if (!items) return;
+    const imageFiles = [];
+    for (let i = 0; i < items.length; i++) {
+      if (items[i].type.indexOf('image') !== -1) {
+        const file = items[i].getAsFile();
+        if (file) imageFiles.push(file);
+      }
+    }
+    if (imageFiles.length > 0) {
+      handleFiles(imageFiles);
+    }
+  });
 })();
 </script>

@@ -1,7 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
-import Hero from '../components/Hero.astro';
 import ImageReducerApp from '../components/ImageReducerApp.astro';
 import FeatureGrid from '../components/FeatureGrid.astro';
 import FAQSection from '../components/FAQSection.astro';
@@ -16,24 +15,24 @@ import Footer from '../components/Footer.astro';
   <Navbar />
   
   <main class="flex-1">
-    <Hero 
-      badge="Government & Visa Standard • 300 DPI Print Ready"
-      title="Passport & Visa Photo Resizer & Reducer."
-      subtitle="Easily format your passport photo to standard 2x2 inches (51x51 mm) or 35x45 mm with 300 DPI print quality and strict file size limits (<100KB or <240KB)."
+    <ImageReducerApp 
+      eyebrow="PASSPORT & VISA PHOTO RESIZER"
+      title="Passport photo: what specs do you need?"
+      subtitle="Format your passport photo to standard 2x2 inches (51x51 mm) or 35x45 mm with 300 DPI print quality and strict file size limits (<100KB or <240KB)."
+      initialMode="dimensions" 
+      isPassportMode={true} 
     />
-    
-    <ImageReducerApp initialMode="dimensions" isPassportMode={true} />
 
     <!-- Passport specifications table -->
-    <section class="py-16 md:py-20 border-b border-[var(--color-hairline)] bg-[var(--color-canvas)] transition-colors">
+    <section class="py-16 sm:py-20 border-b border-[var(--color-hairline)] bg-[var(--color-canvas)] transition-colors">
       <div class="max-w-4xl mx-auto px-4 sm:px-6">
-        <h2 class="text-heading-lg text-[var(--color-ink)] mb-6 text-center">
+        <h2 class="text-display-md text-[var(--color-ink)] mb-8 text-center">
           Standard Passport Photo Specifications
         </h2>
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="hairline-card p-6 bg-[var(--color-canvas-elevated)] border border-[var(--color-hairline)]">
-            <h3 class="font-semibold text-base text-[var(--color-ink)] mb-2">US / India / Global Standard (2×2 in)</h3>
+          <div class="rounded-xl border border-[var(--color-hairline)] bg-[var(--color-canvas-elevated)] p-6">
+            <h3 class="font-semibold text-base text-[var(--color-ink)] mb-3">US / India / Global Standard (2×2 in)</h3>
             <ul class="space-y-2 text-xs sm:text-sm text-[var(--color-body)] font-mono">
               <li>• Dimensions: 2 × 2 inches (51 × 51 mm)</li>
               <li>• Pixel size: 600 × 600 px @ 300 DPI</li>
@@ -41,8 +40,8 @@ import Footer from '../components/Footer.astro';
               <li>• Max file size: Under 240 KB (often &lt;100 KB)</li>
             </ul>
           </div>
-          <div class="hairline-card p-6 bg-[var(--color-canvas-elevated)] border border-[var(--color-hairline)]">
-            <h3 class="font-semibold text-base text-[var(--color-ink)] mb-2">UK / Schengen / European Visa (35×45 mm)</h3>
+          <div class="rounded-xl border border-[var(--color-hairline)] bg-[var(--color-canvas-elevated)] p-6">
+            <h3 class="font-semibold text-base text-[var(--color-ink)] mb-3">UK / Schengen / European Visa (35×45 mm)</h3>
             <ul class="space-y-2 text-xs sm:text-sm text-[var(--color-body)] font-mono">
               <li>• Dimensions: 35 × 45 mm (1.38 × 1.77 in)</li>
               <li>• Pixel size: 413 × 531 px @ 300 DPI</li>

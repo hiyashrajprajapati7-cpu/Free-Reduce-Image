@@ -1,63 +1,85 @@
 ---
-const useCases = [
-  {
-    category: "Web & Core Web Vitals",
-    title: "Accelerate Page Speed & SEO Rankings",
-    description: "Heavy hero banners and unoptimized PNGs destroy your Google Lighthouse score. Converting and compressing to WebP cuts load times drastically.",
-    tags: ["Core Web Vitals", "Lighthouse 100", "LCP Boost"]
-  },
-  {
-    category: "Visa & Government Portals",
-    title: "Pass Strict File Size Upload Limits",
-    description: "Government immigration portals, passport renewal forms, and job applications reject files larger than 100 KB or 50 KB. Use our Target Size tool to hit exact limits on the first try.",
-    tags: ["< 100 KB Limit", "2x2 inch Passport", "300 DPI"]
-  },
-  {
-    category: "E-Commerce & Storefronts",
-    title: "Bulk Optimize Product Catalogs",
-    description: "High-resolution product galleries bog down mobile shoppers. Batch-reduce hundreds of product photos simultaneously and download all optimized files in a single ZIP.",
-    tags: ["Shopify Ready", "WooCommerce", "Batch ZIP"]
-  },
-  {
-    category: "Social Media & Chat",
-    title: "Discord, Slack & Email Attachments",
-    description: "Avoid email attachment bounce-backs (25MB caps) and Discord upload limits by effortlessly shrinking oversized 10MB camera shots to light 500KB files.",
-    tags: ["Email Safe", "Discord Avatar", "No Compression Artifacts"]
-  }
-];
 ---
 
-<section class="py-16 md:py-24 border-b border-[var(--color-hairline)] bg-[var(--color-canvas)] transition-colors">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6">
-    
-    <div class="max-w-2xl mx-auto text-center mb-12">
-      <span class="text-mono-eyebrow text-[var(--color-mute)] block mb-2">Designed For Real Workflows</span>
-      <h2 class="text-heading-lg text-[var(--color-ink)] mb-4">
-        Built for developers, job seekers, and digital creators.
-      </h2>
-      <p class="text-sm sm:text-base text-[var(--color-body)]">
-        Whether shrinking a passport photo or optimizing 500 product listings, Free Reduce Image gets the job done instantly.
+<!-- The image reducer, explained (Matching fontfinderai.com guide section) -->
+<section class="py-16 sm:py-20 border-b border-[var(--color-hairline)] bg-[var(--color-canvas)] transition-colors">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6">
+    <p class="eyebrow">Comprehensive Guide</p>
+    <h2 class="mt-3 text-display-lg text-[var(--color-ink)]">The image reducer, explained</h2>
+    <p class="mt-4 text-body-lg text-[var(--color-body)]">
+      What image reduction does, how in-browser client-side compression works, and how to meet strict file limits without destroying image quality.
+    </p>
+
+    <!-- Sub-article 1 -->
+    <div class="mt-12">
+      <h3 class="text-display-md text-[var(--color-ink)]">What an image reducer does</h3>
+      <p class="mt-3 text-body-md text-[var(--color-body)] leading-relaxed">
+        Modern digital cameras and smartphones capture photos at 24 to 48 megapixels, producing JPEG files between 8 MB and 25 MB. For websites, forms, chat apps, and document portals, these oversized files cause sluggish load times, failed uploads, and excessive bandwidth consumption.
+      </p>
+      <p class="mt-3 text-body-md text-[var(--color-body)] leading-relaxed">
+        An image reducer recalculates color frequencies, applies perceptual compression, and strips non-visible metadata. Free Reduce Image does this calculation directly inside your browser — giving you instant results with no upload limits and zero privacy exposure.
       </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {useCases.map((uc) => (
-        <div class="hairline-card p-6 sm:p-8 bg-[var(--color-canvas-elevated)] border border-[var(--color-hairline)] flex flex-col justify-between hover:border-[var(--color-ink)]/50 transition-all">
-          <div>
-            <span class="text-mono-eyebrow text-[var(--color-link)] block mb-2">{uc.category}</span>
-            <h3 class="text-lg font-semibold text-[var(--color-ink)] mb-2 tracking-tight">{uc.title}</h3>
-            <p class="text-sm text-[var(--color-body)] leading-relaxed mb-6">{uc.description}</p>
-          </div>
+    <!-- Sub-article 2 -->
+    <div class="mt-12">
+      <h3 class="text-display-md text-[var(--color-ink)]">How in-browser client-side compression works</h3>
+      <p class="mt-3 text-body-md text-[var(--color-body)] leading-relaxed">
+        Traditional online tools require you to upload your files to their backend servers, compress them remotely, and send them back. This introduces security risks, bandwidth bottlenecks, and file size quotas.
+      </p>
+      <p class="mt-3 text-body-md text-[var(--color-body)] leading-relaxed">
+        Free Reduce Image uses the HTML5 Offscreen Canvas API and Web Workers. When you drag a file into the dropzone, the pixel array is decoded and optimized locally on your device's CPU/GPU. The entire computation runs in sandbox memory on your computer, meaning your private photos never leave your machine.
+      </p>
+    </div>
 
-          <div class="flex flex-wrap gap-2 pt-4 border-t border-[var(--color-hairline)]">
-            {uc.tags.map((tag) => (
-              <span class="px-2.5 py-1 rounded-md bg-[var(--color-canvas-subtle)] border border-[var(--color-hairline)] text-[11px] font-mono text-[var(--color-body)]">
-                {tag}
-              </span>
-            ))}
-          </div>
+    <!-- Sub-article 3 -->
+    <div class="mt-12">
+      <h3 class="text-display-md text-[var(--color-ink)]">Passing strict government & visa file caps (&lt;100 KB)</h3>
+      <p class="mt-3 text-body-md text-[var(--color-body)] leading-relaxed">
+        Immigration portals, passport renewal forms, and job application systems frequently reject uploads exceeding strict caps like 50 KB, 100 KB, or 240 KB. Manually tweaking compression sliders to guess the exact byte limit is tedious and error-prone.
+      </p>
+      <p class="mt-3 text-body-md text-[var(--color-body)] leading-relaxed">
+        Our binary search compression algorithm iteratively samples compression ratios to pinpoint the highest possible visual clarity that strictly stays beneath your desired byte cap.
+      </p>
+    </div>
+
+    <!-- Workflow Cards Grid -->
+    <div class="mt-12 pt-8 border-t border-[var(--color-hairline)]">
+      <h3 class="text-display-md text-[var(--color-ink)] mb-6">Engineered for real-world workflows</h3>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div class="rounded-xl border border-[var(--color-hairline)] bg-[var(--color-canvas-elevated)] p-6">
+          <p class="font-mono text-xs text-[var(--color-mute)] uppercase font-semibold">Web Developers & Designers</p>
+          <h4 class="mt-2 text-base font-semibold text-[var(--color-ink)]">Lighthouse 100 & Core Web Vitals</h4>
+          <p class="mt-2 text-body-sm text-[var(--color-body)]">
+            Convert large hero headers and UI mockups to WebP and AVIF to accelerate Largest Contentful Paint (LCP) and boost SEO search rankings.
+          </p>
         </div>
-      ))}
+
+        <div class="rounded-xl border border-[var(--color-hairline)] bg-[var(--color-canvas-elevated)] p-6">
+          <p class="font-mono text-xs text-[var(--color-mute)] uppercase font-semibold">Visa & Passport Applicants</p>
+          <h4 class="mt-2 text-base font-semibold text-[var(--color-ink)]">Official Photo Standards</h4>
+          <p class="mt-2 text-body-sm text-[var(--color-body)]">
+            Format photos to 2×2 inch (51×51 mm) or 35×45 mm at 300 DPI resolution, perfectly satisfying embassy portal requirements.
+          </p>
+        </div>
+
+        <div class="rounded-xl border border-[var(--color-hairline)] bg-[var(--color-canvas-elevated)] p-6">
+          <p class="font-mono text-xs text-[var(--color-mute)] uppercase font-semibold">E-Commerce Sellers</p>
+          <h4 class="mt-2 text-base font-semibold text-[var(--color-ink)]">Batch Storefront Optimization</h4>
+          <p class="mt-2 text-body-sm text-[var(--color-body)]">
+            Drop 100+ product catalog photos at once. Compress them simultaneously and download all results in a single structured ZIP archive.
+          </p>
+        </div>
+
+        <div class="rounded-xl border border-[var(--color-hairline)] bg-[var(--color-canvas-elevated)] p-6">
+          <p class="font-mono text-xs text-[var(--color-mute)] uppercase font-semibold">Photographers & Creators</p>
+          <h4 class="mt-2 text-base font-semibold text-[var(--color-ink)]">100% Privacy & EXIF Stripper</h4>
+          <p class="mt-2 text-body-sm text-[var(--color-body)]">
+            Clean hidden camera metadata, GPS location stamps, and device hardware IDs before publishing your imagery to social platforms.
+          </p>
+        </div>
+      </div>
     </div>
 
   </div>

@@ -1,28 +1,28 @@
 ---
 const faqs = [
   {
-    q: "How does Free Reduce Image reduce image file size without losing quality?",
-    a: "Free Reduce Image uses intelligent perceptual compression algorithms and pixel downsampling. It removes invisible redundant metadata, optimizes color indexing, and applies gentle chroma compression where the human eye cannot detect degradation, reducing byte weight by up to 85% while keeping visual clarity intact."
+    q: "Is it really a free image reducer?",
+    a: "Yes — unlimited compressions, no account required, and no credit card. The reduction runs locally in your own browser using HTML5 Canvas, so it costs us almost nothing to let you use it as much as you like."
   },
   {
-    q: "Is Free Reduce Image truly 100% private and secure?",
-    a: "Yes, absolutely. Unlike older websites that upload your photos to remote servers, Free Reduce Image processes everything 100% locally inside your web browser using modern HTML5 Canvas and Web Worker technologies. Your images never leave your computer or phone."
+    q: "Can I use the image reducer by uploading or dragging multiple files?",
+    a: "Yes. Upload a single file, select 100+ files at once, drag them onto the page, or paste straight from your clipboard with ⌘V / Ctrl+V. You can download each file individually or export everything in a single 1-click ZIP archive."
   },
   {
-    q: "How does the 'Target File Size' (e.g. Under 100 KB) mode work?",
-    a: "Our engine executes a rapid binary search across quality quantization levels and dimension bounds to compress the image precisely below your specified limit (such as 50 KB, 100 KB, or 200 KB) while maintaining the highest possible resolution and sharpness."
+    q: "How does it reduce image size without losing quality?",
+    a: "Your browser optimizes color indexing, removes redundant metadata, and applies perceptual chroma quantization where the human eye cannot detect loss. This reduces file weight by up to 85% while preserving edge sharpness and colors."
   },
   {
-    q: "Can I reduce and compress multiple images in batch?",
-    a: "Yes! You can drag and drop dozens or hundreds of images simultaneously. Once compressed, you can download them individually or export all files together in a convenient .zip archive with a single click."
+    q: "Do you store or upload my images?",
+    a: "No, and we could not even if we wanted to — your images are never uploaded to a server. The whole compression engine runs locally in your browser, and the site itself is static files."
   },
   {
-    q: "Which image formats are supported?",
-    a: "You can upload JPEG, JPG, PNG, WebP, AVIF, GIF, BMP, and SVG files. You can convert to WebP, AVIF, JPEG, or PNG depending on your workflow."
+    q: "How does the Target File Size mode work (e.g. under 100 KB)?",
+    a: "Our algorithm executes a binary search across compression quantization and dimension levels to guarantee your image strictly stays below your specified limit (such as 50 KB, 100 KB, or 200 KB) for visa forms, passport portals, and job applications."
   },
   {
-    q: "Why should I convert my images to WebP or AVIF?",
-    a: "WebP and AVIF provide next-generation compression algorithms that yield files 30% to 50% smaller than standard JPEG at equivalent perceptual quality, with full transparency (alpha channel) support."
+    q: "What image formats are supported?",
+    a: "PNG, JPG, JPEG, WebP, AVIF, GIF, BMP, and SVG files are fully supported. You can convert between WebP, AVIF, JPEG, and PNG directly in your browser."
   }
 ];
 
@@ -40,27 +40,25 @@ const faqSchema = {
 };
 ---
 
-<section class="py-16 md:py-24 border-b border-[var(--color-hairline)] bg-[var(--color-canvas)] transition-colors">
+<section id="faq" class="py-16 sm:py-20 border-b border-[var(--color-hairline)] bg-[var(--color-canvas)] transition-colors">
   <div class="max-w-4xl mx-auto px-4 sm:px-6">
     
-    <div class="text-center mb-12">
-      <span class="text-mono-eyebrow text-[var(--color-mute)] block mb-2">Frequently Asked Questions</span>
-      <h2 class="text-heading-lg text-[var(--color-ink)] mb-4">
-        Everything you need to know about Free Reduce Image.
-      </h2>
-    </div>
+    <p class="eyebrow">Questions & Answers</p>
+    <h2 class="mt-3 text-display-lg text-[var(--color-ink)]">
+      Frequently asked questions
+    </h2>
 
-    <!-- Accordion List -->
-    <div class="space-y-4">
+    <!-- Accordion matching fontfinderai.com -->
+    <div class="mt-8 divide-y divide-[var(--color-hairline)] border-y border-[var(--color-hairline)]">
       {faqs.map((faq) => (
-        <details class="hairline-card p-5 sm:p-6 bg-[var(--color-canvas-elevated)] border border-[var(--color-hairline)] group cursor-pointer transition-all open:border-[var(--color-ink)]/50">
-          <summary class="flex items-center justify-between font-semibold text-sm sm:text-base text-[var(--color-ink)] list-none select-none">
+        <details class="group py-4 sm:py-5 cursor-pointer">
+          <summary class="flex cursor-pointer items-center justify-between gap-4 text-base sm:text-lg font-medium text-[var(--color-ink)] select-none list-none [&::-webkit-details-marker]:hidden">
             <span>{faq.q}</span>
-            <span class="w-6 h-6 rounded-full bg-[var(--color-canvas-subtle)] border border-[var(--color-hairline)] flex items-center justify-center text-xs font-mono text-[var(--color-mute)] group-open:rotate-180 transition-transform flex-shrink-0 ml-4">
-              ↓
-            </span>
+            <svg class="size-5 shrink-0 text-[var(--color-mute)] transition-transform duration-200 group-open:rotate-45" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path d="M12 5v14M5 12h14" stroke-linecap="round"></path>
+            </svg>
           </summary>
-          <p class="mt-4 text-xs sm:text-sm text-[var(--color-body)] leading-relaxed pt-3 border-t border-[var(--color-hairline)]">
+          <p class="mt-3 max-w-2xl text-body-md text-[var(--color-body)] leading-relaxed">
             {faq.a}
           </p>
         </details>

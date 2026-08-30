@@ -1,7 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
-import Hero from '../components/Hero.astro';
 import ImageReducerApp from '../components/ImageReducerApp.astro';
 import FeatureGrid from '../components/FeatureGrid.astro';
 import FormatComparison from '../components/FormatComparison.astro';
@@ -11,19 +10,19 @@ import Footer from '../components/Footer.astro';
 
 <Layout
   title="Convert Images to WebP Online (Free & Batch) — Free Reduce Image"
-  description="Convert JPG, PNG, GIF and AVIF images to modern WebP format online. Reduce file size up to 80% with transparent alpha channel support. 100% private in-browser tool."
+  description="Convert JPG, PNG, GIF and AVIF images to modern WebP format online. Reduce file size up to 85% with transparent alpha channel support. 100% private in-browser tool."
   canonical="https://freereduceimage.com/convert-to-webp"
 >
   <Navbar />
   
   <main class="flex-1">
-    <Hero 
-      badge="Next-Gen Format Converter • WebP Engine"
-      title="Convert Any Image to High-Efficiency WebP."
-      subtitle="Convert heavy PNG and JPG photos into lightweight WebP files. Cut webpage payload by up to 80% while retaining transparent alpha backgrounds and vibrant colors."
+    <ImageReducerApp 
+      eyebrow="FORMAT CONVERTER & OPTIMIZER"
+      title="Convert to WebP: shrink weight, keep alpha."
+      subtitle="Convert heavy PNG and JPG photos into lightweight WebP files. Cut webpage payload by up to 85% while retaining transparent backgrounds and vibrant colors."
+      initialMode="convert" 
+      defaultFormat="webp" 
     />
-    
-    <ImageReducerApp initialMode="convert" defaultFormat="webp" />
 
     <FormatComparison />
     <FeatureGrid />

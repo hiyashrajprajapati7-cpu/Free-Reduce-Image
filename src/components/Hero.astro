@@ -1,60 +1,30 @@
 ---
 interface Props {
-  badge?: string;
+  eyebrow?: string;
   title?: string;
   subtitle?: string;
 }
 
 const {
-  badge = "100% Client-Side • Zero Server Uploads • Unlimited Files",
-  title = "Reduce Image File Size in Seconds.",
-  subtitle = "Upload one image or hundreds at once and reduce their file size quickly and easily. Free Reduce Image intelligently optimizes your images to make them smaller while preserving original visual quality. Smaller files. Faster uploads. Less storage. Better performance."
+  eyebrow = "FREE AI IMAGE REDUCER",
+  title = "Image reducer: what size do you need?",
+  subtitle = "Upload an image and shrink it in seconds — with exact target KB caps, DPI control, and zero quality loss."
 } = Astro.props;
 ---
 
-<section class="relative overflow-hidden pt-12 pb-8 md:pt-16 md:pb-12 border-b border-[var(--color-hairline)] bg-[var(--color-canvas)] transition-colors">
-  <!-- Mesh Gradient Bloom Background -->
-  <div class="absolute inset-0 pointer-events-none opacity-70 hero-mesh-gradient"></div>
-  
-  <div class="relative max-w-4xl mx-auto px-4 sm:px-6 text-center">
-    <!-- Eyebrow Badge -->
-    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--color-canvas-elevated)] border border-[var(--color-hairline)] shadow-xs mb-6 backdrop-blur-sm">
-      <span class="w-2 h-2 rounded-full bg-[var(--color-link)]"></span>
-      <span class="text-xs font-mono font-medium text-[var(--color-ink)] tracking-tight uppercase">{badge}</span>
-    </div>
+<section class="relative pt-14 pb-8 sm:pt-20 sm:pb-10 bg-[var(--color-canvas)] transition-colors">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center">
+    <!-- Monospace Eyebrow Badge -->
+    <p class="eyebrow">{eyebrow}</p>
 
-    <!-- Main Headline with tight display tracking -->
-    <h1 class="text-display-xl text-[var(--color-ink)] max-w-3xl mx-auto mb-6 tracking-[-0.05em] font-semibold text-balance">
+    <!-- Main Hero Headline -->
+    <h1 class="mt-4 text-display-xl text-[var(--color-ink)] text-balance">
       {title}
     </h1>
 
     <!-- Subtitle -->
-    <p class="text-base sm:text-lg text-[var(--color-body)] max-w-2xl mx-auto leading-relaxed mb-8 text-balance">
+    <p class="mx-auto mt-5 max-w-xl text-body-lg text-[var(--color-body)] text-balance">
       {subtitle}
     </p>
-
-    <!-- Quick Pill Badges -->
-    <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-xs font-medium text-[var(--color-ink)]">
-      <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[var(--color-canvas-elevated)] border border-[var(--color-hairline)] shadow-2xs">
-        <svg class="w-3.5 h-3.5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
-        <span>No File Limits</span>
-      </div>
-      <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[var(--color-canvas-elevated)] border border-[var(--color-hairline)] shadow-2xs">
-        <svg class="w-3.5 h-3.5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
-        <span>WebP, AVIF, JPG, PNG</span>
-      </div>
-      <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[var(--color-canvas-elevated)] border border-[var(--color-hairline)] shadow-2xs">
-        <svg class="w-3.5 h-3.5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
-        <span>Target Size (KB)</span>
-      </div>
-      <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[var(--color-canvas-elevated)] border border-[var(--color-hairline)] shadow-2xs">
-        <svg class="w-3.5 h-3.5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
-        <span>Batch 1-Click ZIP</span>
-      </div>
-      <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[var(--color-canvas-elevated)] border border-[var(--color-hairline)] shadow-2xs">
-        <svg class="w-3.5 h-3.5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
-        <span>100% Private (No Uploads)</span>
-      </div>
-    </div>
   </div>
 </section>

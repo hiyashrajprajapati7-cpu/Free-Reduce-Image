@@ -1,7 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
-import Hero from '../components/Hero.astro';
 import ImageReducerApp from '../components/ImageReducerApp.astro';
 import FeatureGrid from '../components/FeatureGrid.astro';
 import FAQSection from '../components/FAQSection.astro';
@@ -16,39 +15,39 @@ import Footer from '../components/Footer.astro';
   <Navbar />
   
   <main class="flex-1">
-    <Hero 
-      badge="Precision KB Reducer • Binary Search Optimizer"
-      title="Reduce Images to an Exact Target File Size."
-      subtitle="Quickly reduce your image file size to strictly under 50 KB, 100 KB, 200 KB, or 1 MB. Our intelligent algorithm calculates the perfect compression ratio without manual guesswork."
+    <ImageReducerApp 
+      eyebrow="TARGET FILE SIZE REDUCER"
+      title="Target file size: what limit do you need?"
+      subtitle="Quickly reduce your image file size to strictly under 50 KB, 100 KB, 200 KB, or 1 MB without manual guesswork."
+      initialMode="target" 
+      defaultTargetKb={100} 
     />
-    
-    <ImageReducerApp initialMode="target" defaultTargetKb={100} />
 
     <!-- Educational section on target size -->
-    <section class="py-16 md:py-20 border-b border-[var(--color-hairline)] bg-[var(--color-canvas)] transition-colors">
+    <section class="py-16 sm:py-20 border-b border-[var(--color-hairline)] bg-[var(--color-canvas)] transition-colors">
       <div class="max-w-4xl mx-auto px-4 sm:px-6">
-        <h2 class="text-heading-lg text-[var(--color-ink)] mb-6 text-center">
+        <h2 class="text-display-md text-[var(--color-ink)] mb-8 text-center">
           How to compress an image to under 100KB or 50KB
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="hairline-card p-6 bg-[var(--color-canvas-elevated)] border border-[var(--color-hairline)]">
-            <span class="font-mono text-xs text-[var(--color-link)] font-semibold block mb-2">STEP 01</span>
+          <div class="rounded-xl border border-[var(--color-hairline)] bg-[var(--color-canvas-elevated)] p-6">
+            <span class="font-mono text-xs text-[var(--color-mute)] font-semibold block mb-2">01</span>
             <h3 class="font-semibold text-base text-[var(--color-ink)] mb-2">Upload Photo</h3>
-            <p class="text-xs sm:text-sm text-[var(--color-body)]">
+            <p class="text-body-sm text-[var(--color-body)]">
               Drag and drop your JPG, PNG, or WebP photo into the box above.
             </p>
           </div>
-          <div class="hairline-card p-6 bg-[var(--color-canvas-elevated)] border border-[var(--color-hairline)]">
-            <span class="font-mono text-xs text-[var(--color-link)] font-semibold block mb-2">STEP 02</span>
+          <div class="rounded-xl border border-[var(--color-hairline)] bg-[var(--color-canvas-elevated)] p-6">
+            <span class="font-mono text-xs text-[var(--color-mute)] font-semibold block mb-2">02</span>
             <h3 class="font-semibold text-base text-[var(--color-ink)] mb-2">Set Max KB</h3>
-            <p class="text-xs sm:text-sm text-[var(--color-body)]">
+            <p class="text-body-sm text-[var(--color-body)]">
               Type your required file limit (e.g. 50 KB or 100 KB). Our engine automatically iterates to match it.
             </p>
           </div>
-          <div class="hairline-card p-6 bg-[var(--color-canvas-elevated)] border border-[var(--color-hairline)]">
-            <span class="font-mono text-xs text-[var(--color-link)] font-semibold block mb-2">STEP 03</span>
+          <div class="rounded-xl border border-[var(--color-hairline)] bg-[var(--color-canvas-elevated)] p-6">
+            <span class="font-mono text-xs text-[var(--color-mute)] font-semibold block mb-2">03</span>
             <h3 class="font-semibold text-base text-[var(--color-ink)] mb-2">Save & Download</h3>
-            <p class="text-xs sm:text-sm text-[var(--color-body)]">
+            <p class="text-body-sm text-[var(--color-body)]">
               Download your optimized file ready for instant submission to any official portal.
             </p>
           </div>
