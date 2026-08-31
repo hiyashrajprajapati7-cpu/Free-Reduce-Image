@@ -43,9 +43,9 @@ const {
     <div class="mx-auto mt-10 max-w-3xl animate-fade-in-up [animation-delay:120ms]">
       
       <!-- Top Mode Selector Tabs + Quick Presets Bar (Single unified row) -->
-      <div class="flex items-center justify-between gap-3 mb-3 w-full overflow-x-auto pb-1 pt-0.5" style="scrollbar-width: none;">
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-3 w-full pb-1 pt-0.5">
         <!-- Mode Tabs -->
-        <div class="inline-flex items-center gap-1 p-1 bg-[var(--color-canvas-subtle)] border border-[var(--color-hairline)] rounded-full text-xs font-medium shrink-0" id="mode-tabs">
+        <div class="inline-flex items-center gap-1 p-1 bg-[var(--color-canvas-subtle)] border border-[var(--color-hairline)] rounded-full text-xs font-medium overflow-x-auto max-w-full" id="mode-tabs" style="scrollbar-width: none;">
           <button type="button" data-mode="auto" class={`mode-tab px-3 py-1 rounded-full whitespace-nowrap transition-all duration-200 ${initialMode === 'auto' && !isPassportMode ? 'active-mode' : ''}`}>
             Smart Auto
           </button>
@@ -61,7 +61,7 @@ const {
         </div>
 
         <!-- Presets -->
-        <div class="flex items-center gap-1.5 shrink-0 ml-auto">
+        <div class="flex items-center gap-1.5 ml-auto min-w-0">
           <label class="text-[11px] font-mono text-[var(--color-mute)] uppercase whitespace-nowrap hidden sm:inline">Presets:</label>
           <select id="quick-preset" class="minimal-input text-xs py-1 px-2.5 bg-[var(--color-canvas)] text-[var(--color-ink)] cursor-pointer hover:border-[var(--color-ink)] transition-colors rounded-full">
             <option value="">Custom Settings</option>

@@ -43,6 +43,7 @@
 
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   body {
@@ -53,6 +54,7 @@
     -moz-osx-font-smoothing: grayscale;
     min-height: 100vh;
     margin: 0;
+    overflow-x: hidden;
     transition: background-color 0.2s var(--ease-out-quint), color 0.2s var(--ease-out-quint);
   }
 
