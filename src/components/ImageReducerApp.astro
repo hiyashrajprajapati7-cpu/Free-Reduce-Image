@@ -20,50 +20,46 @@ const {
 } = Astro.props;
 ---
 
-<section id="identify" class="relative pb-12 pt-12 sm:pt-20 border-b border-[var(--color-hairline)] bg-[var(--color-canvas)] transition-colors">
-  <!-- Subtle Top Atmospheric Mask matching fontfinderai.com -->
-  <div class="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[380px] overflow-hidden" aria-hidden="true">
-    <div class="absolute inset-x-0 top-[-220px] h-[520px] opacity-[0.08] blur-[110px] dark:opacity-[0.14]" style="background: radial-gradient(38% 55% at 32% 45%, var(--color-ink) 0%, transparent 100%), radial-gradient(36% 52% at 68% 40%, var(--color-ink) 0%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, #000 35%, transparent 100%), linear-gradient(to right, transparent 0%, #000 18%, #000 82%, transparent 100%); mask-image: linear-gradient(to bottom, #000 35%, transparent 100%), linear-gradient(to right, transparent 0%, #000 18%, #000 82%, transparent 100%);"></div>
-  </div>
+<section id="identify" class="relative pb-6 pt-6 sm:pb-8 sm:pt-12 border-b border-[var(--color-hairline)] bg-[var(--color-canvas)] transition-colors">
 
   <div class="max-w-3xl mx-auto px-4 sm:px-6 w-full text-center">
 
     <!-- Hero Header with Exact fontfinderai Typography -->
     <div class="animate-fade-in-up">
       <p class="eyebrow">{eyebrow}</p>
-      <h1 class="mt-4 text-[2.5rem] font-semibold leading-[1.05] tracking-[-0.045em] text-[var(--color-ink)] sm:text-[3.5rem] text-balance">
+      <h1 class="mt-3 text-[1.5rem] font-bold leading-[1.1] tracking-[-0.04em] text-[var(--color-ink)] sm:text-[2.75rem] text-balance">
         {title}
       </h1>
-      <p class="mx-auto mt-5 max-w-xl text-body-lg text-[var(--color-body)] text-balance">
+      <p class="mx-auto mt-3 max-w-xl text-body-md text-[var(--color-body)] text-balance">
         {subtitle}
       </p>
     </div>
 
     <!-- Reducer Workspace Container -->
-    <div class="mx-auto mt-10 max-w-3xl animate-fade-in-up [animation-delay:120ms]">
+    <div class="mx-auto mt-6 max-w-3xl animate-fade-in-up [animation-delay:120ms]">
       
       <!-- Top Mode Selector Tabs + Quick Presets Bar (Single unified row) -->
-      <div class="flex flex-wrap items-center justify-between gap-3 mb-3 w-full pb-1 pt-0.5">
+      <div class="flex flex-col sm:flex-row sm:flex-wrap sm:items-center sm:justify-between gap-2 sm:gap-3 mb-3 w-full pb-1 pt-0.5">
         <!-- Mode Tabs -->
-        <div class="inline-flex items-center gap-1 p-1 bg-[var(--color-canvas-subtle)] border border-[var(--color-hairline)] rounded-full text-xs font-medium overflow-x-auto max-w-full" id="mode-tabs" style="scrollbar-width: none;">
-          <button type="button" data-mode="auto" class={`mode-tab px-3 py-1 rounded-full whitespace-nowrap transition-all duration-200 ${initialMode === 'auto' && !isPassportMode ? 'active-mode' : ''}`}>
+        <div class="inline-flex items-center gap-0.5 sm:gap-1 p-1 bg-[var(--color-canvas-subtle)] border border-[var(--color-hairline)] rounded-full text-[11px] sm:text-xs font-medium overflow-x-auto max-w-full" id="mode-tabs" style="scrollbar-width: none; -webkit-overflow-scrolling: touch;">
+          <button type="button" data-mode="auto" class={`mode-tab px-2.5 sm:px-3 py-1.5 sm:py-1 rounded-full whitespace-nowrap transition-all duration-200 ${initialMode === 'auto' && !isPassportMode ? 'active-mode' : ''}`}>
             Smart Auto
           </button>
-          <button type="button" data-mode="target" class={`mode-tab px-3 py-1 rounded-full whitespace-nowrap transition-all duration-200 ${initialMode === 'target' ? 'active-mode' : ''}`}>
-            Target Size (KB)
+          <button type="button" data-mode="target" class={`mode-tab px-2.5 sm:px-3 py-1.5 sm:py-1 rounded-full whitespace-nowrap transition-all duration-200 ${initialMode === 'target' ? 'active-mode' : ''}`}>
+            Target (KB)
           </button>
-          <button type="button" data-mode="dimensions" class={`mode-tab px-3 py-1 rounded-full whitespace-nowrap transition-all duration-200 ${initialMode === 'dimensions' || isPassportMode ? 'active-mode' : ''}`}>
-            Dimensions & DPI
+          <button type="button" data-mode="dimensions" class={`mode-tab px-2.5 sm:px-3 py-1.5 sm:py-1 rounded-full whitespace-nowrap transition-all duration-200 ${initialMode === 'dimensions' || isPassportMode ? 'active-mode' : ''}`}>
+            Dimensions
           </button>
-          <button type="button" data-mode="convert" class={`mode-tab px-3 py-1 rounded-full whitespace-nowrap transition-all duration-200 ${initialMode === 'convert' ? 'active-mode' : ''}`}>
-            Convert Format
+          <button type="button" data-mode="convert" class={`mode-tab px-2.5 sm:px-3 py-1.5 sm:py-1 rounded-full whitespace-nowrap transition-all duration-200 ${initialMode === 'convert' ? 'active-mode' : ''}`}>
+            Convert
           </button>
         </div>
 
         <!-- Presets -->
-        <div class="flex items-center gap-1.5 ml-auto min-w-0">
+        <div class="flex items-center gap-1.5 w-full sm:w-auto sm:ml-auto min-w-0">
           <label class="text-[11px] font-mono text-[var(--color-mute)] uppercase whitespace-nowrap hidden sm:inline">Presets:</label>
-          <select id="quick-preset" class="minimal-input text-xs py-1 px-2.5 bg-[var(--color-canvas)] text-[var(--color-ink)] cursor-pointer hover:border-[var(--color-ink)] transition-colors rounded-full">
+          <select id="quick-preset" class="minimal-input text-xs py-1.5 sm:py-1 px-2.5 bg-[var(--color-canvas)] text-[var(--color-ink)] cursor-pointer hover:border-[var(--color-ink)] transition-colors rounded-full w-full sm:w-auto">
             <option value="">Custom Settings</option>
             <option value="web-opt" selected={initialMode === 'auto'}>Web Ready (80% WebP)</option>
             <option value="target-50">Under 50 KB (Avatars & Forms)</option>
@@ -77,48 +73,48 @@ const {
       </div>
 
       <!-- Dashed Dropzone Area (Clean & Minimalist matching fontfinderai.com) -->
-      <div id="dropzone" class="relative rounded-2xl border border-dashed border-[var(--color-hairline-strong)] bg-[var(--color-canvas-elevated)] p-8 sm:p-12 text-center transition-all duration-200 cursor-pointer group hover:bg-[var(--color-canvas-subtle)]/60">
+      <div id="dropzone" class="relative rounded-xl sm:rounded-2xl border border-dashed border-[var(--color-hairline-strong)] bg-[var(--color-canvas-elevated)] p-4 sm:p-8 text-center transition-all duration-200 cursor-pointer group hover:bg-[var(--color-canvas-subtle)]/60">
         <input type="file" id="file-input" multiple accept="image/png,image/jpeg,image/webp,image/avif,image/gif,image/bmp,image/svg+xml" class="sr-only" />
         
         <!-- Upload Tray Arrow Icon with gentle hover lift -->
-        <svg class="mx-auto size-10 text-[var(--color-mute)] group-hover:text-[var(--color-ink)] group-hover:-translate-y-1 transition-all duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+        <svg class="mx-auto size-8 sm:size-10 text-[var(--color-mute)] group-hover:text-[var(--color-ink)] group-hover:-translate-y-1 transition-all duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
           <path d="M12 16V4m0 0L8 8m4-4 4 4" stroke-linecap="round" stroke-linejoin="round"></path>
           <path d="M3 15v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4" stroke-linecap="round"></path>
         </svg>
 
         <!-- Headline -->
-        <h2 class="mt-4 text-xl sm:text-2xl font-semibold tracking-tight text-[var(--color-ink)]">
+        <h2 class="mt-3 text-lg sm:text-xl font-bold tracking-tight text-[var(--color-ink)]">
           Drop an image to reduce the size
         </h2>
 
-        <!-- Subtitle (Clean plain text without noisy badges) -->
-        <p class="mx-auto mt-2 max-w-md text-xs sm:text-sm text-[var(--color-body)] leading-relaxed">
-          PNG, JPG, WebP, AVIF or GIF. Paste with ⌘V, or drag a file anywhere on this page.
+        <!-- Subtitle -->
+        <p class="mx-auto mt-1.5 max-w-md text-xs sm:text-sm text-[var(--color-body)] leading-relaxed">
+          PNG, JPG, WebP, AVIF or GIF — drag a file anywhere on this page.
         </p>
 
         <!-- Action Buttons -->
-        <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
-          <label for="file-input" class="cursor-pointer rounded-full bg-[var(--color-primary)] px-6 py-3 text-sm font-semibold text-[var(--color-on-primary)] transition-all duration-150 hover:opacity-90 active:scale-95 shadow-2xs inline-flex items-center justify-center">
+        <div class="mt-4 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-2.5 sm:gap-3">
+          <label for="file-input" class="cursor-pointer rounded-full bg-[var(--color-primary)] px-5 py-3 sm:py-2.5 text-sm font-bold text-[var(--color-on-primary)] transition-all duration-150 hover:opacity-90 active:scale-95 shadow-2xs inline-flex items-center justify-center w-full sm:w-auto min-h-[44px]">
             Choose an image
           </label>
-          <button type="button" id="try-sample-btn" class="rounded-full border border-[var(--color-hairline)] bg-[var(--color-canvas)] px-6 py-3 text-sm font-medium text-[var(--color-ink)] transition-all duration-150 hover:bg-[var(--color-canvas-subtle)] hover:border-[var(--color-hairline-strong)] active:scale-95 cursor-pointer shadow-2xs inline-flex items-center justify-center">
+          <button type="button" id="try-sample-btn" class="rounded-full border border-[var(--color-hairline)] bg-[var(--color-canvas)] px-5 py-3 sm:py-2.5 text-sm font-medium text-[var(--color-ink)] transition-all duration-150 hover:bg-[var(--color-canvas-subtle)] hover:border-[var(--color-hairline-strong)] active:scale-95 cursor-pointer shadow-2xs inline-flex items-center justify-center w-full sm:w-auto min-h-[44px]">
             Try an example
           </button>
         </div>
 
         <!-- Trust Caption -->
-        <p class="mt-5 text-xs text-[var(--color-mute)]">
-          Free and unlimited. No account. Your image is never stored.
+        <p class="mt-3 text-xs text-[var(--color-mute)]">
+          Free & unlimited · No account · Your image never leaves your browser
         </p>
       </div>
 
       <!-- Docked Parameters Bar (Modular clean card) -->
-      <div id="settings-panel" class="mt-3 rounded-xl border border-[var(--color-hairline)] bg-[var(--color-canvas)] p-4 text-xs text-left">
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 items-end">
+      <div id="settings-panel" class="mt-2.5 sm:mt-3 rounded-lg sm:rounded-xl border border-[var(--color-hairline)] bg-[var(--color-canvas)] p-3 sm:p-4 text-xs text-left">
+        <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3 items-end">
           
           <!-- Output Format -->
           <div>
-            <label class="block text-[10px] font-mono uppercase text-[var(--color-mute)] mb-1">Output Format</label>
+            <label class="block text-[11px] font-mono uppercase font-semibold text-[var(--color-ink)] mb-1">Output Format</label>
             <select id="format-select" class="w-full minimal-input bg-[var(--color-canvas)] text-xs py-1.5">
               <option value="auto" selected={defaultFormat === 'auto'}>Auto (Keep Original)</option>
               <option value="image/webp" selected={defaultFormat === 'webp'}>WebP (Recommended)</option>
@@ -131,7 +127,7 @@ const {
           <!-- Quality Slider -->
           <div id="quality-control">
             <div class="flex justify-between items-center mb-1">
-              <label class="text-[10px] font-mono uppercase text-[var(--color-mute)]">Quality</label>
+              <label class="text-[11px] font-mono uppercase font-semibold text-[var(--color-ink)]">Quality</label>
               <span id="quality-val" class="text-[11px] font-mono font-semibold text-[var(--color-ink)]">82%</span>
             </div>
             <input type="range" id="quality-slider" min="5" max="100" value="82" class="w-full accent-[var(--color-ink)] cursor-pointer h-4" />
@@ -139,7 +135,7 @@ const {
 
           <!-- Target File Size Control -->
           <div id="target-size-control" class={`${initialMode === 'target' ? 'block' : 'hidden'}`}>
-            <label class="block text-[10px] font-mono uppercase text-[var(--color-mute)] mb-1">Max Target Size</label>
+            <label class="block text-[11px] font-mono uppercase font-semibold text-[var(--color-ink)] mb-1">Max Target Size</label>
             <div class="flex items-center gap-1">
               <input type="number" id="target-kb-input" min="5" max="50000" value={defaultTargetKb} class="w-full minimal-input font-mono bg-[var(--color-canvas)] text-xs py-1.5" />
               <select id="target-unit" class="minimal-input text-xs font-mono py-1.5 px-1.5 bg-[var(--color-canvas)]">
@@ -153,11 +149,11 @@ const {
           <div id="dimension-scale-control" class={`${initialMode === 'dimensions' || isPassportMode ? 'block' : 'hidden'} sm:col-span-2 md:col-span-2`}>
             <div class="grid grid-cols-3 gap-2">
               <div>
-                <label class="block text-[10px] font-mono uppercase text-[var(--color-mute)] mb-1">Scale (%)</label>
+                <label class="block text-[11px] font-mono uppercase font-semibold text-[var(--color-ink)] mb-1">Scale (%)</label>
                 <input type="number" id="scale-percent-input" min="10" max="200" value="100" class="w-full minimal-input font-mono bg-[var(--color-canvas)] text-xs py-1.5" />
               </div>
               <div>
-                <label class="block text-[10px] font-mono uppercase text-[var(--color-mute)] mb-1">DPI</label>
+                <label class="block text-[11px] font-mono uppercase font-semibold text-[var(--color-ink)] mb-1">DPI</label>
                 <select id="dpi-select" class="w-full minimal-input font-mono text-xs bg-[var(--color-canvas)] py-1.5">
                   <option value="72">72 (Web)</option>
                   <option value="150">150 (Screen)</option>
@@ -166,7 +162,7 @@ const {
                 </select>
               </div>
               <div>
-                <label class="block text-[10px] font-mono uppercase text-[var(--color-mute)] mb-1">Fit</label>
+                <label class="block text-[11px] font-mono uppercase font-semibold text-[var(--color-ink)] mb-1">Fit</label>
                 <select id="fit-mode-select" class="w-full minimal-input text-xs bg-[var(--color-canvas)] py-1.5">
                   <option value="contain">Contain</option>
                   <option value="cover">Crop</option>
@@ -193,38 +189,38 @@ const {
     <div id="batch-section" class="mt-6 hidden text-left">
       
       <!-- Queue Stats Summary Header -->
-      <div class="flex flex-wrap items-center justify-between gap-4 p-4 rounded-xl border border-[var(--color-hairline)] bg-[var(--color-canvas-elevated)] mb-4">
-        <div class="flex flex-wrap items-center gap-4 sm:gap-6 text-xs">
-          <div>
+      <div class="flex flex-col sm:flex-row sm:flex-wrap sm:items-center sm:justify-between gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl border border-[var(--color-hairline)] bg-[var(--color-canvas-elevated)] mb-4">
+        <div class="grid grid-cols-4 sm:flex sm:flex-wrap sm:items-center gap-2 sm:gap-6 text-xs">
+          <div class="text-center sm:text-left">
             <span class="text-[var(--color-mute)] block font-mono text-[10px] uppercase">Images</span>
             <span id="stat-count" class="font-semibold text-[var(--color-ink)]">0 files</span>
           </div>
-          <div class="w-px h-6 bg-[var(--color-hairline)]"></div>
-          <div>
+          <div class="w-px h-6 bg-[var(--color-hairline)] hidden sm:block"></div>
+          <div class="text-center sm:text-left">
             <span class="text-[var(--color-mute)] block font-mono text-[10px] uppercase">Original</span>
             <span id="stat-original-size" class="font-semibold text-[var(--color-ink)]">0 MB</span>
           </div>
-          <div class="w-px h-6 bg-[var(--color-hairline)]"></div>
-          <div>
+          <div class="w-px h-6 bg-[var(--color-hairline)] hidden sm:block"></div>
+          <div class="text-center sm:text-left">
             <span class="text-[var(--color-mute)] block font-mono text-[10px] uppercase">Reduced</span>
             <span id="stat-reduced-size" class="font-semibold text-[var(--color-ink)]">0 MB</span>
           </div>
-          <div class="w-px h-6 bg-[var(--color-hairline)]"></div>
-          <div>
+          <div class="w-px h-6 bg-[var(--color-hairline)] hidden sm:block"></div>
+          <div class="text-center sm:text-left">
             <span class="text-[var(--color-mute)] block font-mono text-[10px] uppercase">Saved</span>
             <span id="stat-saved-percent" class="font-semibold text-[var(--color-ink)] bg-[var(--color-canvas-subtle)] px-2.5 py-0.5 rounded-full border border-[var(--color-hairline)]">0%</span>
           </div>
         </div>
 
         <!-- Batch Action Buttons -->
-        <div class="flex items-center gap-2">
-          <button type="button" id="clear-all-btn" class="px-3 py-1.5 text-xs text-[var(--color-mute)] hover:text-red-500 rounded-md transition-colors cursor-pointer">
+        <div class="flex items-center gap-2 w-full sm:w-auto">
+          <button type="button" id="clear-all-btn" class="px-3 py-2 sm:py-1.5 text-xs text-[var(--color-mute)] hover:text-red-500 rounded-md transition-colors cursor-pointer min-h-[44px] sm:min-h-0">
             Clear
           </button>
-          <button type="button" id="reprocess-all-btn" class="rounded-full border border-[var(--color-hairline)] bg-[var(--color-canvas)] px-3 py-1.5 text-xs font-medium text-[var(--color-ink)] hover:bg-[var(--color-canvas-subtle)] transition-colors cursor-pointer">
+          <button type="button" id="reprocess-all-btn" class="rounded-full border border-[var(--color-hairline)] bg-[var(--color-canvas)] px-3 py-2 sm:py-1.5 text-xs font-medium text-[var(--color-ink)] hover:bg-[var(--color-canvas-subtle)] transition-colors cursor-pointer min-h-[44px] sm:min-h-0">
             Apply
           </button>
-          <button type="button" id="download-zip-btn" class="rounded-full bg-[var(--color-primary)] text-[var(--color-on-primary)] px-4 py-1.5 text-xs font-medium transition-opacity hover:opacity-90 cursor-pointer flex items-center gap-1.5">
+          <button type="button" id="download-zip-btn" class="rounded-full bg-[var(--color-primary)] text-[var(--color-on-primary)] px-4 py-2 sm:py-1.5 text-xs font-medium transition-opacity hover:opacity-90 cursor-pointer flex items-center justify-center gap-1.5 flex-1 sm:flex-none min-h-[44px] sm:min-h-0">
             <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
               <polyline points="7 10 12 15 17 10"></polyline>
@@ -246,10 +242,10 @@ const {
 </section>
 
 <!-- Interactive Split Comparison Modal -->
-<div id="compare-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-4">
-  <div class="bg-[var(--color-canvas-elevated)] rounded-2xl border border-[var(--color-hairline)] shadow-2xl max-w-4xl w-full overflow-hidden flex flex-col max-h-[90vh]">
+<div id="compare-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-2 sm:p-4">
+  <div class="bg-[var(--color-canvas-elevated)] rounded-xl sm:rounded-2xl border border-[var(--color-hairline)] shadow-2xl max-w-4xl w-full overflow-hidden flex flex-col max-h-[95vh] sm:max-h-[90vh]">
     <!-- Header -->
-    <div class="px-6 py-4 border-b border-[var(--color-hairline)] flex items-center justify-between bg-[var(--color-canvas)]">
+    <div class="px-4 sm:px-6 py-3 sm:py-4 border-b border-[var(--color-hairline)] flex items-center justify-between bg-[var(--color-canvas)]">
       <div class="flex items-center gap-3">
         <h3 class="font-semibold text-[var(--color-ink)] text-sm sm:text-base">Before vs After Comparison</h3>
         <span id="modal-savings-badge" class="px-2.5 py-0.5 rounded-full bg-[var(--color-canvas-subtle)] text-[var(--color-ink)] border border-[var(--color-hairline)] text-xs font-mono font-medium"></span>
@@ -260,7 +256,7 @@ const {
     </div>
 
     <!-- Comparison Viewport Area -->
-    <div class="p-6 flex-1 overflow-auto flex flex-col items-center justify-center bg-[var(--color-canvas-subtle)]">
+    <div class="p-3 sm:p-6 flex-1 overflow-auto flex flex-col items-center justify-center bg-[var(--color-canvas-subtle)]">
       <div class="relative max-w-full max-h-[60vh] select-none rounded-lg overflow-hidden border border-[var(--color-hairline)]" id="split-container">
         <!-- Original (Underneath) -->
         <img id="compare-original-img" src="" alt="Original" class="block max-h-[60vh] max-w-full object-contain pointer-events-none" />
@@ -290,9 +286,9 @@ const {
     </div>
 
     <!-- Modal Footer -->
-    <div class="px-6 py-4 border-t border-[var(--color-hairline)] flex items-center justify-end gap-3 bg-[var(--color-canvas)]">
-      <button type="button" id="modal-close-action" class="rounded-full border border-[var(--color-hairline)] bg-[var(--color-canvas)] px-4 py-2 text-xs font-medium text-[var(--color-ink)] hover:bg-[var(--color-canvas-subtle)] cursor-pointer">Close</button>
-      <a id="modal-download-action" href="#" download="" class="rounded-full bg-[var(--color-primary)] text-[var(--color-on-primary)] px-5 py-2 text-xs font-medium hover:opacity-90 cursor-pointer">Download Reduced Image</a>
+    <div class="px-4 sm:px-6 py-3 sm:py-4 border-t border-[var(--color-hairline)] flex items-center justify-end gap-2 sm:gap-3 bg-[var(--color-canvas)]">
+      <button type="button" id="modal-close-action" class="rounded-full border border-[var(--color-hairline)] bg-[var(--color-canvas)] px-4 py-2.5 sm:py-2 text-xs font-medium text-[var(--color-ink)] hover:bg-[var(--color-canvas-subtle)] cursor-pointer min-h-[44px] sm:min-h-0">Close</button>
+      <a id="modal-download-action" href="#" download="" class="rounded-full bg-[var(--color-primary)] text-[var(--color-on-primary)] px-5 py-2.5 sm:py-2 text-xs font-medium hover:opacity-90 cursor-pointer min-h-[44px] sm:min-h-0 inline-flex items-center">Download Reduced Image</a>
     </div>
   </div>
 </div>
@@ -715,18 +711,18 @@ const {
 
     const card = document.createElement('div');
     card.id = `file-card-${item.id}`;
-    card.className = 'card-enter p-3.5 sm:p-4 rounded-xl border border-[var(--color-hairline)] bg-[var(--color-canvas-elevated)] flex flex-wrap items-center justify-between gap-4 transition-all duration-200 hover:border-[var(--color-hairline-strong)] hover:shadow-xs';
+    card.className = 'card-enter p-3 sm:p-4 rounded-xl border border-[var(--color-hairline)] bg-[var(--color-canvas-elevated)] flex flex-col sm:flex-row sm:flex-wrap sm:items-center sm:justify-between gap-3 sm:gap-4 transition-all duration-200 hover:border-[var(--color-hairline-strong)] hover:shadow-xs';
 
     card.innerHTML = `
-      <div class="flex items-center gap-3 min-w-0">
-        <div class="w-12 h-12 rounded-lg bg-[var(--color-canvas-subtle)] border border-[var(--color-hairline)] overflow-hidden shrink-0 flex items-center justify-center">
+      <div class="flex items-center gap-3 min-w-0 w-full sm:w-auto">
+        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-[var(--color-canvas-subtle)] border border-[var(--color-hairline)] overflow-hidden shrink-0 flex items-center justify-center">
           <img src="${item.reducedUrl}" alt="${item.originalName}" class="w-full h-full object-cover" />
         </div>
-        <div class="min-w-0">
-          <p class="text-xs sm:text-sm font-medium text-[var(--color-ink)] truncate max-w-[180px] sm:max-w-xs" title="${item.originalName}">
+        <div class="min-w-0 flex-1">
+          <p class="text-xs sm:text-sm font-medium text-[var(--color-ink)] truncate max-w-[200px] sm:max-w-xs" title="${item.originalName}">
             ${item.originalName}
           </p>
-          <div class="flex items-center gap-2 mt-0.5 text-[11px] font-mono text-[var(--color-mute)]">
+          <div class="flex flex-wrap items-center gap-1.5 sm:gap-2 mt-0.5 text-[10px] sm:text-[11px] font-mono text-[var(--color-mute)]">
             <span>${formatBytes(item.originalSize)}</span>
             <span>→</span>
             <span class="font-semibold text-[var(--color-ink)]">${formatBytes(item.reducedSize)}</span>
@@ -735,11 +731,11 @@ const {
         </div>
       </div>
 
-      <div class="flex items-center gap-2">
-        <button type="button" data-compare-id="${item.id}" class="compare-btn px-3 py-1.5 rounded-full border border-[var(--color-hairline)] text-xs text-[var(--color-body)] hover:text-[var(--color-ink)] hover:bg-[var(--color-canvas-subtle)] transition-colors cursor-pointer">
+      <div class="flex items-center gap-2 w-full sm:w-auto">
+        <button type="button" data-compare-id="${item.id}" class="compare-btn px-3 py-2 sm:py-1.5 rounded-full border border-[var(--color-hairline)] text-xs text-[var(--color-body)] hover:text-[var(--color-ink)] hover:bg-[var(--color-canvas-subtle)] transition-colors cursor-pointer min-h-[44px] sm:min-h-0 flex-1 sm:flex-none">
           Compare
         </button>
-        <a href="${item.reducedUrl}" download="${downloadName}" class="rounded-full bg-[var(--color-primary)] text-[var(--color-on-primary)] px-3.5 py-1.5 text-xs font-medium transition-opacity hover:opacity-90 flex items-center gap-1">
+        <a href="${item.reducedUrl}" download="${downloadName}" class="rounded-full bg-[var(--color-primary)] text-[var(--color-on-primary)] px-3.5 py-2 sm:py-1.5 text-xs font-medium transition-opacity hover:opacity-90 flex items-center justify-center gap-1 min-h-[44px] sm:min-h-0 flex-1 sm:flex-none">
           <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
             <polyline points="7 10 12 15 17 10"></polyline>
@@ -747,7 +743,7 @@ const {
           </svg>
           <span>Save</span>
         </a>
-        <button type="button" data-remove-id="${item.id}" class="remove-btn p-1.5 text-[var(--color-mute)] hover:text-red-500 transition-colors cursor-pointer" title="Remove">
+        <button type="button" data-remove-id="${item.id}" class="remove-btn p-2 sm:p-1.5 text-[var(--color-mute)] hover:text-red-500 transition-colors cursor-pointer min-h-[44px] sm:min-h-0" title="Remove">
           ✕
         </button>
       </div>

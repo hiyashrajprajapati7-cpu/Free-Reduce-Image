@@ -2,8 +2,8 @@
 ---
 
 <header data-site-header class="sticky top-0 z-50 border-b border-[var(--color-hairline)] bg-[var(--color-canvas)]/85 backdrop-blur-md transition-colors">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 flex h-16 items-center gap-4">
-    <!-- Brand Logo & Title (Exact fontfinderai proportion) -->
+  <div class="max-w-6xl mx-auto px-3 sm:px-6 flex h-14 sm:h-16 items-center gap-3 sm:gap-4">
+    <!-- Brand Logo & Title -->
     <a href="/" class="flex items-center gap-2 font-medium tracking-tight text-[var(--color-ink)] flex-shrink-0 group">
       <div class="w-6 h-6 rounded-md bg-[var(--color-ink)] text-[var(--color-canvas)] flex items-center justify-center shadow-2xs group-hover:scale-105 transition-transform">
         <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -12,7 +12,7 @@
           <path d="m8 17 4 4 4-4"></path>
         </svg>
       </div>
-      <span class="text-sm sm:text-base font-semibold tracking-tight">Free Reduce Image</span>
+      <span class="text-sm sm:text-base font-bold tracking-tight">Free Reduce Image</span>
     </a>
 
     <!-- Nav Links (Desktop) -->
@@ -23,12 +23,12 @@
     </nav>
 
     <!-- Right Controls: Theme switch + Primary CTA -->
-    <div class="ml-auto flex items-center gap-2 md:ml-0">
+    <div class="ml-auto flex items-center gap-1.5 sm:gap-2 md:ml-0">
       <!-- Dark / Light Mode Switcher -->
       <button 
         type="button" 
         id="theme-toggle" 
-        class="grid size-8 cursor-pointer place-items-center rounded-full border border-[var(--color-hairline)] text-[var(--color-body)] transition-colors hover:bg-[var(--color-canvas-subtle)] hover:text-[var(--color-ink)] active:scale-90"
+        class="grid size-9 sm:size-8 cursor-pointer place-items-center rounded-full border border-[var(--color-hairline)] text-[var(--color-body)] transition-colors hover:bg-[var(--color-canvas-subtle)] hover:text-[var(--color-ink)] active:scale-90"
         aria-label="Switch colour theme"
         title="Toggle Theme"
       >
@@ -43,8 +43,8 @@
         </svg>
       </button>
 
-      <!-- Primary Action Button (White pill on dark / black pill on light) -->
-      <a href="#identify" class="rounded-sm bg-[var(--color-primary)] px-3 py-1.5 text-xs sm:text-sm font-medium text-[var(--color-on-primary)] transition-opacity hover:opacity-90 active:scale-95 shadow-2xs">
+      <!-- Primary Action Button -->
+      <a href="#identify" class="rounded-sm bg-[var(--color-primary)] px-3 py-2 sm:py-1.5 text-xs sm:text-sm font-medium text-[var(--color-on-primary)] transition-opacity hover:opacity-90 active:scale-95 shadow-2xs min-h-[44px] sm:min-h-0 inline-flex items-center">
         Reduce an image
       </a>
     </div>
