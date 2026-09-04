@@ -6,14 +6,18 @@ interface Props {
   description?: string;
   canonical?: string;
   keywords?: string;
-  schema?: Record<string, any>;
+  ogImage?: string;
+  ogType?: string;
+  schema?: Record<string, any> | Array<Record<string, any>>;
 }
 
 const {
-  title = "Free Reduce Image — Free AI Image Reducer & Compressor",
-  description = "Free image reducer by image. Upload, paste or drop photos and reduce file size in seconds — with exact target KB caps, DPI control, and zero quality loss.",
+  title = "Reduce Image — Free Reduce Image Size in KB Online",
+  description = "Reduce image file size online for free. Compress JPG, PNG, and WebP to exact KB limits or reduce image resolution without losing quality. 100% private in-browser.",
   canonical = "https://freereduceimage.com/",
-  keywords = "free reduce image, image compressor, font finder ai, reduce image size, batch image resizer, convert to webp, reduce image to 100kb, compress photos, privacy image optimizer",
+  keywords = "reduce image, reduce image size, reduce image size in kb, reduce image file size, how to reduce image file size, reduce image size online, reduce image quality, free reduce image, free reduce image size, jpg size reducer, compress jpg, reduce jpg size, reduce image resolution, reduce image size without losing quality",
+  ogImage = "https://freereduceimage.com/og-image.png",
+  ogType = "website",
   schema
 } = Astro.props;
 
@@ -21,9 +25,10 @@ const defaultSchema = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "name": "Free Reduce Image",
-  "url": "https://freereduceimage.com",
-  "description": "Upload an image and reduce file size — with exact target KB caps, DPI control, and zero quality loss. 100% private in-browser tool.",
-  "applicationCategory": "DesignApplication",
+  "alternateName": "Reduce Image Online",
+  "url": "https://freereduceimage.com/",
+  "description": "Free tool to reduce image file size, compress JPG, reduce image size in KB, and adjust image resolution without losing quality. 100% private in-browser tool.",
+  "applicationCategory": "MultimediaApplication",
   "operatingSystem": "All",
   "offers": {
     "@type": "Offer",
@@ -32,18 +37,20 @@ const defaultSchema = {
   },
   "isAccessibleForFree": true,
   "featureList": [
-    "Image reducer by image — upload, drag or paste a screenshot",
-    "100% Private Client-Side In-Browser Processing",
-    "Target File Size Reduction (<50KB, <100KB, <200KB, <1MB)",
-    "Batch Multi-File Compression (100+ files) with 1-Click ZIP",
-    "Dimension & DPI Resizing (72, 150, 300, 600 DPI)",
-    "WebP, AVIF, JPEG, PNG, GIF Converter",
-    "Interactive Split Comparison Slider",
-    "EXIF & GPS Metadata Stripper"
+    "Reduce image size in KB (Target <20KB, <50KB, <100KB, <200KB, <1MB)",
+    "JPG size reducer and high-efficiency JPG compression",
+    "Reduce image resolution and pixel dimensions with DPI preservation",
+    "Compress images without losing perceptual quality",
+    "100% Private client-side in-browser processing",
+    "Batch multi-file compression with 1-click ZIP export",
+    "WebP, AVIF, JPEG, PNG, and GIF format conversion",
+    "Automatic EXIF and GPS geolocation metadata stripper"
   ]
 };
 
-const jsonLd = schema || defaultSchema;
+const jsonLdList = Array.isArray(schema) 
+  ? schema 
+  : [schema || defaultSchema];
 ---
 
 <!doctype html>
@@ -54,22 +61,38 @@ const jsonLd = schema || defaultSchema;
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="keywords" content={keywords} />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <link rel="canonical" href={canonical} />
 
-    <!-- Open Graph / Social Media -->
-    <meta property="og:type" content="website" />
+    <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
+    <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:site_name" content="Free Reduce Image" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:secure_url" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Free Reduce Image — Compress JPG & Reduce Image Size Online" />
+    <meta property="og:image:type" content="image/png" />
 
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonical} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content="Free Reduce Image — Compress JPG & Reduce Image Size Online" />
 
     <!-- Favicon & Icons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#090a0f" media="(prefers-color-scheme: dark)" />
 
     <!-- Google Fonts: Geist & Geist Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -92,7 +115,9 @@ const jsonLd = schema || defaultSchema;
     </script>
 
     <!-- JSON-LD Structured Data -->
-    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    {jsonLdList.map((item) => (
+      <script type="application/ld+json" set:html={JSON.stringify(item)} />
+    ))}
   </head>
   <body class="bg-[var(--color-canvas)] text-[var(--color-body)] antialiased selection:bg-[var(--color-ink)] selection:text-[var(--color-canvas)] flex flex-col min-h-screen">
     <slot />

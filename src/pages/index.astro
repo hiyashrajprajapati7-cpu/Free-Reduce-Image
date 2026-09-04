@@ -4,15 +4,73 @@ import Navbar from '../components/Navbar.astro';
 import ImageReducerApp from '../components/ImageReducerApp.astro';
 import FeatureGrid from '../components/FeatureGrid.astro';
 import FormatComparison from '../components/FormatComparison.astro';
+import SeoContentSection from '../components/SeoContentSection.astro';
 import UseCasesSection from '../components/UseCasesSection.astro';
 import FAQSection from '../components/FAQSection.astro';
 import Footer from '../components/Footer.astro';
+
+const webAppSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Free Reduce Image",
+  "alternateName": "Reduce Image Online",
+  "url": "https://freereduceimage.com/",
+  "description": "Free online tool to reduce image file size, compress JPG, reduce image size in KB, and adjust image resolution without losing quality. 100% private in-browser processing.",
+  "applicationCategory": "MultimediaApplication",
+  "operatingSystem": "All",
+  "browserRequirements": "Requires HTML5 Canvas & Web Workers support",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "isAccessibleForFree": true,
+  "featureList": [
+    "Reduce image size in KB (Target <20KB, <50KB, <100KB, <200KB, <1MB)",
+    "JPG size reducer and smart lossy/lossless JPG compression",
+    "Reduce image resolution and pixel dimensions with DPI preservation",
+    "Reduce image size without losing perceptual quality",
+    "100% Private client-side in-browser processing",
+    "Batch multi-file compression with 1-click ZIP export",
+    "WebP, AVIF, JPEG, PNG, and GIF format conversion"
+  ]
+};
+
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to Reduce Image File Size Online",
+  "description": "Follow these 3 simple steps to reduce image file size in KB online without losing quality.",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Upload or Paste Your Image",
+      "text": "Drag and drop your image file, select it from your device, or paste directly from clipboard using Ctrl+V."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Choose Target KB or Compression Mode",
+      "text": "Select Smart Auto compression, enter an exact maximum file size in KB (such as 50 KB or 100 KB), or specify custom pixel dimensions."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Preview and Download",
+      "text": "Use the side-by-side interactive split slider to verify image clarity, then download the reduced file or save all files in a single ZIP."
+    }
+  ]
+};
 ---
 
 <Layout
-  title="Free Reduce Image — Free AI Image Reducer & Compressor"
-  description="Upload an image and reduce file size in seconds — with exact target KB caps, DPI control, and zero quality loss. 100% private in-browser tool."
+  title="Reduce Image — Free Reduce Image Size in KB Online"
+  description="Reduce image file size online for free without losing quality. Compress JPG, PNG, and WebP, reduce image size in KB, and adjust resolution. 100% private in-browser."
   canonical="https://freereduceimage.com/"
+  keywords="reduce image, reduce image size, reduce image size in kb, reduce image file size, how to reduce image file size, reduce image size online, reduce image quality, free reduce image, free reduce image size, jpg size reducer, compress jpg, reduce jpg size, reduce image resolution, reduce image size without losing quality"
+  ogImage="https://freereduceimage.com/og-image.png"
+  schema={[webAppSchema, howToSchema]}
 >
   <Navbar />
   
@@ -20,6 +78,7 @@ import Footer from '../components/Footer.astro';
     <ImageReducerApp initialMode="auto" />
     <FeatureGrid />
     <FormatComparison />
+    <SeoContentSection />
     <UseCasesSection />
     <FAQSection />
   </main>

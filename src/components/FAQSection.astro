@@ -1,28 +1,32 @@
 ---
 const faqs = [
   {
-    q: "Is it really a free image reducer?",
-    a: "Yes — unlimited compressions, no account required, and no credit card. The reduction runs locally in your own browser using HTML5 Canvas, so it costs us almost nothing to let you use it as much as you like."
+    q: "How to reduce image file size without losing quality?",
+    a: "Upload your image, choose Smart Auto mode or Target KB mode, and let the algorithm apply perceptual chroma subsampling and adaptive quantization. The tool strips invisible EXIF metadata and eliminates redundant color frequencies that the human eye cannot distinguish, reducing file size by up to 85% while keeping sharpness and colors intact."
   },
   {
-    q: "Can I use the image reducer by uploading or dragging multiple files?",
-    a: "Yes. Upload a single file, select 100+ files at once, drag them onto the page, or paste straight from your clipboard. You can download each file individually or export everything in a single 1-click ZIP archive."
+    q: "How can I reduce image size in KB (e.g., under 50 KB or 100 KB)?",
+    a: "Switch to the 'Target (KB)' tab in the reducer tool, enter your desired file cap (such as 20, 50, 100, or 200 KB), and click Compress. Our binary search engine automatically calculates the exact mathematical compression ratio needed to ensure your file strictly meets government portal or visa requirements on the first try."
   },
   {
-    q: "How does it reduce image size without losing quality?",
-    a: "Your browser optimizes color indexing, removes redundant metadata, and applies perceptual chroma quantization where the human eye cannot detect loss. This reduces file weight by up to 85% while preserving edge sharpness and colors."
+    q: "Can I use this tool as a JPG size reducer to compress JPG photos?",
+    a: "Yes. Free Reduce Image is an advanced JPG size reducer. It decodes JPEG files locally and re-encodes them with optimized Discrete Cosine Transform (DCT) quantization tables. You can easily compress 10 MB+ smartphone photos down to under 200 KB in seconds."
   },
   {
-    q: "Do you store or upload my images?",
-    a: "No, and we could not even if we wanted to — your images are never uploaded to a server. The whole compression engine runs locally in your browser, and the site itself is static files."
+    q: "What is the difference between reduce image resolution and reduce image quality?",
+    a: "To reduce image resolution means changing the pixel dimensions (e.g. from 4000×3000 down to 1200×900 pixels), which physically downsizes the image. To reduce image quality means keeping pixel dimensions unchanged while compressing color data. For the best result, downscale excessive mega-dimensions first, then apply smart compression."
   },
   {
-    q: "How does the Target File Size mode work (e.g. under 100 KB)?",
-    a: "Our algorithm executes a binary search across compression quantization and dimension levels to guarantee your image strictly stays below your specified limit (such as 50 KB, 100 KB, or 200 KB) for visa forms, passport portals, and job applications."
+    q: "Is Free Reduce Image safe for passport photos, visas, and private documents?",
+    a: "Absolutely. 100% of the image processing happens client-side inside your own web browser using HTML5 Canvas. Your sensitive passport scans, ID cards, and family photos are never uploaded to any remote server or stored in any database."
   },
   {
-    q: "What image formats are supported?",
-    a: "PNG, JPG, JPEG, WebP, AVIF, GIF, BMP, and SVG files are fully supported. You can convert between WebP, AVIF, JPEG, and PNG directly in your browser."
+    q: "Can I reduce image file size for multiple files in batch?",
+    a: "Yes. You can upload 100+ photos at once, paste images directly from your clipboard, or drag and drop entire folders. All files are compressed simultaneously with multithreaded native browser speed, and you can download all results in a single structured ZIP archive."
+  },
+  {
+    q: "Which image format gives the smallest file size?",
+    a: "Next-generation formats like WebP and AVIF typically provide 30% to 50% smaller file sizes than traditional JPEG at equivalent visual quality. You can convert JPG or PNG to WebP and AVIF directly using our Convert tab."
   }
 ];
 
